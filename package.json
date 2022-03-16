@@ -1,0 +1,48 @@
+{
+  "name": "ludotheque",
+  "private": true,
+  "version": "1.0.0",
+  "description": "ludotheque",
+  "main": "index.js",
+  "workspaces": [
+    "./packages/*"
+  ],
+  "scripts": {
+    "clean": "lerna clean",
+    "start": "lerna run --parallel start",
+    "build": "lerna run --parallel build",
+    "test": "lerna run --parallel test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clementmoine/ludotheque.git"
+  },
+  "keywords": [
+    "ludotheque",
+    "MOTUS",
+    "SUTOM",
+    "game"
+  ],
+  "author": "Clément MOINE <clement.moine86@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clementmoine/ludotheque/issues"
+  },
+  "homepage": "https://github.com/clementmoine/ludotheque#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "5.15.0",
+    "@typescript-eslint/parser": "5.15.0",
+    "eslint": "8.11.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-promise": "6.0.0",
+    "eslint-plugin-react": "7.29.4",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "lerna": "4.0.0",
+    "prettier": "2.6.0",
+    "typescript": "4.6.3"
+  }
+}

@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "ms-azuretools.vscode-docker",
+        "dbaeumer.vscode-eslint",
+        "github.copilot",
+        "streetsidesoftware.code-spell-checker-french",
+        "streetsidesoftware.code-spell-checker",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "prisma.prisma",
+        "artdiniz.quitcontrol-vscode"
+    ]
+}

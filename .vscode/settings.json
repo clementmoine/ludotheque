@@ -1,0 +1,9 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript"],
+  "editor.rulers": [110],
+  "cSpell.language": "en,fr",
+  "cSpell.enabled": true,
+}

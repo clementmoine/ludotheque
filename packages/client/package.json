@@ -1,0 +1,25 @@
+{
+  "name": "@ludotheque/client",
+  "version": "1.0.0",
+  "description": "Ludotheque client",
+  "main": "dist/index.js",
+  "author": "Clément MOINE <clement.moine86@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@ludotheque/server": "1.0.0",
+    "@types/react": "17.0.40",
+    "@types/react-dom": "17.0.13",
+    "@vitejs/plugin-react": "1.2.0",
+    "sass": "1.49.9",
+    "vite": "2.8.6"
+  }
+}

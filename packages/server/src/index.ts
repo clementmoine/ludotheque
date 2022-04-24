@@ -1,16 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import app from 'app';
 
-const prisma = new PrismaClient();
-
-// A `main` function so that you can use async/await
-async function main() {
-  // ... you will write your Prisma Client queries here
-}
-
-main()
-  .catch((e) => {
-    throw e;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+app.listen(process.env.EXPRESS_PORT, () =>
+  console.log(`Listening: http://${process.env.EXPRESS_HOST}:${process.env.EXPRESS_PORT}`)
+);

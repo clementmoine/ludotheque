@@ -2,27 +2,49 @@
   "name": "@ludotheque/server",
   "version": "1.0.0",
   "description": "Ludotheque server",
-  "main": "dist/script.js",
+  "main": "dist/index.js",
+  "types": "src/index.ts",
   "author": "Clément MOINE <clement.moine86@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon ./src/index.ts",
-    "build": "tsc"
+    "dev": "cross-env NODE_ENV=development NODE_PATH=./src nodemon --exec ts-node ./src/index.ts",
+    "preview": "cross-env NODE_ENV=production NODE_PATH=./src ts-node ./dist/index.js",
+    "build": "tsc",
+    "postgres:up": "docker-compose up -d",
+    "postgres:down": "docker-compose down",
+    "postgres:clear": "docker-compose down -v --rmi all",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:reset": "prisma migrate reset -f"
   },
   "devDependencies": {
     "@prisma/client": "3.12.0",
-    "@types/express": "^4.17.13",
-    "@types/multer": "^1.4.7",
+    "@swc/cli": "0.1.57",
+    "@swc/core": "1.2.171",
+    "@types/bcryptjs": "2.4.2",
+    "@types/cookie-parser": "1.4.3",
+    "@types/cors": "2.8.12",
+    "@types/express": "4.17.13",
+    "@types/helmet": "4.0.0",
+    "@types/jsonwebtoken": "8.5.8",
+    "@types/multer": "1.4.7",
     "@types/node": "16.11.26",
-    "multer": "^1.4.4",
-    "prisma": "^3.12.0",
-    "ts-node": "10.7.0"
+    "@types/uuid": "8.3.4",
+    "bcryptjs": "2.4.3",
+    "cookie-parser": "1.4.6",
+    "cors": "2.8.5",
+    "cross-env": "7.0.3",
+    "dotenv": "16.0.0",
+    "express": "4.17.3",
+    "helmet": "5.0.2",
+    "jsonwebtoken": "8.5.1",
+    "multer": "1.4.4",
+    "nodemon": "2.0.15",
+    "prisma": "3.12.0",
+    "ts-node": "10.7.0",
+    "uuid": "8.3.2"
   },
   "engines": {
     "node": ">=12.2.0"
-  },
-  "dependencies": {
-    "express": "^4.17.3",
-    "nodemon": "^2.0.15"
   }
 }

@@ -1,9 +1,13 @@
 {
+  "ts-node": {
+    "files": true,
+    "swc": true
+  },
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "sourceMap": true,
-    "outDir": "dist",
-    "strict": true,
-    "lib": ["esnext", "dom"],
+    "outDir": "dist",       
+    "baseUrl": "./src",
     "esModuleInterop": true
-  }
+  },
+  "include": ["src"]
 }

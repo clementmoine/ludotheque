@@ -9,8 +9,9 @@
   ],
   "scripts": {
     "clean": "lerna clean",
-    "start": "lerna run --parallel start",
+    "dev": "lerna run --parallel dev",
     "build": "lerna run --parallel build",
+    "preview": "lerna run --parallel preview",
     "test": "lerna run --parallel test"
   },
   "repository": {

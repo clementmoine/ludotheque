@@ -6,7 +6,7 @@
   "author": "Clément MOINE <clement.moine86@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "vite",
+    "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

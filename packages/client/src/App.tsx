@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import { DemoResponse } from '@ludotheque/server';
-
 import logo from './logo.svg';
 
 import './App.scss';
@@ -11,9 +9,9 @@ function App() {
    * It fetches the data from the server and then prints it to the console
    */
   const handleClick = () => {
-    fetch('http://localhost:8000/demo', {})
+    fetch('http://localhost:8000/api/v1/users', {})
       .then((response) => response.json())
-      .then((data: DemoResponse) => console.log(data));
+      .then((data) => console.log(data));
   };
 
   const [count, setCount] = useState(0);

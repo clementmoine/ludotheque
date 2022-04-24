@@ -1,11 +1,56 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+// User model
+model User {
+  id              String          @id @unique @default(uuid())  // Identifier of the user
+  email           String          @unique                       // Email of the user
+  username        String          @unique                       // Username of the username
+  password        String                                        // Password of the user (hashed)
+  refreshTokens   RefreshToken[]                                // Refresh tokens of the user
+  createdAt       DateTime        @default(now())               // Date of creation of the user
+  updatedAt       DateTime        @updatedAt                    // Date of last update of the user
+  firstName       String?                                       // First name of the user
+  lastName        String?                                       // Last name of the user
+  avatar          String?                                       // Avatar of the user
+  collection      Item[]                                        // Collection of the user
+}
+
+// RefreshToken model
+model RefreshToken {
+  id          String   @id @unique @default(uuid())
+  hashedToken String
+  userId      String
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Item model
+model Item {
+  id        Int       @id @default(autoincrement()) // Identier of the item
+  title     String                                  // Title of the item
+  type      ItemType                                // Type of item (book, movie, etc.)
+  cover     String?                                 // Cover image
+  gtin      String?   @unique                       // Global Trade Item Number (GTIN, EAN, JAN, UPC, ISBN, etc.)
+  owners    User[]                                  // Owners of the item (can be multiple)
+}
+
+// ItemType enum
+enum ItemType {
+  VIDEO_GAME
+  BOARD_GAME
+  BOOK
+  MUSIC
+  MOVIE
 }

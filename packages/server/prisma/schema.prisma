@@ -16,24 +16,12 @@ model User {
   email           String          @unique                       // Email of the user
   username        String          @unique                       // Username of the username
   password        String                                        // Password of the user (hashed)
-  refreshTokens   RefreshToken[]                                // Refresh tokens of the user
   createdAt       DateTime        @default(now())               // Date of creation of the user
   updatedAt       DateTime        @updatedAt                    // Date of last update of the user
   firstName       String?                                       // First name of the user
   lastName        String?                                       // Last name of the user
   avatar          String?                                       // Avatar of the user
   collection      Item[]                                        // Collection of the user
-}
-
-// RefreshToken model
-model RefreshToken {
-  id          String   @id @unique @default(uuid())
-  hashedToken String
-  userId      String
-  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  revoked     Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
 }
 
 // Item model

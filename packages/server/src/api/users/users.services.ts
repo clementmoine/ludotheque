@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import { Prisma, PrismaClient, User } from '@prisma/client';
 
 import { excludeFields } from 'utils/excludeFields';
+import { omit } from 'utils/omit';
 
 const prisma = new PrismaClient();
 
@@ -12,6 +13,13 @@ export function createUser(user: Partial<User> & Required<Pick<User, 'email' | '
   return prisma.user.create({
     data: user,
   });
+}
+
+// Sanitize a user
+export function sanitizeUser(user?: User) {
+  if (!user) return;
+
+  return omit(user, ['password']);
 }
 
 // Find a user by id

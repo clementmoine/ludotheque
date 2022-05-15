@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 export function getFileExtension(fileName: string) {
-  return fileName.split('.').pop();
+  return path.extname(fileName).replace(/^./, '');
 }
 
 export function removeUploadedFile(fileName: string) {

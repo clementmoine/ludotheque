@@ -1,51 +1,24 @@
+import CameraModal from 'components/CameraModal';
 import { useState } from 'react';
-
-import logo from './logo.svg';
 
 import './App.scss';
 
 function App() {
-  /**
-   * It fetches the data from the server and then prints it to the console
-   */
-  const handleClick = () => {
-    fetch('http://localhost:8000/api/v1/users', {})
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+  const [isVisibleCamera, setVisibleCamera] = useState(false);
+
+  const handleOpen = () => {
+    setVisibleCamera(true);
   };
 
-  const [count, setCount] = useState(0);
+  const handleClose = () => {
+    setVisibleCamera(false);
+  };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button onClick={handleClick}>Ping server</button>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-            Learn React
-          </a>
+    <div className="app">
+      <button onClick={handleOpen}>Scan</button>
 
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <CameraModal visible={isVisibleCamera} onClose={handleClose} />
     </div>
   );
 }

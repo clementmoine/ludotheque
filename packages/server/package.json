@@ -47,6 +47,7 @@
     "dotenv": "16.0.0",
     "express": "4.17.3",
     "express-session": "1.17.2",
+    "google-search-results-nodejs": "2.1.0",
     "helmet": "5.0.2",
     "jest-environment-jsdom": "28.1.0",
     "jsonwebtoken": "8.5.1",

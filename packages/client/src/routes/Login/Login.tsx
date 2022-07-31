@@ -49,7 +49,7 @@ const Login: FC = () => {
               <Field
                 name="login"
                 type="text"
-                autComplete="username"
+                autoComplete="username"
                 placeholder="Saisissez votre nom d'utilisateur"
               />
               <ErrorMessage name="login" component="div" className="field-error" />

@@ -1,5 +1,4 @@
-import Camera from './Camera';
-import { CameraRef } from './Camera';
+import Camera, { CameraRef } from './Camera';
 
 export default Camera;
 

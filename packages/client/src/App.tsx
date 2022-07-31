@@ -1,25 +1,14 @@
-import CameraModal from 'components/CameraModal';
-import { useState } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import './App.scss';
+import Router from 'routes';
+
+const queryClient = new QueryClient();
 
 function App() {
-  const [isVisibleCamera, setVisibleCamera] = useState(false);
-
-  const handleOpen = () => {
-    setVisibleCamera(true);
-  };
-
-  const handleClose = () => {
-    setVisibleCamera(false);
-  };
-
   return (
-    <div className="app">
-      <button onClick={handleOpen}>Scan</button>
-
-      <CameraModal visible={isVisibleCamera} onClose={handleClose} />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <Router />
+    </QueryClientProvider>
   );
 }
 

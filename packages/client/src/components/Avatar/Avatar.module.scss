@@ -1,0 +1,58 @@
+@use 'theme/colors';
+
+.avatar {
+    width: var(--size);
+    border: none;
+    outline: none;
+    aspect-ratio: 1;
+    appearance: none;
+    overflow: hidden;
+    border-radius: 50%;
+    position: relative;
+    align-items: center;
+    display: inline-flex;
+    background-size: cover;
+    justify-content: center;
+    color: colors.$primary-color;
+    background-color: colors.$primary-color--light;
+
+    // If it is a button, add the button styles.
+    &:is(button) {
+        cursor: pointer;
+    }
+
+    &::after {
+        inset: 0;
+        content: '';
+        position: absolute;
+        background-size: cover;
+        background-image: var(--image);
+    }
+
+    &--xs {
+        --size: 18px;
+    }
+    
+    &--sm {
+        --size: 32px;
+    }
+    
+    &--md {
+        --size: 45px;
+    }
+
+    &--lg {
+        --size: 56px;
+    }
+
+    &--xl {
+        --size: 64px;
+    }
+
+    &__initials {
+        line-height: 1;
+        font-weight: bold;
+        color: var(--color-white);
+        font-size: calc(var(--size) / 2);
+    }
+}

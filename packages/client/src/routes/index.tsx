@@ -1,16 +1,20 @@
-import { lazy, Suspense } from 'react';
+import { FC, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 import useAuth from 'hooks/useAuth';
 
 const Home = lazy(() => import('./Home'));
-const Item = lazy(() => import('./Item'));
 const Login = lazy(() => import('./Login'));
 const Search = lazy(() => import('./Search'));
 const Landing = lazy(() => import('./Landing'));
 const Profile = lazy(() => import('./Profile'));
 const Collection = lazy(() => import('./Collection'));
 const Collections = lazy(() => import('./Collections'));
+const CollectionItem = lazy(() => import('./CollectionItem'));
+
+export interface LocationState {
+  from: Location;
+}
 
 function RequireAuth({ children }: { children: JSX.Element }) {
   const location = useLocation();
@@ -28,7 +32,7 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   return children;
 }
 
-const Router = () => {
+const Router: FC = () => {
   return (
     <Suspense fallback="Loading ...">
       <BrowserRouter>
@@ -127,7 +131,7 @@ const Router = () => {
                   index
                   element={
                     <RequireAuth>
-                      <Item />
+                      <CollectionItem />
                     </RequireAuth>
                   }
                 />
@@ -137,7 +141,7 @@ const Router = () => {
                   path="edit"
                   element={
                     <RequireAuth>
-                      <Item />
+                      <CollectionItem />
                     </RequireAuth>
                   }
                 />
@@ -149,5 +153,7 @@ const Router = () => {
     </Suspense>
   );
 };
+
+Router.displayName = 'Router';
 
 export default Router;

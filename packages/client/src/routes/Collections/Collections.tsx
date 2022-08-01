@@ -10,4 +10,6 @@ const Collections: FC = () => {
   );
 };
 
+Collections.displayName = 'Collections';
+
 export default Collections;

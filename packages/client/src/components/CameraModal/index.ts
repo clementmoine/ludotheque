@@ -1,5 +1,5 @@
-import CameraModal, { CameraProps } from './CameraModal';
+import CameraModal, { CameraModalProps } from './CameraModal';
 
 export default CameraModal;
 
-export type { CameraProps };
+export type { CameraModalProps };

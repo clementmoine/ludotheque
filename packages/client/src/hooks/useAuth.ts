@@ -1,6 +1,7 @@
 import { User } from '@prisma/client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Register a new user.
@@ -45,7 +46,7 @@ function me(): Promise<User> {
       return response.json();
     }
 
-    throw new Error(response.statusText);
+    return Promise.reject(response.statusText);
   });
 }
 
@@ -90,7 +91,10 @@ export default function useAuth() {
   } = useQuery<User, Error>({
     queryKey: ['user'],
     queryFn: me,
+    retry: false,
   });
+
+  const navigate = useNavigate();
 
   const setUser = useCallback((user: User) => queryClient.setQueryData(['user'], user), [queryClient]);
 
@@ -105,6 +109,8 @@ export default function useAuth() {
     mutationFn: logout,
     onSuccess: () => {
       queryClient.clear();
+
+      navigate('/login');
     },
   });
 

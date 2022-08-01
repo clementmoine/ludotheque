@@ -10,4 +10,6 @@ const Search: FC = () => {
   );
 };
 
+Search.displayName = 'Search';
+
 export default Search;

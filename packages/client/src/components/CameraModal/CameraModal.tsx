@@ -9,13 +9,13 @@ import { Code } from 'hooks/useScanner';
 
 import Camera, { CameraRef } from 'components/Camera';
 
-export interface CameraProps {
+export interface CameraModalProps {
   visible: boolean;
   className?: string;
   onClose: () => void;
 }
 
-const CameraModal: FC<CameraProps> = (props) => {
+const CameraModal: FC<CameraModalProps> = (props) => {
   const { className, visible, onClose } = props;
 
   const camera = useRef<CameraRef>(null);
@@ -69,5 +69,7 @@ const CameraModal: FC<CameraProps> = (props) => {
     </div>
   );
 };
+
+CameraModal.displayName = 'CameraModal';
 
 export default CameraModal;

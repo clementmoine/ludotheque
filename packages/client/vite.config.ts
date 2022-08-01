@@ -15,6 +15,16 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:8000',
       },
+      '/uploads': {
+        target: 'http://localhost:8000',
+      },
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        includePaths: ['./src'],
+      },
     },
   },
 });

@@ -10,4 +10,6 @@ const Landing: FC = () => {
   );
 };
 
+Landing.displayName = 'Landing';
+
 export default Landing;

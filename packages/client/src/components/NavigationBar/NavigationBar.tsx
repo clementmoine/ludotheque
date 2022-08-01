@@ -8,4 +8,6 @@ const NavigationBar: FC<NavigationBarProps> = (props) => {
   return <nav className={styles['navigation-bar']} {...props} />;
 };
 
+NavigationBar.displayName = 'NavigationBar';
+
 export default NavigationBar;

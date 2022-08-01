@@ -1,3 +1,5 @@
+@use 'theme/colors';
+
 body {
   margin: 0;
   padding: 0;
@@ -12,6 +14,8 @@ body {
   height: 100vh;
 
   overflow: hidden;
+
+  background-color: colors.$background-color;
 }
 
 code {

@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { object, string } from 'yup';
-import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import useAuth from 'hooks/useAuth';
+import { LocationState } from 'routes';
 
 import styles from './Login.module.scss';
 
@@ -18,10 +19,14 @@ const Login: FC = () => {
 
   const navigate = useNavigate();
 
+  const locationState = useLocation().state as LocationState;
+
   const mutation = useMutation(login, {
     onSuccess: () => {
-      // Navigate to the home page
-      navigate('/');
+      const redirect = locationState?.from?.pathname || '/';
+
+      // Navigate to the home page or the previous page
+      navigate(redirect);
     },
   });
 
@@ -73,5 +78,7 @@ const Login: FC = () => {
     </div>
   );
 };
+
+Login.displayName = 'Login';
 
 export default Login;

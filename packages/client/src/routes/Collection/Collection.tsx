@@ -10,4 +10,6 @@ const Collection: FC = () => {
   );
 };
 
+Collection.displayName = 'Collection';
+
 export default Collection;

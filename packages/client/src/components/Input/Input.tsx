@@ -8,4 +8,6 @@ const Input: FC<InputProps> = (props) => {
   return <input className={styles['input']} {...props} />;
 };
 
+Input.displayName = 'Input';
+
 export default Input;

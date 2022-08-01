@@ -18,7 +18,7 @@ router.get('/me', isAuthenticated, async (req, res, next) => {
 
     // Format the user's avatar
     if (user.avatar) {
-      user.avatar = `${req.protocol}://${req.get('host')}/uploads/${user.avatar}`;
+      user.avatar = `uploads/${user.avatar}`;
     }
 
     res.json(user);
@@ -40,7 +40,7 @@ router.get('/:id', isAuthenticated, async (req, res, next) => {
 
     // Format the user's avatar
     if (user.avatar) {
-      user.avatar = `${req.protocol}://${req.get('host')}/uploads/${user.avatar}`;
+      user.avatar = `uploads/${user.avatar}`;
     }
 
     res.json(user);

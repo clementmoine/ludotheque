@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-route
 
 import useAuth from 'hooks/useAuth';
 
+import NavigationBar from 'components/NavigationBar';
+
 const Home = lazy(() => import('./Home'));
 const Login = lazy(() => import('./Login'));
 const Search = lazy(() => import('./Search'));
@@ -16,7 +18,7 @@ export interface LocationState {
   from: Location;
 }
 
-function RequireAuth({ children }: { children: JSX.Element }) {
+function RequireAuth({ children }: { children?: JSX.Element }) {
   const location = useLocation();
 
   const { user, isLoading } = useAuth();
@@ -29,7 +31,7 @@ function RequireAuth({ children }: { children: JSX.Element }) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  return children;
+  return children || null;
 }
 
 const Router: FC = () => {
@@ -37,114 +39,53 @@ const Router: FC = () => {
     <Suspense fallback="Loading ...">
       <BrowserRouter>
         <Routes>
-          {/* Root */}
-          <Route
-            path="/"
-            element={
-              <RequireAuth>
-                <Home />
-              </RequireAuth>
-            }
-          />
+          {/* Landing */}
+          <Route path="/landing" element={<Landing />} />
 
           {/* Login */}
           <Route path="/login" element={<Login />} />
 
-          {/* Landing */}
-          <Route path="/landing" element={<Landing />} />
-
-          {/* Home */}
+          {/* Private routes */}
           <Route
-            path="/home"
+            path="/"
             element={
-              <RequireAuth>
-                <Home />
-              </RequireAuth>
+              <>
+                <RequireAuth />
+                <NavigationBar />
+              </>
             }
-          />
+          >
+            {/* Home */}
+            <Route index element={<Home />} />
+            <Route path="/home" element={<Home />} />
 
-          {/* Search */}
-          <Route
-            path="/search"
-            element={
-              <RequireAuth>
-                <Search />
-              </RequireAuth>
-            }
-          />
+            {/* Search */}
+            <Route path="/search" element={<Search />} />
 
-          {/* Profile */}
-          <Route
-            path="/profile"
-            element={
-              <RequireAuth>
-                <Profile />
-              </RequireAuth>
-            }
-          />
+            {/* Profile */}
+            <Route path="/profile" element={<Profile />} />
 
-          {/* Collections */}
-          <Route path="/collections">
-            <Route
-              index
-              element={
-                <RequireAuth>
-                  <Collections />
-                </RequireAuth>
-              }
-            />
+            {/* Collections */}
+            <Route path="/collections">
+              <Route index element={<Collections />} />
 
-            {/* New collection */}
-            <Route
-              path="new"
-              element={
-                <RequireAuth>
-                  <Collection />
-                </RequireAuth>
-              }
-            />
+              {/* New collection */}
+              <Route path="new" element={<Collection />} />
 
-            {/* Collection detail */}
-            <Route path=":name">
-              <Route
-                index
-                element={
-                  <RequireAuth>
-                    <Collection />
-                  </RequireAuth>
-                }
-              />
+              {/* Collection detail */}
+              <Route path=":name">
+                <Route index element={<Collection />} />
 
-              {/* Edit collection */}
-              <Route
-                path="edit"
-                element={
-                  <RequireAuth>
-                    <Collection />
-                  </RequireAuth>
-                }
-              />
+                {/* Edit collection */}
+                <Route path="edit" element={<Collection />} />
 
-              {/* Collection item */}
-              <Route path=":id">
-                <Route
-                  index
-                  element={
-                    <RequireAuth>
-                      <CollectionItem />
-                    </RequireAuth>
-                  }
-                />
+                {/* Collection item */}
+                <Route path=":id">
+                  <Route index element={<CollectionItem />} />
 
-                {/* Edit collection item */}
-                <Route
-                  path="edit"
-                  element={
-                    <RequireAuth>
-                      <CollectionItem />
-                    </RequireAuth>
-                  }
-                />
+                  {/* Edit collection item */}
+                  <Route path="edit" element={<CollectionItem />} />
+                </Route>
               </Route>
             </Route>
           </Route>

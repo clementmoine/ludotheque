@@ -36,7 +36,10 @@ const Login: FC = () => {
 
   return (
     <div className={styles['login']}>
-      <Typography variant="title1">Login</Typography>
+      <header className={styles['login__header']}>
+        <Typography variant="title1">Bienvenue ! 👋</Typography>
+        <Typography variant="body1">Saisissez vos identifiants</Typography>
+      </header>
 
       <Formik
         initialValues={{
@@ -44,38 +47,42 @@ const Login: FC = () => {
           password: '',
         }}
         validationSchema={LoginValidationSchema}
-        onSubmit={(values) => mutation.mutate(values)}
+        onSubmit={(values, { setSubmitting }) =>
+          mutation.mutate(values, { onSettled: () => setSubmitting(false) })
+        }
       >
-        {({ errors }) => {
-          const isInvalid = !!Object.keys(errors).length;
-
+        {({ handleSubmit, isValid, isSubmitting, isValidating }) => {
           return (
-            <Form>
+            <Form className={styles['login__form']}>
               {mutation.isError && (
                 <p className={styles.errorText}>An error occurred: {(mutation.error as any).message}</p>
               )}
 
-              <label htmlFor="login">Login</label>
               <Field
                 name="login"
                 type="text"
                 component={Input}
+                label="Nom d'utilisateur"
                 autoComplete="username"
                 placeholder="Saisissez votre nom d'utilisateur"
               />
               <ErrorMessage name="login" component="div" className="field-error" />
 
-              <label htmlFor="password">Password</label>
               <Field
                 name="password"
                 type="password"
                 component={Input}
+                label="Mot de passe"
                 autoComplete="current-password"
                 placeholder="Saisissez votre mot de passe"
               />
               <ErrorMessage name="password" component="div" className="field-error" />
 
-              <button type="submit" disabled={isInvalid}>
+              <button
+                type="submit"
+                onClick={() => handleSubmit}
+                disabled={!isValid || isSubmitting || isValidating}
+              >
                 Submit
               </button>
             </Form>

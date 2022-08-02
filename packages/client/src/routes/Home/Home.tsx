@@ -39,10 +39,6 @@ const Home: FC = () => {
           <Typography variant="title3">Vos collections préférées</Typography>
         </section>
       </main>
-
-      <footer>
-        <NavigationBar />
-      </footer>
     </div>
   );
 };

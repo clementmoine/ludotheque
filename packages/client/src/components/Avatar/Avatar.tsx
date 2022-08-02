@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import classNames from 'classnames';
+import type { User } from '@prisma/client';
 
 import type { FC } from 'react';
 
@@ -10,14 +11,14 @@ export interface AvatarProps {
   user?: User;
   className?: string;
   onClick?: () => void;
-  container?: keyof JSX.IntrinsicElements;
+  element?: keyof JSX.IntrinsicElements;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 const Avatar: FC<AvatarProps> = (props) => {
   const auth = useAuth();
 
-  const { user = auth.user, className, onClick, container = 'div', size = 'md' } = props;
+  const { user = auth.user, className, onClick, element = 'div', size = 'md' } = props;
 
   const initials = useMemo(() => {
     if (!user) {
@@ -35,28 +36,28 @@ const Avatar: FC<AvatarProps> = (props) => {
     }, '');
   }, [user]);
 
-  const Container = useMemo(() => {
+  const Element = useMemo(() => {
     if (onClick) {
       return 'button';
     }
 
-    return container;
-  }, [onClick, container]);
+    return element;
+  }, [onClick, element]);
 
   if (!user) {
     return null;
   }
 
   return (
-    <Container
+    <Element
       style={{
         '--image': `url("${user.avatar}")`,
       }}
       onClick={onClick}
-      className={classNames([className, styles['avatar'], { [styles[`avatar--${size}`]]: size }])}
+      className={classNames([className, styles['avatar'], { [styles[`avatar--size-${size}`]]: size }])}
     >
       <span className={styles['avatar__initials']}>{initials}</span>
-    </Container>
+    </Element>
   );
 };
 

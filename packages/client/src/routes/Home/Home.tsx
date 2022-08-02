@@ -3,8 +3,11 @@ import { FC } from 'react';
 
 import Avatar from 'components/Avatar';
 
-import styles from './Home.module.scss';
 import { useNavigate } from 'react-router-dom';
+
+import Typography from 'components/Typography';
+
+import styles from './Home.module.scss';
 
 const Home: FC = () => {
   const { user } = useAuth();
@@ -15,8 +18,8 @@ const Home: FC = () => {
     <div className={styles['home']}>
       <header>
         <div>
-          <p>Bonjour {user?.firstName}</p>
-          <h1>Accueil</h1>
+          <Typography variant="body1">Bonjour {user?.firstName}</Typography>
+          <Typography variant="title1">Accueil</Typography>
         </div>
 
         <div>

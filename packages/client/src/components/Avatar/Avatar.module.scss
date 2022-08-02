@@ -14,7 +14,7 @@
     background-size: cover;
     justify-content: center;
     color: colors.$primary-color;
-    background-color: colors.$primary-color--light;
+    background-color: lighten(colors.$primary-color, 40%);
 
     // If it is a button, add the button styles.
     &:is(button) {
@@ -29,24 +29,26 @@
         background-image: var(--image);
     }
 
-    &--xs {
-        --size: 18px;
-    }
-    
-    &--sm {
-        --size: 32px;
-    }
-    
-    &--md {
-        --size: 45px;
-    }
+    &--size {
+        &-xs {
+            --size: 18px;
+        }
+        
+        &-sm {
+            --size: 32px;
+        }
+        
+        &-md {
+            --size: 45px;
+        }
 
-    &--lg {
-        --size: 56px;
-    }
+        &-lg {
+            --size: 56px;
+        }
 
-    &--xl {
-        --size: 64px;
+        &-xl {
+            --size: 64px;
+        }
     }
 
     &__initials {

@@ -1,29 +1,28 @@
-import { useMemo } from 'react';
+import { ComponentType, useMemo } from 'react';
 import classNames from 'classnames';
-
-import type { FC } from 'react';
 
 import styles from './Typography.module.scss';
 
 type Level = 1 | 2 | 3 | 4 | 5 | 6;
-type Type = 'title' | 'subtitle' | 'body' | 'caption';
+type Type = 'title' | 'body';
 
-export interface TypographyProps {
+export type TypographyProps<T extends keyof JSX.IntrinsicElements> = {
+  children?: React.ReactNode;
   className?: string;
-  element?: keyof JSX.IntrinsicElements;
   variant?: `${Type}${Level}`;
-}
+  element?: ComponentType | T;
+} & JSX.IntrinsicElements[T];
 
-const Typography: FC<TypographyProps> = (props) => {
-  const { className, children, element, variant = 'body1' } = props;
+function Typography<T extends keyof JSX.IntrinsicElements = 'p'>(props: TypographyProps<T>) {
+  const { className, children, element, variant = 'body1', ...restProps } = props;
 
-  const Element: keyof JSX.IntrinsicElements = useMemo(() => {
+  const Element: ComponentType | string = useMemo(() => {
     if (element) {
       return element;
     }
 
     if (variant.startsWith('title')) {
-      return variant.replace('title', 'h') as keyof JSX.IntrinsicElements;
+      return variant.replace('title', 'h');
     }
 
     if (variant.startsWith('caption')) {
@@ -35,6 +34,7 @@ const Typography: FC<TypographyProps> = (props) => {
 
   return (
     <Element
+      {...restProps}
       className={classNames([
         className,
         styles['typography'],
@@ -47,7 +47,7 @@ const Typography: FC<TypographyProps> = (props) => {
       {children}
     </Element>
   );
-};
+}
 
 Typography.displayName = 'Typography';
 

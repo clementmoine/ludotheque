@@ -5,37 +5,45 @@ $border-radius: 4px;
 $inner-padding: 12px;
 
 .input {
-    font-size: 14px;
-    font-family: inherit;
+  font-size: 14px;
+  font-family: inherit;
+  display: inline-flex;
+  padding: $inner-padding;
+  border-radius: $border-radius;
+  background-color: colors.$white;
+  border: $border-size solid colors.$light-grey;
+
+  &::placeholder {
+    color: colors.$grey;
+  }
+
+  &:focus {
+    outline: colors.$primary-color auto 1px;
+  }
+
+  &:invalid {
+    border-color: colors.$invalid-color;
+  }
+
+  &[type='search'] {
+    &::-webkit-search-decoration,
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-results-button,
+    &::-webkit-search-results-decoration {
+      -webkit-appearance: none;
+    }
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px colors.$white inset !important;
+  }
+
+  &__container {
+    row-gap: 4px;
     display: inline-flex;
-    padding: $inner-padding;
-    border-radius: $border-radius;
-    background-color: colors.$white;
-    border: $border-size solid colors.$light-grey;
-
-    &::placeholder {
-        color: colors.$grey;
-    }
-
-    // Remove the clear button from the input.
-    &::-webkit-clear-button {
-        display: none;
-    }
-
-    &:focus {
-        outline: colors.$primary-color auto 1px;
-    }
-
-    &:invalid {
-        border-color: colors.$invalid-color;
-    }
-
-    &[type=search] {
-        &::-webkit-search-decoration,
-        &::-webkit-search-cancel-button,
-        &::-webkit-search-results-button,
-        &::-webkit-search-results-decoration {
-            -webkit-appearance: none;
-        }
-    }
+    flex-direction: column;
+  }
 }

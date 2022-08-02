@@ -1,3 +1,4 @@
+import Typography from 'components/Typography';
 import { FC } from 'react';
 
 import styles from './Landing.module.scss';
@@ -5,7 +6,7 @@ import styles from './Landing.module.scss';
 const Landing: FC = () => {
   return (
     <div className={styles['landing']}>
-      <h1>Landing</h1>
+      <Typography variant="title1">Landing</Typography>
     </div>
   );
 };

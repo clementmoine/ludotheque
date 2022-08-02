@@ -1,11 +1,13 @@
 import { FC } from 'react';
 
+import Typography from 'components/Typography';
+
 import styles from './Collections.module.scss';
 
 const Collections: FC = () => {
   return (
     <div className={styles['collections']}>
-      <h1>Collections</h1>
+      <Typography variant="title1">Collections</Typography>
     </div>
   );
 };

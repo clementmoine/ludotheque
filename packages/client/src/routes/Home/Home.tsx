@@ -32,11 +32,11 @@ const Home: FC = () => {
 
       <main className={styles['home__content']}>
         <section>
-          <Typography variant="title4">Vos derniers ajouts</Typography>
+          <Typography variant="title3">Vos derniers ajouts</Typography>
         </section>
 
         <section>
-          <Typography variant="title4">Vos collections préférées</Typography>
+          <Typography variant="title3">Vos collections préférées</Typography>
         </section>
       </main>
 

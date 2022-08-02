@@ -1,5 +1,8 @@
-import useAuth from 'hooks/useAuth';
 import { FC } from 'react';
+
+import useAuth from 'hooks/useAuth';
+
+import Typography from 'components/Typography';
 
 import styles from './Profile.module.scss';
 
@@ -8,7 +11,7 @@ const Profile: FC = () => {
 
   return (
     <div className={styles['profile']}>
-      <h1>Profile</h1>
+      <Typography variant="title1">Profile</Typography>
 
       <button onClick={() => logout()}>Se déconnecter</button>
     </div>

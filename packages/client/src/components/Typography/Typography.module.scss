@@ -2,12 +2,11 @@
 
 .typography {
     margin: 0;
-    padding: 0;
-    line-height: 1;
+    display: flex;
 
     &--variant {
         &-title {
-            font-weight: bold;
+            font-weight: 700; // Bold
             color: colors.$title-color;
 
             &1 {
@@ -23,6 +22,7 @@
             }
 
             &4 {
+                font-weight: 600; // Semi-bold
                 font-size: 16px;
             }
 
@@ -36,11 +36,12 @@
         }
 
         &-body {
-            font-weight: normal;
+            font-weight: 400; // Regular
             color: colors.$text-color;
 
+
             &1 {
-                font-weight: medium;
+                font-weight: 500; // Medium
                 font-size: 14px;
             }
 

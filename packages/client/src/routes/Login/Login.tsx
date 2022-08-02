@@ -5,7 +5,11 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import useAuth from 'hooks/useAuth';
+
 import { LocationState } from 'routes';
+
+import Input from 'components/Input';
+import Typography from 'components/Typography';
 
 import styles from './Login.module.scss';
 
@@ -32,7 +36,7 @@ const Login: FC = () => {
 
   return (
     <div className={styles['login']}>
-      <h1>Login</h1>
+      <Typography variant="title1">Login</Typography>
 
       <Formik
         initialValues={{
@@ -41,7 +45,8 @@ const Login: FC = () => {
         }}
         validationSchema={LoginValidationSchema}
         onSubmit={(values) => mutation.mutate(values)}
-        render={({ errors }) => {
+      >
+        {({ errors }) => {
           const isInvalid = !!Object.keys(errors).length;
 
           return (
@@ -54,6 +59,7 @@ const Login: FC = () => {
               <Field
                 name="login"
                 type="text"
+                component={Input}
                 autoComplete="username"
                 placeholder="Saisissez votre nom d'utilisateur"
               />
@@ -63,6 +69,7 @@ const Login: FC = () => {
               <Field
                 name="password"
                 type="password"
+                component={Input}
                 autoComplete="current-password"
                 placeholder="Saisissez votre mot de passe"
               />
@@ -74,7 +81,7 @@ const Login: FC = () => {
             </Form>
           );
         }}
-      />
+      </Formik>
     </div>
   );
 };

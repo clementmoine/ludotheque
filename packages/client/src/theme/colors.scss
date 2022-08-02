@@ -1,10 +1,15 @@
-$black : #000000;
-$white : #FFFFFF;
+$red: #B22F2F;
+$black: #000000;
+$white: #FFFFFF;
+
+$grey: rgba($black, 56%);
+$light-grey: rgba($black, 20%);
 
 $primary-color: #4E1ED9;
 
 $background-color: #F5F5F5;
 
+$invalid-color: $red;
 
 $title-color: $black;
 $text-color: rgba($black, 56%);

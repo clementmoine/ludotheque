@@ -1,11 +1,13 @@
 import { FC } from 'react';
 
+import Typography from 'components/Typography';
+
 import styles from './Search.module.scss';
 
 const Search: FC = () => {
   return (
     <div className={styles['search']}>
-      <h1>Search</h1>
+      <Typography variant="title1">Search</Typography>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { object, string } from 'yup';
+import { Formik, Field, Form } from 'formik';
 import { useMutation } from '@tanstack/react-query';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import useAuth from 'hooks/useAuth';
@@ -9,6 +9,8 @@ import useAuth from 'hooks/useAuth';
 import { LocationState } from 'routes';
 
 import Input from 'components/Input';
+import Button from 'components/Button';
+import Separator from 'components/Separator';
 import Typography from 'components/Typography';
 
 import styles from './Login.module.scss';
@@ -53,11 +55,7 @@ const Login: FC = () => {
       >
         {({ handleSubmit, isValid, isSubmitting, isValidating }) => {
           return (
-            <Form className={styles['login__form']}>
-              {mutation.isError && (
-                <p className={styles.errorText}>An error occurred: {(mutation.error as any).message}</p>
-              )}
-
+            <Form autoComplete="off" className={styles['login__form']}>
               <Field
                 name="login"
                 type="text"
@@ -66,7 +64,6 @@ const Login: FC = () => {
                 autoComplete="username"
                 placeholder="Saisissez votre nom d'utilisateur"
               />
-              <ErrorMessage name="login" component="div" className="field-error" />
 
               <Field
                 name="password"
@@ -76,19 +73,37 @@ const Login: FC = () => {
                 autoComplete="current-password"
                 placeholder="Saisissez votre mot de passe"
               />
-              <ErrorMessage name="password" component="div" className="field-error" />
 
-              <button
+              {mutation.isError && (
+                <Typography variant="body1" color="invalid">
+                  {(mutation.error as any).message === 'Unauthorized'
+                    ? 'Identifiants non valides'
+                    : 'Une erreur est survenue'}
+                </Typography>
+              )}
+
+              <Button
                 type="submit"
-                onClick={() => handleSubmit}
+                loading={isSubmitting || isValidating}
+                className={styles['login__form__submit']}
+                onClick={() => handleSubmit()}
                 disabled={!isValid || isSubmitting || isValidating}
               >
-                Submit
-              </button>
+                Se connecter
+              </Button>
             </Form>
           );
         }}
       </Formik>
+
+      <Separator>ou</Separator>
+
+      <Typography variant="body1" align="center">
+        Vous n&apos;avez pas de compte ?&nbsp;
+        <Button variant="link" to="/signup">
+          Inscrivez-vous
+        </Button>
+      </Typography>
     </div>
   );
 };

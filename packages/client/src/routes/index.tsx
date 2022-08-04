@@ -3,16 +3,19 @@ import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-route
 
 import useAuth from 'hooks/useAuth';
 
+import Spinner from 'components/Spinner';
+import Typography from 'components/Typography';
 import NavigationBar from 'components/NavigationBar';
 
-const Home = lazy(() => import('./Home'));
-const Login = lazy(() => import('./Login'));
-const Search = lazy(() => import('./Search'));
-const Landing = lazy(() => import('./Landing'));
-const Profile = lazy(() => import('./Profile'));
-const Collection = lazy(() => import('./Collection'));
-const Collections = lazy(() => import('./Collections'));
-const CollectionItem = lazy(() => import('./CollectionItem'));
+const Lost = lazy(() => import('routes/Lost'));
+const Home = lazy(() => import('routes/Home'));
+const Login = lazy(() => import('routes/Login'));
+const Search = lazy(() => import('routes/Search'));
+const Landing = lazy(() => import('routes/Landing'));
+const Profile = lazy(() => import('routes/Profile'));
+const Collection = lazy(() => import('routes/Collection'));
+const Collections = lazy(() => import('routes/Collections'));
+const CollectionItem = lazy(() => import('routes/CollectionItem'));
 
 export interface LocationState {
   from: Location;
@@ -24,7 +27,7 @@ function RequireAuth({ children }: { children?: JSX.Element }) {
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner size="xs" label="Chargement" />;
   }
 
   if (!user) {
@@ -36,7 +39,7 @@ function RequireAuth({ children }: { children?: JSX.Element }) {
 
 const Router: FC = () => {
   return (
-    <Suspense fallback="Loading ...">
+    <Suspense fallback={<Spinner size="xs" label="Chargement" />}>
       <BrowserRouter>
         <Routes>
           {/* Landing */}
@@ -89,6 +92,9 @@ const Router: FC = () => {
               </Route>
             </Route>
           </Route>
+
+          {/* Lost */}
+          <Route path="*" element={<Lost />} />
         </Routes>
       </BrowserRouter>
     </Suspense>

@@ -1,13 +1,13 @@
-@use 'theme/colors';
+@use 'theme/colors.module';
 
 .typography {
     margin: 0;
-    display: flex;
+    display: block;
 
     &--variant {
         &-title {
             font-weight: 700; // Bold
-            color: colors.$title-color;
+            color: colors.$title;
 
             &1 {
                 font-size: 32px;
@@ -37,7 +37,7 @@
 
         &-body {
             font-weight: 400; // Regular
-            color: colors.$text-color;
+            color: colors.$text;
 
 
             &1 {
@@ -64,6 +64,50 @@
             &6 {
                 font-size: 6px;
             }
+        }
+    }
+
+    &--align {
+        &-left {
+            text-align: left;
+            align-self: flex-start;
+        }
+        &-center {
+            text-align: center;
+            align-self: center;
+        }
+        &-right {
+            text-align: right;
+            align-self: flex-end;
+        }
+    }
+
+    &:is(blockquote), &:is(q) {
+        row-gap: 8px;
+        padding: 12px;
+        padding-bottom: 0;
+        position: relative;
+        display: inline-flex;
+        flex-direction: column;
+
+        &::before {
+            left: 0;
+            top: 0;
+            z-index: -1;
+            content: "";
+            width: 49px;
+            height: 32px;
+            aspect-ratio: 1;
+            position: absolute;
+            background-color: #EDEDED;
+            mask: url('assets/quote-mark.svg') no-repeat center;
+            -webkit-mask: url('assets/quote-mark.svg') no-repeat center;
+        }
+
+        &::after {
+            content: "— " attr(cite);
+            font-weight: bold;
+            align-self: flex-end;
         }
     }
 }

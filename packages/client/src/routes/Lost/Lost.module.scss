@@ -1,0 +1,17 @@
+.lost {
+    inset: 0;
+    padding: 12px;
+    row-gap: 32px;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    &__content {
+        display: flex;
+        row-gap: 16px;
+        max-width: 500px;
+        flex-direction: column;
+    }
+}

@@ -6,7 +6,6 @@ import useAuth from 'hooks/useAuth';
 import Input from 'components/Input';
 import Avatar from 'components/Avatar';
 import Typography from 'components/Typography';
-import NavigationBar from 'components/NavigationBar';
 
 import styles from './Home.module.scss';
 

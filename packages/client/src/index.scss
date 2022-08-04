@@ -1,4 +1,4 @@
-@use 'theme/colors';
+@use 'theme/colors.module';
 
 body {
   margin: 0;
@@ -21,7 +21,13 @@ body {
 
   overflow: hidden;
 
-  background-color: colors.$background-color;
+  background-color: colors.$background;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 code {

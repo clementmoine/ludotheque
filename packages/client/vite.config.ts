@@ -21,6 +21,9 @@ export default defineConfig({
     },
   },
   css: {
+    modules: {
+      localsConvention: 'camelCase',
+    },
     preprocessorOptions: {
       scss: {
         includePaths: ['./src'],

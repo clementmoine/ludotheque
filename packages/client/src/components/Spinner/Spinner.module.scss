@@ -1,0 +1,66 @@
+@use 'theme/colors.module';
+
+.spinner {
+    aspect-ratio: 1;
+    stroke-width: 6px;
+    color: colors.$primary;
+    animation: rotate 2s linear infinite;
+
+    &__path {
+        stroke: currentColor;
+        stroke-linecap: round;
+        animation: dash 1.5s ease-in-out infinite;
+    }
+
+    &__container {
+        column-gap: 8px;
+        align-items: center;
+        display: inline-flex;
+    }
+
+    &--size {
+        &-xs {
+            width: 18px;
+        }
+
+        &-sm {
+            width: 24px;
+
+        }
+
+        &-md {
+            width: 36px;
+        }
+
+        &-lg {
+            width: 48px;
+        }
+
+        &-xl {
+            width: 60px;
+        }
+    }
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
+}

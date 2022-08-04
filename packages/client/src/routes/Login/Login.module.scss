@@ -1,6 +1,10 @@
 .login {
+    width: 100%;
     row-gap: 32px;
     display: flex;
+    max-width: 500px;
+    margin-top: 32px;
+    align-self: center;
     flex-direction: column;
 
     &__header {
@@ -12,5 +16,9 @@
         row-gap: 16px;
         display: flex;
         flex-direction: column;
+    
+        &__submit {
+            margin-top: 16px;
+        }
     }
 }

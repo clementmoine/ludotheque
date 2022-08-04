@@ -1,24 +1,25 @@
 import classNames from 'classnames';
-import { FieldProps } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import { forwardRef, useMemo } from 'react';
+import { FieldProps, ErrorMessage } from 'formik';
+
+import Typography from 'components/Typography';
 
 import styles from './Input.module.scss';
-import Typography from 'components/Typography';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps & FieldProps>(
-  ({ field, type = 'text', label, className, form, ...props }, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps & Partial<FieldProps>>(
+  ({ type = 'text', label, className, name, field = {}, form, ...props }, ref) => {
     const id = useMemo(() => {
-      if (field?.name) {
-        return `${field?.name}_${uuidv4()}`;
+      if (field.name || name) {
+        return `${field.name || name}_${uuidv4()}`;
       }
 
       return undefined;
-    }, [field?.name]);
+    }, [name, field.name]);
 
     return (
       <div className={styles['input__container']}>
@@ -29,13 +30,23 @@ const Input = forwardRef<HTMLInputElement, InputProps & FieldProps>(
         )}
 
         <input
-          type={type}
-          ref={ref}
           id={id}
+          ref={ref}
+          type={type}
           className={classNames(styles['input'], className)}
-          {...field}
           {...props}
+          {...field}
         />
+
+        {field.name && (
+          <ErrorMessage name={field.name}>
+            {(error) => (
+              <Typography variant="body1" color="invalid">
+                {error}
+              </Typography>
+            )}
+          </ErrorMessage>
+        )}
       </div>
     );
   }

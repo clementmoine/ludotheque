@@ -1,0 +1,79 @@
+@use 'theme/colors.module';
+
+
+.button {
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+  column-gap: 12px;
+  padding: 12px 24px;
+  border-radius: 4px;
+  flex-direction: row;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  border: 1px solid transparent;
+
+  
+  &__label {
+    color: inherit;
+    display: inline-flex;
+  }
+
+  &__spinner {
+    color: inherit;
+  }
+
+  &--variant {
+    &-primary {
+      color: colors.$white;
+      background-color: colors.$primary;
+
+      &:disabled,
+      &[disabled] {
+        background-color: colors.$light-grey;
+      }
+
+      &:active {
+        background-color: darken(colors.$primary, 10%);
+      }
+    }
+
+    &-reverse {
+      color: colors.$primary;
+      background-color: colors.$white;
+      border-color: colors.$grey;
+
+      &[disabled] {
+        background-color: colors.$light-grey;
+      }
+    }
+
+    &-outline {
+      background-color: transparent;
+      border-color: colors.$primary;
+      color: colors.$primary;
+
+      &[disabled] {
+        border-color: colors.$light-grey;
+      }
+    }
+
+    &-link {
+      padding: 0;
+      border: none;
+      color: colors.$primary;
+      background-color: transparent;
+      &:active {
+        color: darken(colors.$primary, 20%);
+      }
+    }
+  }
+
+
+  &[disabled] {
+    color: colors.$grey;
+    cursor: not-allowed;
+  }
+}

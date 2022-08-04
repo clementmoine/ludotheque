@@ -1,4 +1,4 @@
-@use 'theme/colors';
+@use 'theme/colors.module';
 
 .avatar {
     width: var(--size);
@@ -13,8 +13,8 @@
     display: inline-flex;
     background-size: cover;
     justify-content: center;
-    color: colors.$primary-color;
-    background-color: lighten(colors.$primary-color, 40%);
+    color: colors.$primary;
+    background-color: lighten(colors.$primary, 40%);
 
     // If it is a button, add the button styles.
     &:is(button) {

@@ -1,12 +1,13 @@
-@use 'theme/colors';
+@use 'theme/colors.module';
 
 $border-size: 1px;
 $border-radius: 4px;
 $inner-padding: 12px;
 
 .input {
+  font: inherit;
   font-size: 14px;
-  font-family: inherit;
+  color: colors.$black;
   display: inline-flex;
   padding: $inner-padding;
   border-radius: $border-radius;
@@ -18,11 +19,7 @@ $inner-padding: 12px;
   }
 
   &:focus {
-    outline: colors.$primary-color auto 1px;
-  }
-
-  &:invalid {
-    border-color: colors.$invalid-color;
+    outline: colors.$primary auto 1px;
   }
 
   &[type='search'] {

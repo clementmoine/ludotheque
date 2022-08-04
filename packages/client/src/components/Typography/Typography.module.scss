@@ -84,7 +84,7 @@
 
     &:is(blockquote), &:is(q) {
         row-gap: 8px;
-        padding: 12px;
+        padding: 30px 20px;
         padding-bottom: 0;
         position: relative;
         display: inline-flex;
@@ -92,16 +92,17 @@
 
         &::before {
             left: 0;
-            top: 0;
+            top: -10px;
             z-index: -1;
             content: "";
-            width: 49px;
-            height: 32px;
+            width: 40px;
             aspect-ratio: 1;
             position: absolute;
-            background-color: #EDEDED;
+            background-color: colors.$grey-lighter;
             mask: url('assets/quote-mark.svg') no-repeat center;
+            mask-size: contain;
             -webkit-mask: url('assets/quote-mark.svg') no-repeat center;
+            -webkit-mask-size: contain;
         }
 
         &::after {

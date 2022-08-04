@@ -25,6 +25,15 @@
     color: inherit;
   }
 
+  &--has-icon {
+    width: 18px;
+    aspect-ratio: 1;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: var(--icon);
+  }
+
   &--variant {
     &-primary {
       color: colors.$white;
@@ -32,7 +41,7 @@
 
       &:disabled,
       &[disabled] {
-        background-color: colors.$light-grey;
+        background-color: colors.$grey-light;
       }
 
       &:active {
@@ -46,7 +55,7 @@
       border-color: colors.$grey;
 
       &[disabled] {
-        background-color: colors.$light-grey;
+        background-color: colors.$grey-light;
       }
     }
 
@@ -56,7 +65,7 @@
       color: colors.$primary;
 
       &[disabled] {
-        border-color: colors.$light-grey;
+        border-color: colors.$grey-light;
       }
     }
 

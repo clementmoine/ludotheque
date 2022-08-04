@@ -1,26 +1,70 @@
 @use 'theme/colors.module';
 
+$icon-size: 18px;
+$icon-gap: 8px;
+
 $border-size: 1px;
 $border-radius: 4px;
 $inner-padding: 12px;
 
 .input {
+  width: 100%;
+  border: none;
   font: inherit;
+  outline: none;
   font-size: 14px;
+  background: none;
   color: colors.$black;
   display: inline-flex;
+  box-sizing: border-box;
   padding: $inner-padding;
-  border-radius: $border-radius;
-  background-color: colors.$white;
-  border: $border-size solid colors.$light-grey;
+  padding-right: calc(
+    (var(--right-icon-count, 0) * $icon-size) + /** Number of icons **/
+    (max(var(--right-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
+    (min((var(--right-icon-count, 0) + 1), 2) * $inner-padding) /** Inner padding **/
+  );
+  padding-left: calc(
+    (var(--left-icon-count, 0) * $icon-size) + /** Number of icons **/
+    (max(var(--left-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
+    (min((var(--left-icon-count, 0) + 1), 2) * $inner-padding) /** Inner padding **/
+  );
+
+  &__container {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    flex-direction: column;
+    border-radius: $border-radius;
+    background-color: colors.$white;
+    border: $border-size solid colors.$grey-light;
+
+    &:focus-within {
+      outline: colors.$primary auto 1px;
+    }
+
+    &__right,
+    &__left {
+      inset-block: 0;
+      column-gap: $icon-gap;
+      position: absolute;
+      display: inline-flex;
+      flex-direction: row;
+      padding: $inner-padding;
+    }
+
+    &__left {
+      align-self: flex-start;
+    }
+
+    &__right {
+      align-self: flex-end;
+    }
+  }
 
   &::placeholder {
     color: colors.$grey;
   }
 
-  &:focus {
-    outline: colors.$primary auto 1px;
-  }
 
   &[type='search'] {
     &::-webkit-search-decoration,
@@ -31,14 +75,14 @@ $inner-padding: 12px;
     }
   }
 
-  &:-webkit-autofill,
-  &:-webkit-autofill:hover,
-  &:-webkit-autofill:focus,
-  &:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 1000px colors.$white inset !important;
-  }
+  // &:-webkit-autofill,
+  // &:-webkit-autofill:hover,
+  // &:-webkit-autofill:focus,
+  // &:-webkit-autofill:active {
+  //   -webkit-box-shadow: 0 0 0 1000px colors.$white inset !important;
+  // }
 
-  &__container {
+  &__field {
     row-gap: 4px;
     display: inline-flex;
     flex-direction: column;

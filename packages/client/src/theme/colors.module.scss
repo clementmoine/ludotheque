@@ -3,7 +3,8 @@ $black: #000000;
 $white: #FFFFFF;
 
 $grey: rgba($black, 56%);
-$light-grey: rgba($black, 20%);
+$grey-light: rgba($black, 20%);
+$grey-lighter: rgba($black, 10%);
 
 $primary: #4E1ED9;
 
@@ -19,7 +20,7 @@ $text: rgba($black, 56%);
     black: $black;
     white: $white;
     grey: $grey;
-    light-grey: $light-grey;
+    grey-light: $grey-light;
     primary: $primary;
     background: $background;
     invalid: $invalid;

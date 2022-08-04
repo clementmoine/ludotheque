@@ -9,6 +9,7 @@ import styles from './Button.module.scss';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   to?: string;
+  icon?: string;
   label?: string;
   loading?: boolean;
   navigateOptions?: NavigateOptions;
@@ -17,12 +18,14 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 const Button: FC<ButtonProps> = (props) => {
   const {
-    className,
-    children,
-    variant = 'primary',
-    loading,
     to,
+    icon,
     onClick,
+    loading,
+    children,
+    className,
+    type = 'button',
+    variant = 'primary',
     navigateOptions,
     ...restProps
   } = props;
@@ -64,8 +67,17 @@ const Button: FC<ButtonProps> = (props) => {
   return (
     <button
       {...restProps}
+      type={type}
       onClick={handleOnClick}
-      className={classNames(styles['button'], styles[`button--variant-${variant}`], className)}
+      style={{
+        ['--icon']: `url(assets/${icon}.svg)`,
+      }}
+      className={classNames(
+        styles['button'],
+        styles[`button--variant-${variant}`],
+        { [styles['button--has-icon']]: icon },
+        className
+      )}
     >
       {loading && <Spinner size="xs" className={classNames(styles['button__spinner'])} />}
 

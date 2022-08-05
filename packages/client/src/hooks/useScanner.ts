@@ -98,7 +98,7 @@ export default function useScanner(camera: RefObject<HTMLVideoElement>, interval
     const formats = await BarcodeDetectorPolyfill.getSupportedFormats();
 
     barcodeDetector.current = new BarcodeDetectorPolyfill({
-      formats: formats.filter((format) => format.match(/(^ean)|(^qr)/i)),
+      formats,
     });
   }, []);
 

@@ -27,7 +27,12 @@ const Home: FC = () => {
         </div>
       </header>
 
-      <Input type="search" placeholder="Rechercher un objet" />
+      <Input
+        type="search"
+        left={{ icon: 'search' }}
+        placeholder="Rechercher un objet"
+        right={{ icon: 'scan', onClick: () => navigate('/scan') }}
+      />
 
       <main className={styles['home__content']}>
         <section>

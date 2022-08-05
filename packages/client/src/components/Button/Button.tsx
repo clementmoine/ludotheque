@@ -6,6 +6,7 @@ import Spinner from 'components/Spinner';
 import Typography from 'components/Typography';
 
 import styles from './Button.module.scss';
+import Icon from 'components/Icon';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   to?: string;
@@ -13,7 +14,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   label?: string;
   loading?: boolean;
   navigateOptions?: NavigateOptions;
-  variant?: 'primary' | 'reverse' | 'outline' | 'link';
+  variant?: 'primary' | 'reverse' | 'outline' | 'link' | 'icon';
 }
 
 const Button: FC<ButtonProps> = (props) => {
@@ -69,17 +70,19 @@ const Button: FC<ButtonProps> = (props) => {
       {...restProps}
       type={type}
       onClick={handleOnClick}
-      style={{
-        ['--icon']: `url(assets/${icon}.svg)`,
-      }}
       className={classNames(
         styles['button'],
         styles[`button--variant-${variant}`],
-        { [styles['button--has-icon']]: icon },
+        {
+          [styles['button--has-icon']]: icon,
+          [styles['button--has-onClick']]: to || onClick,
+        },
         className
       )}
     >
       {loading && <Spinner size="xs" className={classNames(styles['button__spinner'])} />}
+
+      {icon && <Icon className={classNames(styles['button__icon'])} name={icon} />}
 
       {label ? (
         <Typography variant="body1" element="span" className={classNames(styles['button__label'])}>

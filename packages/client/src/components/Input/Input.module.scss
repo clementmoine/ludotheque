@@ -1,7 +1,8 @@
 @use 'theme/colors.module';
 
-$icon-size: 18px;
-$icon-gap: 8px;
+@use 'components/Button/Button.module.scss' as button;
+
+$icon-gap: 4px;
 
 $border-size: 1px;
 $border-radius: 4px;
@@ -19,14 +20,14 @@ $inner-padding: 12px;
   box-sizing: border-box;
   padding: $inner-padding;
   padding-right: calc(
-    (var(--right-icon-count, 0) * $icon-size) + /** Number of icons **/
-    (max(var(--right-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
-    (min((var(--right-icon-count, 0) + 1), 2) * $inner-padding) /** Inner padding **/
+    (var(--right-icon-count, 0) * button.$icon-size) + /** Number of icons **/
+      (max(var(--right-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
+      (min((var(--right-icon-count, 0) + 1), 2) * $inner-padding / min((var(--right-icon-count, 0) + 1), 2)) /** Inner padding **/
   );
   padding-left: calc(
-    (var(--left-icon-count, 0) * $icon-size) + /** Number of icons **/
-    (max(var(--left-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
-    (min((var(--left-icon-count, 0) + 1), 2) * $inner-padding) /** Inner padding **/
+    (var(--left-icon-count, 0) * button.$icon-size) + /** Number of icons **/
+      (max(var(--left-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
+      (min((var(--left-icon-count, 0) + 1), 2) * $inner-padding / min((var(--left-icon-count, 0) + 1), 2)) /** Inner padding **/
   );
 
   &__container {
@@ -45,11 +46,17 @@ $inner-padding: 12px;
     &__right,
     &__left {
       inset-block: 0;
-      column-gap: $icon-gap;
       position: absolute;
-      display: inline-flex;
+      align-items: center;
       flex-direction: row;
-      padding: $inner-padding;
+      display: inline-flex;
+      pointer-events: none;
+      column-gap: $icon-gap;
+      padding: 0 $inner-padding / 2;
+
+      &__item {
+        pointer-events: auto;
+      }
     }
 
     &__left {
@@ -64,7 +71,6 @@ $inner-padding: 12px;
   &::placeholder {
     color: colors.$grey;
   }
-
 
   &[type='search'] {
     &::-webkit-search-decoration,

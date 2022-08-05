@@ -14,12 +14,14 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   loading?: boolean;
   right?: {
+    to?: ButtonProps['to'];
     icon: ButtonProps['icon'];
-    onClick: ButtonProps['onClick'];
+    onClick?: ButtonProps['onClick'];
   };
   left?: {
+    to?: ButtonProps['to'];
     icon: ButtonProps['icon'];
-    onClick: ButtonProps['onClick'];
+    onClick?: ButtonProps['onClick'];
   };
 }
 
@@ -67,7 +69,7 @@ const Input = forwardRef<HTMLInputElement, InputProps & Partial<FieldProps>>((pr
       >
         <div className={styles['input__container__left']}>
           {/* Left button */}
-          {left && <Button variant="link" {...left} />}
+          {left && <Button variant="icon" {...left} className={styles['input__container__left__item']} />}
         </div>
 
         {/* Input */}
@@ -82,21 +84,29 @@ const Input = forwardRef<HTMLInputElement, InputProps & Partial<FieldProps>>((pr
 
         <div className={styles['input__container__right']}>
           {/* Loader */}
-          {loading && <Spinner size="xs" className={styles['input__container--has-loading']} />}
+          {loading && <Spinner size="xs" className={styles['input__container__right__item']} />}
 
           {type === 'password' && (
             <Button
-              variant="link"
+              variant="icon"
               onClick={handleTogglePassword}
               icon={passwordVisible ? 'eye-stroked' : 'eye'}
+              className={styles['input__container__right__item']}
             />
           )}
 
           {/* Right button */}
-          {right && <Button variant="link" {...right} />}
+          {right && <Button variant="icon" className={styles['input__container__right__item']} {...right} />}
 
           {/* Clear icon */}
-          {field?.value && <Button variant="link" onClick={handleClear} icon="close" />}
+          {field?.value && (
+            <Button
+              variant="icon"
+              onClick={handleClear}
+              icon="close"
+              className={styles['input__container__right__item']}
+            />
+          )}
         </div>
       </div>
 

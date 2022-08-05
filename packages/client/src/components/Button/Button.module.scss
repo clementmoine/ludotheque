@@ -1,37 +1,50 @@
 @use 'theme/colors.module';
 
+$icon-size: 28px;
+
+$gap: 12px;
+
+$border-size: 1px;
+$border-radius: 4px;
+
+$padding-block: 12px;
+$padding-inline: 24px;
 
 .button {
   border: none;
   font: inherit;
-  cursor: pointer;
   appearance: none;
-  column-gap: 12px;
-  padding: 12px 24px;
-  border-radius: 4px;
+  column-gap: $gap;
+  border-radius: $border-radius;
+  padding-block: $padding-block;
+  padding-inline: $padding-inline;
   flex-direction: row;
   align-items: center;
   display: inline-flex;
   justify-content: center;
-  border: 1px solid transparent;
+  border: $border-size solid transparent;
 
-  
+  &[disabled] {
+    color: colors.$grey;
+    cursor: not-allowed;
+  }
+
+  &--has-onClick {
+    cursor: pointer;
+  }
+
+  &:not(#{&}--has-onClick) {
+    pointer-events: none;
+  }
+
   &__label {
-    color: inherit;
     display: inline-flex;
   }
 
+  &__icon,
+  &__label,
   &__spinner {
     color: inherit;
-  }
-
-  &--has-icon {
-    width: 18px;
-    aspect-ratio: 1;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: var(--icon);
   }
 
   &--variant {
@@ -39,7 +52,6 @@
       color: colors.$white;
       background-color: colors.$primary;
 
-      &:disabled,
       &[disabled] {
         background-color: colors.$grey-light;
       }
@@ -49,10 +61,18 @@
       }
     }
 
+    &-icon {
+      padding: 0;
+      aspect-ratio: 1;
+      width: $icon-size;
+      color: colors.$black;
+      background: transparent;
+    }
+
     &-reverse {
       color: colors.$primary;
-      background-color: colors.$white;
       border-color: colors.$grey;
+      background-color: colors.$white;
 
       &[disabled] {
         background-color: colors.$grey-light;
@@ -74,15 +94,10 @@
       border: none;
       color: colors.$primary;
       background-color: transparent;
+
       &:active {
         color: darken(colors.$primary, 20%);
       }
     }
-  }
-
-
-  &[disabled] {
-    color: colors.$grey;
-    cursor: not-allowed;
   }
 }

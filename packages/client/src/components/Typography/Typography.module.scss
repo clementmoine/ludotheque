@@ -99,10 +99,10 @@
             aspect-ratio: 1;
             position: absolute;
             background-color: colors.$grey-lighter;
-            mask: url('assets/quote-mark.svg') no-repeat center;
             mask-size: contain;
-            -webkit-mask: url('assets/quote-mark.svg') no-repeat center;
             -webkit-mask-size: contain;
+            mask: url('assets/quote-mark.svg') no-repeat center;
+            -webkit-mask: url('assets/quote-mark.svg') no-repeat center;
         }
 
         &::after {

@@ -58,7 +58,7 @@ const Login: FC = () => {
             <Form autoComplete="off" className={styles['login__form']}>
               <Field
                 name="login"
-                type="text"
+                type="email"
                 component={Input}
                 label="Nom d'utilisateur"
                 autoComplete="username"

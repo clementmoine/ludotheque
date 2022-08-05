@@ -10,6 +10,8 @@ $primary: #4E1ED9;
 
 $background: #F5F5F5;
 
+$overlay: rgba($black, 60%);
+
 $invalid: $red;
 
 $title: $black;
@@ -23,6 +25,7 @@ $text: rgba($black, 56%);
     grey-light: $grey-light;
     primary: $primary;
     background: $background;
+    overlay: $overlay;
     invalid: $invalid;
     title: $title;
     text: $text;

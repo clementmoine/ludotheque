@@ -1,12 +1,12 @@
 import { FC, lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate, Outlet } from 'react-router-dom';
 
 import useAuth from 'hooks/useAuth';
 
 import Spinner from 'components/Spinner';
-import Typography from 'components/Typography';
 import NavigationBar from 'components/NavigationBar';
 
+const Scan = lazy(() => import('routes/Scan'));
 const Lost = lazy(() => import('routes/Lost'));
 const Home = lazy(() => import('routes/Home'));
 const Login = lazy(() => import('routes/Login'));
@@ -21,7 +21,12 @@ export interface LocationState {
   from: Location;
 }
 
-function RequireAuth({ children }: { children?: JSX.Element }) {
+export interface RequireAuthProps {
+  children?: JSX.Element;
+  withNavigationBar?: boolean;
+}
+
+function RequireAuth({ children, withNavigationBar }: RequireAuthProps) {
   const location = useLocation();
 
   const { user, isLoading } = useAuth();
@@ -34,7 +39,12 @@ function RequireAuth({ children }: { children?: JSX.Element }) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  return children || null;
+  return (
+    <>
+      {children}
+      {withNavigationBar ? <NavigationBar /> : <Outlet />}
+    </>
+  );
 }
 
 const Router: FC = () => {
@@ -48,16 +58,21 @@ const Router: FC = () => {
           {/* Login */}
           <Route path="/login" element={<Login />} />
 
-          {/* Private routes */}
-          <Route
-            path="/"
-            element={
-              <>
-                <RequireAuth />
-                <NavigationBar />
-              </>
-            }
-          >
+          {/* Routes without navigation bar */}
+          <Route path="/" element={<RequireAuth />}>
+            {/* Scan */}
+            <Route
+              path="/scan"
+              element={
+                <RequireAuth>
+                  <Scan />
+                </RequireAuth>
+              }
+            />
+          </Route>
+
+          {/* Routes with navigation bar */}
+          <Route path="/" element={<RequireAuth withNavigationBar />}>
             {/* Home */}
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />

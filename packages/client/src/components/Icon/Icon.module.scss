@@ -5,10 +5,11 @@
     width: 18px;
     aspect-ratio: 1;
     
-    mask-size: contain;
-    -webkit-mask-size: contain;
     mask: var(--icon) no-repeat center;
     -webkit-mask: var(--icon) no-repeat center;
 
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    
     background-color: currentColor;
 }

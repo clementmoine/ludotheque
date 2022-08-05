@@ -1,3 +1,41 @@
+@use 'theme/colors.module';
+
 .navigation-bar {
-    
+    margin-top: auto;
+    padding-top: 16px;
+
+    &__list {
+        margin: 0;
+        display: flex;
+        padding: 0 28px;
+        list-style: none;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &__item__button {
+        row-gap: 4px;
+        display: flex;
+        padding: 8px;
+        color: colors.$text;
+        flex-direction: column;
+
+        &:not(&--is-active) {
+            opacity: .5;
+        }
+
+        &--is-active,
+        &:hover {
+            color: colors.$black;
+        }
+
+        &__label {
+            color: inherit
+        }
+
+        &__icon {
+            color: inherit
+        }
+    }
 }

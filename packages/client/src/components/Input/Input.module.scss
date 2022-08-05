@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @use 'theme/colors.module';
 
 @use 'components/Button/Button.module.scss' as button;
@@ -22,12 +24,12 @@ $inner-padding: 12px;
   padding-right: calc(
     (var(--right-icon-count, 0) * button.$icon-size) + /** Number of icons **/
       (max(var(--right-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
-      (min((var(--right-icon-count, 0) + 1), 2) * $inner-padding / min((var(--right-icon-count, 0) + 1), 2)) /** Inner padding **/
+      (min((var(--right-icon-count, 0) + 1), 2) * math.div($inner-padding, min((var(--right-icon-count, 0) + 1), 2))) /** Inner padding **/
   );
   padding-left: calc(
     (var(--left-icon-count, 0) * button.$icon-size) + /** Number of icons **/
       (max(var(--left-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
-      (min((var(--left-icon-count, 0) + 1), 2) * $inner-padding / min((var(--left-icon-count, 0) + 1), 2)) /** Inner padding **/
+      (min((var(--left-icon-count, 0) + 1), 2) * math.div($inner-padding, min((var(--left-icon-count, 0) + 1), 2))) /** Inner padding **/
   );
 
   &__container {
@@ -52,7 +54,7 @@ $inner-padding: 12px;
       display: inline-flex;
       pointer-events: none;
       column-gap: $icon-gap;
-      padding: 0 $inner-padding / 2;
+      padding: 0 math.div($inner-padding, 2);
 
       &__item {
         pointer-events: auto;

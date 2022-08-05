@@ -31,7 +31,7 @@ const Home: FC = () => {
         type="search"
         left={{ icon: 'search' }}
         placeholder="Rechercher un objet"
-        right={{ icon: 'scan', onClick: () => navigate('/scan') }}
+        right={{ icon: 'scan', to: '/scan' }}
       />
 
       <main className={styles['home__content']}>

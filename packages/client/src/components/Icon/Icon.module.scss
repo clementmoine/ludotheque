@@ -2,8 +2,9 @@
 
 
 .icon {
-    width: 18px;
+    width: var(--size, 18px);
     aspect-ratio: 1;
+    display: inline-flex;
     
     mask: var(--icon) no-repeat center;
     -webkit-mask: var(--icon) no-repeat center;

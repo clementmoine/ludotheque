@@ -50,14 +50,14 @@ $padding-inline: 24px;
   &--variant {
     &-primary {
       color: colors.$white;
-      background-color: colors.$primary;
+      background-color: var(--color, colors.$primary);
 
       &[disabled] {
         background-color: colors.$grey-light;
       }
 
       &:active {
-        background-color: darken(colors.$primary, 10%);
+        background-color: var(--color, darken(colors.$primary, 10%));
       }
     }
 
@@ -65,12 +65,12 @@ $padding-inline: 24px;
       padding: 0;
       aspect-ratio: 1;
       width: $icon-size;
-      color: colors.$black;
+      color: var(--color, colors.$black);
       background: transparent;
     }
 
     &-reverse {
-      color: colors.$primary;
+      color: var(--color, colors.$primary);
       border-color: colors.$grey;
       background-color: colors.$white;
 
@@ -81,8 +81,8 @@ $padding-inline: 24px;
 
     &-outline {
       background-color: transparent;
-      border-color: colors.$primary;
-      color: colors.$primary;
+      border-color: var(--color, colors.$primary);
+      color: var(--color, colors.$primary);
 
       &[disabled] {
         border-color: colors.$grey-light;
@@ -92,11 +92,11 @@ $padding-inline: 24px;
     &-link {
       padding: 0;
       border: none;
-      color: colors.$primary;
+      color: var(--color, colors.$primary);
       background-color: transparent;
 
       &:active {
-        color: darken(colors.$primary, 20%);
+        color: var(--color, darken(colors.$primary, 20%));
       }
     }
   }

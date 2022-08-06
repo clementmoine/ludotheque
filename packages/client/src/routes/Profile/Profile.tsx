@@ -61,7 +61,7 @@ const Profile: FC = () => {
   return (
     <div className={styles['profile']}>
       <header className={styles['profile__header']}>
-        <Button icon="triangle-left" variant="link" to={locationState?.from?.pathname || '/'}>
+        <Button icon="triangle-left" variant="link" color="text" to={locationState?.from?.pathname || '/'}>
           Retour
         </Button>
 

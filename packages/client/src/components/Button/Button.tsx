@@ -2,15 +2,17 @@ import classNames from 'classnames';
 import { FC, MouseEvent, useCallback, useMemo } from 'react';
 import { NavigateOptions, useLocation, useNavigate } from 'react-router-dom';
 
+import Icon from 'components/Icon';
 import Spinner from 'components/Spinner';
 import Typography from 'components/Typography';
 
-import styles from './Button.module.scss';
-import Icon from 'components/Icon';
+import Color, { getTheme } from 'types/color';
 
+import styles from './Button.module.scss';
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   to?: string;
   icon?: string;
+  color?: Color;
   label?: string;
   loading?: boolean;
   navigateOptions?: NavigateOptions;
@@ -21,6 +23,7 @@ const Button: FC<ButtonProps> = (props) => {
   const {
     to,
     icon,
+    color,
     onClick,
     loading,
     children,
@@ -70,6 +73,7 @@ const Button: FC<ButtonProps> = (props) => {
       {...restProps}
       type={type}
       onClick={handleOnClick}
+      style={{ '--color': getTheme(color) }}
       className={classNames(
         styles['button'],
         styles[`button--variant-${variant}`],

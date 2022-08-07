@@ -49,12 +49,15 @@ export default function useScanner(camera: RefObject<HTMLVideoElement>, interval
   const abortController = useRef<AbortController>();
 
   const sleep = useCallback(async (): Promise<NodeJS.Timeout> => {
-    if (abortController.current && abortController.current.signal.aborted) {
-      alert('Scanning aborted');
-      return Promise.reject('aborted');
-    }
+    return new Promise((resolve, reject) =>
+      setTimeout(() => {
+        if (abortController.current && abortController.current.signal.aborted) {
+          return reject('aborted');
+        }
 
-    return new Promise((resolve) => setTimeout(resolve, interval));
+        resolve;
+      }, interval)
+    );
   }, [interval]);
 
   const start = useCallback(async (): Promise<Code[]> => {

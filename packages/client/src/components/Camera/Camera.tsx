@@ -71,11 +71,9 @@ const Camera = forwardRef<CameraRef, CameraProps>((props, ref) => {
           videoRef.current.srcObject = stream;
 
           // When the video is loaded, start the scanner.
-          videoRef.current.onloadedmetadata = () => {
-            scanner.start().then((codes) => {
-              if (onScan) onScan(codes);
-            });
-          };
+          scanner.start().then((codes) => {
+            if (onScan) onScan(codes);
+          });
         }
       });
     },
@@ -84,14 +82,21 @@ const Camera = forwardRef<CameraRef, CameraProps>((props, ref) => {
 
   // Stop the video stream.
   const stop = useCallback(() => {
-    scanner.stop();
-
     if (videoRef.current) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      const tracks = stream?.getTracks() || [];
+
+      tracks.forEach((track) => {
+        track.stop();
+      });
+
       videoRef.current.srcObject = null;
     }
 
+    scanner.stop();
+
     if (onClose) onClose();
-  }, []);
+  }, [onClose, scanner]);
 
   // Switch to the next camera.
   const next = useCallback(() => {

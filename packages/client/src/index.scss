@@ -10,7 +10,6 @@ html {
 }
 
 body {
-  padding: 0;
   box-sizing: border-box;
 
   display: flex;
@@ -21,6 +20,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+
+  padding:
+    env(safe-area-inset-top, 20px)
+    env(safe-area-inset-right, 20px)
+    env(safe-area-inset-bottom, 20px)
+    env(safe-area-inset-left, 20px);
 
   background-color: colors.$background;
 }

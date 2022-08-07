@@ -83,7 +83,11 @@ const NavigationBar: FC<NavigationBarProps> = (props) => {
                   })}
                   to={item.path}
                 >
-                  <Icon className={styles['navigation-bar__icon']} name={item.icon[isActive ? 1 : 0]} />
+                  <Icon
+                    size="24px"
+                    className={styles['navigation-bar__icon']}
+                    name={item.icon[isActive ? 1 : 0]}
+                  />
                   <Typography className={styles['navigation-bar__label']} variant="body2">
                     {item.label}
                   </Typography>

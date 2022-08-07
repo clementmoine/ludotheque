@@ -1,6 +1,6 @@
 @use 'theme/colors.module';
 
-$crosshair-height: 30vh;
+$crosshair-height: 30%;
 
 .scan {
     height: 100%;
@@ -15,7 +15,7 @@ $crosshair-height: 30vh;
         &::before {
             content: "";
             margin: auto;
-            max-width: 80vw;
+            max-width: 80%;
             aspect-ratio: 1.6;
             border-radius: 4px;
             height: $crosshair-height;
@@ -34,7 +34,7 @@ $crosshair-height: 30vh;
         align-items: center;
         box-sizing: border-box;
         flex-direction: column;
-        top: calc(100vh - $crosshair-height);
+        top: calc(100% - $crosshair-height);
     }
 
     &__video {

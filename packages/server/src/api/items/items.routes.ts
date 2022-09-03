@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 import express from 'express';
 
 import isAuthenticated from 'middlewares/passport';
@@ -23,6 +22,8 @@ router.get('/gtin/:gtin', isAuthenticated, async (req, res, next) => {
 
     if (scrapedItem) {
       res.json(scrapedItem);
+
+      return;
     }
 
     res.status(404);

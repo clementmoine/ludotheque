@@ -8,6 +8,7 @@
         "eamodio.gitlens",
         "esbenp.prettier-vscode",
         "prisma.prisma",
-        "artdiniz.quitcontrol-vscode"
+        "artdiniz.quitcontrol-vscode",
+        "rangav.vscode-thunder-client"
     ]
 }

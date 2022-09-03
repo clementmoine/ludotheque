@@ -1275,11 +1275,6 @@ global-dirs@^3.0.0:
   dependencies:
     ini "2.0.0"
 
-google-search-results-nodejs@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/google-search-results-nodejs/-/google-search-results-nodejs-2.1.0.tgz#f5870306e62a6590e135655d3b4a870057f3eada"
-  integrity sha512-7jEAoAV/Ful7Q2BxrYrkOst14aqwUvkEUwlRBrYATUylpp/bf3uE9lDgyk9brqbDt61hA2xkAm2sog9orHImVw==
-
 got@^9.6.0:
   version "9.6.0"
   resolved "https://registry.yarnpkg.com/got/-/got-9.6.0.tgz#edf45e7d67f99545705de1f7bbeeeb121765ed85"

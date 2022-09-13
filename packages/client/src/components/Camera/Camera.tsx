@@ -53,6 +53,8 @@ const Camera = forwardRef<CameraRef, CameraProps>((props, ref) => {
         : {
             video: {
               facingMode: 'environment',
+              width: { ideal: 4096 },
+              height: { ideal: 2160 },
             },
             audio: false,
           };

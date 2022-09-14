@@ -70,19 +70,19 @@ export default function useScanner(camera: RefObject<HTMLVideoElement>, interval
     // Detect the barcode in the picture.
     return barcodeDetector.current
       .detect(camera.current)
-      .then((barcodes) => {
-        if (abortController.current && abortController.current.signal.aborted) {
+      .then((codes) => {
+        if (abortController.current?.signal.aborted) {
           return Promise.reject('Scan aborted');
         }
 
-        if (!barcodes.length) {
-          return Promise.reject('No barcode found');
+        if (!codes.length) {
+          return Promise.reject('No code found');
         }
 
-        return barcodes as Code[];
+        return codes as Code[];
       })
       .catch(() => {
-        if (abortController.current && abortController.current.signal.aborted) {
+        if (abortController.current?.signal.aborted) {
           return Promise.reject('Scan aborted');
         }
 
@@ -111,7 +111,7 @@ export default function useScanner(camera: RefObject<HTMLVideoElement>, interval
     return () => {
       stop();
     };
-  }, []);
+  }, [configureDetector, start, stop]);
 
   return {
     sleep,

@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useImperativeHandle, useLayoutEffect, useMemo, useRef } from 'react';
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 
 import useScanner from 'hooks/useScanner';
 
@@ -21,9 +21,11 @@ export interface CameraRef {
 const Camera = forwardRef<CameraRef, CameraProps>((props, ref) => {
   const { className, onClose, onScan } = props;
 
+  const streamRef = useRef<MediaStream>();
+
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const source = useRef<string>();
+  const abortController = useRef<AbortController>();
 
   const scanner = useScanner(videoRef);
 
@@ -45,6 +47,11 @@ const Camera = forwardRef<CameraRef, CameraProps>((props, ref) => {
         videoRef.current.srcObject = null;
       }
 
+      // Kill current stream
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+      }
+
       // Contraints the video stream.
       // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
       // Get the asked device if it exists or the default environment device when available.
@@ -63,9 +70,17 @@ const Camera = forwardRef<CameraRef, CameraProps>((props, ref) => {
           };
 
       navigator.mediaDevices.getUserMedia(initialConstraints).then((stream: MediaStream) => {
+        if (abortController.current?.signal.aborted) {
+          stream.getTracks().forEach((track) => track.stop());
+
+          return;
+        }
+
+        // Keep the steam for later use
+        streamRef.current = stream;
+
         // Get the track from current stream
         const track = stream.getTracks()[0];
-        const videoTrack = stream.getVideoTracks()[0];
 
         // Get device capabilities
         const capabilities = track.getCapabilities();
@@ -105,9 +120,6 @@ const Camera = forwardRef<CameraRef, CameraProps>((props, ref) => {
         // Apply optimal constraints
         track.applyConstraints(optimalConstraints);
 
-        // Keep the stream deviceId source.
-        source.current = videoTrack.getSettings().deviceId;
-
         if (videoRef.current) {
           // Attributes for the video element.
           videoRef.current.muted = true;
@@ -129,6 +141,10 @@ const Camera = forwardRef<CameraRef, CameraProps>((props, ref) => {
 
   // Stop the video stream.
   const stop = useCallback(() => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+    }
+
     if (videoRef.current) {
       const stream = videoRef.current.srcObject as MediaStream;
       const tracks = stream?.getTracks() || [];
@@ -147,12 +163,16 @@ const Camera = forwardRef<CameraRef, CameraProps>((props, ref) => {
 
   // Switch to the next camera.
   const next = useCallback(() => {
-    if (!isAvailable) {
+    if (!isAvailable || !streamRef.current) {
       return;
     }
 
     // Get the list of available devices.
     navigator.mediaDevices.enumerateDevices().then((devices) => {
+      if (!streamRef.current || abortController.current?.signal.aborted) {
+        return;
+      }
+
       // List of available video input devices.
       const deviceIds = devices.reduce((acc, device) => {
         if (device.kind === 'videoinput') {
@@ -162,24 +182,29 @@ const Camera = forwardRef<CameraRef, CameraProps>((props, ref) => {
         return acc;
       }, [] as string[]);
 
+      // Get current stream device id
+      const currentDeviceId = streamRef.current.getVideoTracks()[0].getSettings().deviceId;
+
       // Check there is another camera to switch to.
       // If the current deviceId is the last one, switch to the first one.
-      if (source.current && deviceIds.length > 1) {
-        source.current = deviceIds[(deviceIds.indexOf(source.current) + 1) % deviceIds.length];
-
-        start(source.current);
+      if (currentDeviceId && deviceIds.length > 1) {
+        start(deviceIds[(deviceIds.indexOf(currentDeviceId) + 1) % deviceIds.length]);
       }
     });
   }, [start, isAvailable]);
 
   // Start the video stream when the component is mounted.
-  useLayoutEffect(() => {
+  useEffect(() => {
+    abortController.current = new AbortController();
+
     start();
 
     return () => {
+      abortController.current?.abort();
+
       stop();
     };
-  }, []);
+  }, [start, stop]);
 
   useImperativeHandle(ref, () => ({
     start,

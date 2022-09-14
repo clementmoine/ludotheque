@@ -1,20 +1,23 @@
-import { FC, useCallback, useEffect, useRef } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import Icon from 'components/Icon';
 import Button from 'components/Button';
+import Typography from 'components/Typography';
 import Camera, { CameraRef } from 'components/Camera';
 
 import { Code } from 'hooks/useScanner';
+import useDetector from 'hooks/useDetector';
+
 import { LocationState } from 'routes';
 
 import styles from './Scan.module.scss';
-import Typography from 'components/Typography';
-import Icon from 'components/Icon';
 
 const Scan: FC = () => {
   const navigate = useNavigate();
 
   const camera = useRef<CameraRef>(null);
+  const detector = useDetector();
 
   const locationState = useLocation().state as LocationState;
 
@@ -22,8 +25,13 @@ const Scan: FC = () => {
     navigate(locationState?.from?.pathname || '/');
   }, [navigate, locationState]);
 
+  // Handle scan success
   const handleScan = useCallback(
-    (codes: Code[]) => {
+    (codes?: Code[]) => {
+      if (!codes) {
+        return;
+      }
+
       alert(
         `Vous avez scanné ${codes.length} code${codes.length > 1 ? 's' : ''}\n\n${codes
           .map((code) => code.rawValue)
@@ -34,6 +42,27 @@ const Scan: FC = () => {
     },
     [handleClose]
   );
+
+  // Import a file to detect bar code in
+  const handleImport = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+
+    input.onchange = (event: unknown) => {
+      const files = (event as ChangeEvent<HTMLInputElement>).currentTarget?.files;
+
+      if (!files?.length) {
+        return;
+      }
+
+      detector.detect(files[0]).then((codes) => {
+        handleScan(codes as Code[]);
+      });
+    };
+
+    input.click();
+  }, [detector, handleScan]);
 
   useEffect(() => {
     return () => {
@@ -56,7 +85,7 @@ const Scan: FC = () => {
           Pointez votre appareil sur un code barre.
         </Typography>
 
-        <Button variant="link" color="white">
+        <Button variant="link" color="white" onClick={handleImport}>
           Sélectionner à partir d’une photo
         </Button>
       </main>

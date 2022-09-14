@@ -7,7 +7,7 @@ import type { Code } from 'hooks/useScanner';
 export interface CameraProps {
   className?: string;
   onClose?: () => void;
-  onScan?: (codes: Code[]) => void;
+  onScan?: (codes?: Code[]) => void;
 }
 
 export interface CameraRef {

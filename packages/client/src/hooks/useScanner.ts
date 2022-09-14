@@ -1,6 +1,6 @@
 import { RefObject, useCallback, useEffect, useRef } from 'react';
 
-import { BarcodeDetectorPolyfill } from '@undecaf/barcode-detector-polyfill';
+import useDetector from './useDetector';
 
 export interface Code {
   format: string;
@@ -44,7 +44,7 @@ export interface Scanner {
 }
 
 export default function useScanner(camera: RefObject<HTMLVideoElement>, interval = 500): Scanner {
-  const barcodeDetector = useRef<BarcodeDetectorPolyfill>();
+  const barcodeDetector = useDetector();
 
   const abortController = useRef<AbortController>();
 
@@ -60,15 +60,15 @@ export default function useScanner(camera: RefObject<HTMLVideoElement>, interval
     );
   }, [interval]);
 
-  const start = useCallback(async (): Promise<Code[]> => {
+  const start = useCallback(async (): Promise<Code[] | undefined> => {
     abortController.current = new AbortController();
 
-    if (!camera.current || !barcodeDetector.current) {
+    if (!camera.current) {
       return Promise.reject('Camera is not available');
     }
 
     // Detect the barcode in the picture.
-    return barcodeDetector.current
+    return barcodeDetector
       .detect(camera.current)
       .then((codes) => {
         if (abortController.current?.signal.aborted) {
@@ -88,6 +88,9 @@ export default function useScanner(camera: RefObject<HTMLVideoElement>, interval
 
         // Sleep before retrying.
         return sleep().then(() => start());
+      })
+      .catch(() => {
+        return undefined;
       });
   }, [camera, barcodeDetector, sleep]);
 
@@ -97,21 +100,13 @@ export default function useScanner(camera: RefObject<HTMLVideoElement>, interval
     }
   }, []);
 
-  const configureDetector = useCallback(async () => {
-    const formats = await BarcodeDetectorPolyfill.getSupportedFormats();
-
-    barcodeDetector.current = new BarcodeDetectorPolyfill({
-      formats,
-    });
-  }, []);
-
   useEffect(() => {
-    configureDetector().then(() => start());
+    start();
 
     return () => {
       stop();
     };
-  }, [configureDetector, start, stop]);
+  }, [start, stop]);
 
   return {
     sleep,

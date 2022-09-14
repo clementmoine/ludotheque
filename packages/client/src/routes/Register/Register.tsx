@@ -13,47 +13,48 @@ import Button from 'components/Button';
 import Separator from 'components/Separator';
 import Typography from 'components/Typography';
 
-import styles from './Login.module.scss';
+import styles from './Register.module.scss';
 
-const LoginValidationSchema = object().shape({
-  login: string().required("Veuillez saisir un nom d'utilisateur."),
+const RegisterValidationSchema = object().shape({
+  firstName: string().required('Veuillez saisir un prénom.'),
+  lastName: string().required('Veuillez saisir un nom.'),
+  email: string().required('Veuillez saisir une adresse e-mail.'),
   password: string().required('Veuillez saisir un mot de passe.'),
 });
 
-const Login: FC = () => {
-  const { login } = useAuth();
+const Register: FC = () => {
+  const { register } = useAuth();
 
   const navigate = useNavigate();
 
   const locationState = useLocation().state as LocationState;
 
-  const mutation = useMutation(login, {
+  const mutation = useMutation(register, {
     onSuccess: () => {
-      const exclude = ['landing', 'login', 'register'];
+      const redirect = locationState?.from?.pathname || '/';
 
-      if (locationState?.from?.pathname && !exclude.includes(locationState.from.pathname)) {
-        // Navigate to the previous page
-        navigate(locationState?.from?.pathname);
-      }
-
-      // Navigate to the home page
-      navigate('/');
+      // Navigate to the home page or the previous page
+      navigate(redirect);
     },
   });
 
   return (
-    <div className={styles['login']}>
-      <header className={styles['login__header']}>
-        <Typography variant="title1">Bienvenue ! 👋</Typography>
-        <Typography variant="body1">Saisissez vos identifiants</Typography>
+    <div className={styles['register']}>
+      <header className={styles['register__header']}>
+        <Typography variant="title1">Démarrez votre aventure ! 💪</Typography>
+        <Typography variant="body1">
+          Commencez à stocker, identifier et suivre vos collections en créant un compte !
+        </Typography>
       </header>
 
       <Formik
         initialValues={{
-          login: locationState?.previousData?.email || '',
+          firstName: '',
+          lastName: '',
+          email: locationState?.previousData?.login || '',
           password: '',
         }}
-        validationSchema={LoginValidationSchema}
+        validationSchema={RegisterValidationSchema}
         onSubmit={(values, { setSubmitting }) =>
           mutation.mutate(values, { onSettled: () => setSubmitting(false) })
         }
@@ -61,14 +62,29 @@ const Login: FC = () => {
         {({ handleSubmit, isValid, isSubmitting, isValidating, values }) => {
           return (
             <>
-              <Form autoComplete="off" className={styles['login__form']}>
+              <Form autoComplete="off" className={styles['register__form']}>
                 <Field
-                  name="login"
+                  name="firstName"
+                  type="text"
+                  component={Input}
+                  label="Prénom"
+                  placeholder="Saisissez votre prénom"
+                />
+
+                <Field
+                  name="lastName"
+                  type="text"
+                  component={Input}
+                  label="Nom"
+                  placeholder="Saisissez votre nom"
+                />
+
+                <Field
+                  name="email"
                   type="email"
                   component={Input}
-                  label="Nom d'utilisateur"
-                  autoComplete="username"
-                  placeholder="Saisissez votre nom d'utilisateur"
+                  label="Adresse e-mail"
+                  placeholder="Saisissez votre adresse e-mail"
                 />
 
                 <Field
@@ -76,7 +92,6 @@ const Login: FC = () => {
                   type="password"
                   component={Input}
                   label="Mot de passe"
-                  autoComplete="current-password"
                   placeholder="Saisissez votre mot de passe"
                 />
 
@@ -91,20 +106,20 @@ const Login: FC = () => {
                 <Button
                   type="submit"
                   loading={isSubmitting || isValidating}
-                  className={styles['login__form__submit']}
+                  className={styles['register__form__submit']}
                   onClick={() => handleSubmit()}
                   disabled={!isValid || isSubmitting || isValidating}
                 >
-                  Se connecter
+                  C&apos;est parti !
                 </Button>
               </Form>
 
               <Separator>ou</Separator>
 
               <Typography variant="body1" align="center">
-                Vous n&apos;avez pas de compte ?&nbsp;
-                <Button variant="link" to="/register" navigateOptions={{ state: { previousData: values } }}>
-                  Inscrivez-vous
+                Vous avez déjà un compte ?&nbsp;
+                <Button variant="link" to="/login" navigateOptions={{ state: { previousData: values } }}>
+                  Connectez-vous
                 </Button>
               </Typography>
             </>
@@ -115,6 +130,6 @@ const Login: FC = () => {
   );
 };
 
-Login.displayName = 'Login';
+Register.displayName = 'Register';
 
-export default Login;
+export default Register;

@@ -5,7 +5,7 @@ import { User } from '@prisma/client';
  * @param {User} user The user to register.
  * @returns {Promise<User>}
  */
-export function register(user: User): Promise<User> {
+export function register(user: Pick<User, 'firstName' | 'lastName' | 'email' | 'password'>): Promise<User> {
   return fetch('/api/v1/auth/register', {
     method: 'POST',
     headers: {

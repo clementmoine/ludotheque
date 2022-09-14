@@ -30,9 +30,9 @@ const ProfileValidationSchema = object().shape({
 
   //     return value[0].type.startsWith('image/');
   //   }),
-  lastName: string().required('Veuillez saisir votre nom'),
-  firstName: string().required('Veuillez saisir votre prénom'),
-  email: string().email('Veuillez renseigner un e-mail valide').required('Veuillez saisir votre email'),
+  lastName: string().required('Veuillez saisir votre nom.'),
+  firstName: string().required('Veuillez saisir votre prénom.'),
+  email: string().email('Veuillez renseigner un e-mail valide.').required('Veuillez saisir votre email.'),
 });
 
 const Profile: FC = () => {
@@ -119,8 +119,8 @@ const Profile: FC = () => {
                 {mutation.isError && (
                   <Typography variant="body1" color="invalid">
                     {(mutation.error as any).message === 'Unauthorized'
-                      ? 'Identifiants non valides'
-                      : 'Une erreur est survenue'}
+                      ? 'Identifiants non valides.'
+                      : 'Une erreur est survenue.'}
                   </Typography>
                 )}
 

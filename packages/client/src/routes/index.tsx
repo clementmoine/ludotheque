@@ -1,5 +1,6 @@
 import { FC, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Navigate, Outlet } from 'react-router-dom';
+import { NavigateOptions as _NavigateOptions } from 'react-router-dom';
 
 import useAuth from 'hooks/useAuth';
 
@@ -13,12 +14,18 @@ const Login = lazy(() => import('routes/Login'));
 const Search = lazy(() => import('routes/Search'));
 const Landing = lazy(() => import('routes/Landing'));
 const Profile = lazy(() => import('routes/Profile'));
+const Register = lazy(() => import('routes/Register'));
 const Collection = lazy(() => import('routes/Collection'));
 const Collections = lazy(() => import('routes/Collections'));
 const CollectionItem = lazy(() => import('routes/CollectionItem'));
 
 export interface LocationState {
-  from: Location;
+  from?: Location;
+  previousData?: Record<string, any>;
+}
+
+export interface NavigateOptions extends _NavigateOptions {
+  state?: LocationState;
 }
 
 export interface RequireAuthProps {
@@ -57,6 +64,9 @@ const Router: FC = () => {
 
           {/* Login */}
           <Route path="/login" element={<Login />} />
+
+          {/* Register */}
+          <Route path="/register" element={<Register />} />
 
           {/* Routes without navigation bar */}
           <Route path="/" element={<RequireAuth />}>

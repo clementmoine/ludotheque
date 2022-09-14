@@ -1,10 +1,12 @@
 import classNames from 'classnames';
 import { FC, MouseEvent, useCallback, useMemo } from 'react';
-import { NavigateOptions, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Icon from 'components/Icon';
 import Spinner from 'components/Spinner';
 import Typography from 'components/Typography';
+
+import { NavigateOptions } from 'routes';
 
 import Color, { getTheme } from 'types/color';
 
@@ -51,14 +53,13 @@ const Button: FC<ButtonProps> = (props) => {
   const handleOnClick = useCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
       if (to) {
-        navigate(
-          to,
-          navigateOptions || {
-            state: {
-              from: location,
-            },
-          }
-        );
+        navigate(to, {
+          ...navigateOptions,
+          state: {
+            ...navigateOptions?.state,
+            from: location,
+          },
+        });
       }
 
       if (onClick) {

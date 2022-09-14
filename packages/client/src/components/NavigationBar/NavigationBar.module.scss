@@ -16,8 +16,9 @@
 
     &__item__button {
         row-gap: 4px;
-        display: flex;
+        height: auto;
         padding: 8px;
+        display: flex;
         color: colors.$text;
         flex-direction: column;
 

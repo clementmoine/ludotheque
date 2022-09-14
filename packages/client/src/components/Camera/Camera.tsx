@@ -48,20 +48,65 @@ const Camera = forwardRef<CameraRef, CameraProps>((props, ref) => {
       // Contraints the video stream.
       // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
       // Get the asked device if it exists or the default environment device when available.
-      const constraints = deviceId
-        ? { video: { deviceId: { exact: deviceId } } }
+      const initialConstraints = deviceId
+        ? // Ask an exact deviceId
+          { video: { deviceId: { exact: deviceId } }, audio: false }
         : {
+            // Ask a device
             video: {
+              width: 100,
+              height: 100,
+              frameRate: { min: 8, max: 60 },
               facingMode: 'environment',
-              width: { ideal: 4096 },
-              height: { ideal: 2160 },
             },
             audio: false,
           };
 
-      navigator.mediaDevices.getUserMedia(constraints).then((stream: MediaStream) => {
+      navigator.mediaDevices.getUserMedia(initialConstraints).then((stream: MediaStream) => {
+        // Get the track from current stream
+        const track = stream.getTracks()[0];
+        const videoTrack = stream.getVideoTracks()[0];
+
+        // Get device capabilities
+        const capabilities = track.getCapabilities();
+
+        // Ideal constraints for the device
+        const idealConstraints: Partial<Record<keyof MediaTrackConstraints, number>> = {
+          frameRate: 120,
+          height: 4096,
+          width: 4096,
+        };
+
+        // Get the optimal device constraints from device capability against ideal constraints
+        const optimalConstraints = (
+          Object.keys(idealConstraints) as Array<keyof MediaTrackConstraints>
+        ).reduce((acc, constraintName) => {
+          if (constraintName in capabilities) {
+            const idealValue = idealConstraints[constraintName];
+            const capability = capabilities[constraintName as keyof MediaTrackCapabilities];
+
+            if (
+              capability &&
+              idealValue &&
+              typeof capability !== 'string' &&
+              typeof capability !== 'boolean' &&
+              'min' in capability &&
+              'max' in capability &&
+              capability.min &&
+              capability.max
+            ) {
+              acc[constraintName] = Math.max(capability.min, Math.min(capability.max, idealValue)) as any;
+            }
+          }
+
+          return acc;
+        }, track.getConstraints());
+
+        // Apply optimal constraints
+        track.applyConstraints(optimalConstraints);
+
         // Keep the stream deviceId source.
-        source.current = stream.getVideoTracks()[0].getSettings().deviceId;
+        source.current = videoTrack.getSettings().deviceId;
 
         if (videoRef.current) {
           // Attributes for the video element.

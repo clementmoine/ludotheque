@@ -20,5 +20,12 @@
         &__submit {
             margin-top: 16px;
         }
+
+        &__social {
+            row-gap: 16px;
+            display: flex;
+            flex-direction: column;
+        }
     }
+
 }

@@ -97,9 +97,23 @@ const Login: FC = () => {
                 >
                   Se connecter
                 </Button>
+
+                <Button variant="link" to="/forgotten" navigateOptions={{ state: { previousData: values } }}>
+                  Mot de passe oublié ?
+                </Button>
               </Form>
 
               <Separator>ou</Separator>
+
+              <div className={styles['login__form__social']}>
+                <Button variant="reverse" icon="apple">
+                  Continuer avec Apple
+                </Button>
+
+                <Button variant="reverse" icon="google">
+                  Continuer avec Google
+                </Button>
+              </div>
 
               <Typography variant="body1" align="center">
                 Vous n&apos;avez pas de compte ?&nbsp;

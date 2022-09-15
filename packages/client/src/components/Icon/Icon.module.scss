@@ -1,16 +1,22 @@
-@use 'theme/colors.module';
-
-
 .icon {
     width: var(--size, 18px);
     aspect-ratio: 1;
     display: inline-flex;
-    
-    mask: var(--icon) no-repeat center;
-    -webkit-mask: var(--icon) no-repeat center;
 
-    mask-size: contain;
-    -webkit-mask-size: contain;
-    
-    background-color: currentColor;
+
+    &:not(&--has-color) {
+        background: var(--icon) no-repeat center;
+
+        background-size: contain;
+    }
+
+    &--has-color {
+        mask: var(--icon) no-repeat center;
+        -webkit-mask: var(--icon) no-repeat center;
+
+        mask-size: contain;
+        -webkit-mask-size: contain;
+        
+        background-color: currentColor;
+    }
 }

@@ -19,9 +19,11 @@ const Icon: FC<IconProps> = (props) => {
       style={{
         '--size': size,
         color: getTheme(color),
-        '--icon': `url(assets/${name}.svg)`,
+        '--icon': `url(assets/icons/${name}.svg)`,
       }}
-      className={classNames(styles['icon'], className)}
+      className={classNames(styles['icon'], className, {
+        [styles['icon--has-color']]: getTheme(color) !== undefined,
+      })}
     />
   );
 };

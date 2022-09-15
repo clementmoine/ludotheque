@@ -87,7 +87,7 @@ const Button: FC<ButtonProps> = (props) => {
     >
       {loading && <Spinner size="xs" className={classNames(styles['button__spinner'])} />}
 
-      {icon && <Icon className={classNames(styles['button__icon'])} name={icon} />}
+      {icon && <Icon className={classNames(styles['button__icon'])} color={color} name={icon} />}
 
       {label ? (
         <Typography variant="body1" element="span" className={classNames(styles['button__label'])}>

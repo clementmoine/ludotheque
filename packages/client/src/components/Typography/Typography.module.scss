@@ -97,8 +97,8 @@
             aspect-ratio: 1;
             position: absolute;
             background-color: colors.$grey-lighter;
-            mask: url('assets/quote-mark.svg') no-repeat center;
-            -webkit-mask: url('assets/quote-mark.svg') no-repeat center;
+            mask: url('assets/icons/quote-mark.svg') no-repeat center;
+            -webkit-mask: url('assets/icons/quote-mark.svg') no-repeat center;
             mask-size: contain;
             -webkit-mask-size: contain;
         }

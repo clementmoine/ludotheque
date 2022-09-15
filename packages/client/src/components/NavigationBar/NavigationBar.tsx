@@ -53,8 +53,8 @@ const NavigationBar: FC<NavigationBarProps> = (props) => {
           )
         ) {
           return (
-            (location.state as LocationState)?.from.pathname === item.path ||
-            (location.state as LocationState)?.from.pathname.startsWith(item.path)
+            (location.state as LocationState)?.from?.pathname === item.path ||
+            (location.state as LocationState)?.from?.pathname.startsWith(item.path)
           );
         }
       }) || 'home'
@@ -62,33 +62,33 @@ const NavigationBar: FC<NavigationBarProps> = (props) => {
   }, [items, location]);
 
   return (
-    <>
-      <section className={styles['screen-outlet']}>
+    <div className={styles['screen']}>
+      <div className={styles['screen__outlet']}>
         <Outlet />
-      </section>
+      </div>
 
-      <nav className={styles['navigation-bar']} {...props}>
-        <ul className={styles['navigation-bar__list']}>
+      <nav className={styles['screen__navigation-bar']} {...props}>
+        <ul className={styles['screen__navigation-bar__list']}>
           {(Object.keys(items) as Array<keyof typeof items>).map((key) => {
             const item = items[key];
 
             const isActive = activeItem === key;
 
             return (
-              <li key={key} className={styles['navigation-bar__item']}>
+              <li key={key} className={styles['screen__navigation-bar__item']}>
                 <Button
                   variant="link"
-                  className={classNames(styles['navigation-bar__item__button'], {
-                    [styles['navigation-bar__item__button--is-active']]: isActive,
+                  className={classNames(styles['screen__navigation-bar__item__button'], {
+                    [styles['screen__navigation-bar__item__button--is-active']]: isActive,
                   })}
                   to={item.path}
                 >
                   <Icon
                     size="24px"
-                    className={styles['navigation-bar__icon']}
+                    className={styles['screen__navigation-bar__icon']}
                     name={item.icon[isActive ? 1 : 0]}
                   />
-                  <Typography className={styles['navigation-bar__label']} variant="body2">
+                  <Typography className={styles['screen__navigation-bar__label']} variant="body2">
                     {item.label}
                   </Typography>
                 </Button>
@@ -97,7 +97,7 @@ const NavigationBar: FC<NavigationBarProps> = (props) => {
           })}
         </ul>
       </nav>
-    </>
+    </div>
   );
 };
 

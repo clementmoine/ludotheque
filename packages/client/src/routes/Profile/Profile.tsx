@@ -71,7 +71,7 @@ const Profile: FC = () => {
         </div>
       </header>
 
-      <main className={styles['profile__content']}>
+      <main className={styles['profile__main']}>
         <Formik
           initialValues={{
             avatar: user!.avatar,
@@ -149,23 +149,23 @@ const Profile: FC = () => {
             );
           }}
         </Formik>
+
+        <div className={styles['profile__actions']}>
+          <Button variant="link" to="/password-reset">
+            Changer mon mot de passe
+          </Button>
+          <Button variant="link" className={styles['profile__actions__delete']}>
+            Supprimer mon compte
+          </Button>
+          <Button variant="link" onClick={() => logout()}>
+            Se déconnecter
+          </Button>
+        </div>
+
+        <Typography variant="body3" align="center" className={styles['profile__version']}>
+          Version {pkg.version} - {author}
+        </Typography>
       </main>
-
-      <footer className={styles['profile__footer']}>
-        <Button variant="link" to="/password-reset">
-          Changer mon mot de passe
-        </Button>
-        <Button variant="link" className={styles['profile__footer__delete']}>
-          Supprimer mon compte
-        </Button>
-        <Button variant="link" onClick={() => logout()}>
-          Se déconnecter
-        </Button>
-      </footer>
-
-      <Typography variant="body3" align="center" className={styles['profile__version']}>
-        Version {pkg.version} - {author}
-      </Typography>
     </div>
   );
 };

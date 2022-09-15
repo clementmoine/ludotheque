@@ -1,43 +1,59 @@
 @use 'theme/colors.module';
 
-.navigation-bar {
-    margin-top: auto;
-    padding-top: 16px;
+.screen {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    row-gap: 16px;
+    overflow: hidden;
+    flex-direction: column;
 
-    &__list {
-        margin: 0;
+    &__outlet {
+        flex: 1;
+        width: 100%;
         display: flex;
-        padding: 0 12px;
-        list-style: none;
-        align-items: center;
-        flex-direction: row;
-        justify-content: space-between;
+        overflow: hidden;
+        flex-direction: column;
     }
 
-    &__item__button {
-        row-gap: 4px;
-        width: 80px;
-        height: 60px;
-        padding: 8px;
-        display: flex;
-        color: colors.$text;
-        flex-direction: column;
+    &__navigation-bar {
+        margin-top: auto;
 
-        &:not(&--is-active) {
-            opacity: .5;
+        &__list {
+            margin: 0;
+            display: flex;
+            padding: 0 12px;
+            list-style: none;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
         }
 
-        &--is-active,
-        &:hover {
-            color: colors.$black;
-        }
+        &__item__button {
+            row-gap: 4px;
+            width: 80px;
+            height: 60px;
+            padding: 8px;
+            display: flex;
+            color: colors.$text;
+            flex-direction: column;
 
-        &__label {
-            color: inherit
-        }
+            &:not(&--is-active) {
+                opacity: 0.5;
+            }
 
-        &__icon {
-            color: inherit
+            &--is-active,
+            &:hover {
+                color: colors.$black;
+            }
+
+            &__label {
+                color: inherit;
+            }
+
+            &__icon {
+                color: inherit;
+            }
         }
     }
 }

@@ -61,7 +61,7 @@ const Register: FC = () => {
       >
         {({ handleSubmit, isValid, isSubmitting, isValidating, values }) => {
           return (
-            <>
+            <main className={styles['register__main']}>
               <Form autoComplete="off" className={styles['register__form']}>
                 <Field
                   name="firstName"
@@ -116,13 +116,23 @@ const Register: FC = () => {
 
               <Separator>ou</Separator>
 
+              <div className={styles['register__form__social']}>
+                <Button variant="reverse" icon="apple">
+                  Continuer avec Apple
+                </Button>
+
+                <Button variant="reverse" icon="google">
+                  Continuer avec Google
+                </Button>
+              </div>
+
               <Typography variant="body1" align="center">
                 Vous avez déjà un compte ?&nbsp;
                 <Button variant="link" to="/login" navigateOptions={{ state: { previousData: values } }}>
                   Connectez-vous
                 </Button>
               </Typography>
-            </>
+            </main>
           );
         }}
       </Formik>

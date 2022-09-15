@@ -3,6 +3,7 @@
 .profile {
     row-gap: 32px;
     display: flex;
+    overflow: hidden;
     flex-direction: column;
     
     &__title {
@@ -38,7 +39,14 @@
         }
     }
 
-    &__footer {
+    &__main {
+        row-gap: 32px;
+        overflow-y: auto;
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+    &__actions {
         width: 100%;
         display: flex;
         row-gap: 16px;

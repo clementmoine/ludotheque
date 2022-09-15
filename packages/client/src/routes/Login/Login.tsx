@@ -60,7 +60,7 @@ const Login: FC = () => {
       >
         {({ handleSubmit, isValid, isSubmitting, isValidating, values }) => {
           return (
-            <>
+            <main className={styles['login__main']}>
               <Form autoComplete="off" className={styles['login__form']}>
                 <Field
                   name="login"
@@ -121,7 +121,7 @@ const Login: FC = () => {
                   Inscrivez-vous
                 </Button>
               </Typography>
-            </>
+            </main>
           );
         }}
       </Formik>

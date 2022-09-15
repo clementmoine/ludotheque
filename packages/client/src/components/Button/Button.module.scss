@@ -56,7 +56,7 @@ $padding-inline: 24px;
         background-color: colors.$grey-light;
       }
 
-      &:active {
+      &:not([disabled]):active {
         background-color: var(--color, darken(colors.$primary, 10%));
       }
     }

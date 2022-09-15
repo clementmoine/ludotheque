@@ -1,14 +1,23 @@
 .register {
+    flex: 1;
     width: 100%;
     row-gap: 32px;
     display: flex;
     margin-top: 32px;
+    overflow: hidden;
     align-self: center;
     flex-direction: column;
 
     &__header {
         display: flex;
         row-gap: 8px;
+        flex-direction: column;
+    }
+
+    &__main {
+        row-gap: 32px;
+        display: flex;
+        overflow-y: auto;
         flex-direction: column;
     }
 
@@ -20,5 +29,12 @@
         &__submit {
             margin-top: 16px;
         }
+
+        &__social {
+            row-gap: 16px;
+            display: flex;
+            flex-direction: column;
+        }
     }
+
 }

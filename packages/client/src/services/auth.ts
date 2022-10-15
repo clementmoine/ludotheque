@@ -93,3 +93,80 @@ export function updateProfile(user: Partial<User>): Promise<User> {
     throw new Error(response.statusText);
   });
 }
+
+/**
+ * Update the user's password.
+ * @param {Partial<User>} user The user to update.
+ * @returns {Promise<User>}
+ */
+export function updatePassword(
+  otp: User['otp'],
+  email: User['email'],
+  password: User['password']
+): Promise<User> {
+  return fetch('/api/v1/users/me', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email,
+      otp,
+      password,
+    }),
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+
+    throw new Error(response.statusText);
+  });
+}
+
+export function requestOTP(email: User['email']): Promise<boolean> {
+  return fetch('/api/v1/users/request-otp', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+
+    throw new Error(response.statusText);
+  });
+}
+
+export function validateOTP(email: User['email'], otp: User['otp']): Promise<boolean> {
+  return fetch('/api/v1/users/validate-otp', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, otp }),
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+
+    throw new Error(response.statusText);
+  });
+}
+
+export function forgottenPassword(email: User['email']): Promise<boolean> {
+  return fetch('/api/v1/users/forgotten', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+
+    throw new Error(response.statusText);
+  });
+}

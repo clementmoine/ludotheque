@@ -35,11 +35,11 @@ const Home: FC = () => {
       />
 
       <main className={styles['home__content']}>
-        <section>
+        <section className={styles['home__content__section']}>
           <Typography variant="title3">Vos derniers ajouts</Typography>
         </section>
 
-        <section>
+        <section className={styles['home__content__section']}>
           <Typography variant="title3">Vos collections préférées</Typography>
         </section>
       </main>

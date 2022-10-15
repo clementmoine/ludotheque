@@ -15,6 +15,7 @@ const Search = lazy(() => import('routes/Search'));
 const Landing = lazy(() => import('routes/Landing'));
 const Profile = lazy(() => import('routes/Profile'));
 const Register = lazy(() => import('routes/Register'));
+const Forgotten = lazy(() => import('routes/Forgotten'));
 const Collection = lazy(() => import('routes/Collection'));
 const Collections = lazy(() => import('routes/Collections'));
 const CollectionItem = lazy(() => import('routes/CollectionItem'));
@@ -67,6 +68,9 @@ const Router: FC = () => {
 
           {/* Register */}
           <Route path="/register" element={<Register />} />
+
+          {/* Forgotten */}
+          <Route path="/forgotten" element={<Forgotten />} />
 
           {/* Routes without navigation bar */}
           <Route path="/" element={<RequireAuth />}>

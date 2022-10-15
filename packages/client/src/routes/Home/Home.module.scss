@@ -8,11 +8,30 @@
         flex-direction: row;
         justify-content: space-between;
 
+        &__title {
+            row-gap: 8px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
         &__actions {
             display: flex;
             column-gap: 8px;
             align-items: center;
             flex-direction: row;
+        }
+    }
+
+    &__content {
+        display: flex;
+        row-gap: 32px;
+        flex-direction: column;
+
+        &__section {
+            display: flex;
+            row-gap: 16px;
+            flex-direction: column;
         }
     }
 }

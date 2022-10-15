@@ -13,6 +13,7 @@ generator client {
 // User model
 model User {
   id              String          @id @unique @default(uuid())  // Identifier of the user
+  otp             Int?            @unique                       // One Time Password
   email           String          @unique                       // Email of the user
   username        String          @unique                       // Username of the username
   password        String                                        // Password of the user (hashed)

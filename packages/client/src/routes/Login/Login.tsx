@@ -29,7 +29,7 @@ const Login: FC = () => {
 
   const mutation = useMutation(login, {
     onSuccess: () => {
-      const exclude = ['landing', 'login', 'register'];
+      const exclude = ['landing', 'login', 'register', 'forgotten'];
 
       if (locationState?.from?.pathname && !exclude.includes(locationState.from.pathname)) {
         // Navigate to the previous page

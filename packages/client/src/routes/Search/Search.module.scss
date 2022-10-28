@@ -1,3 +1,18 @@
 .search {
-    
+    &__header {
+        display: flex;
+        flex-direction: column;
+
+        &__title {
+            width: 0;
+            height: 0;
+            left: -1000vw;
+            bottom: -1000vh;
+            position: absolute;
+        }
+
+        &__input {
+            width: 100%;
+        }
+    }
 }

@@ -74,6 +74,7 @@ const Button: FC<ButtonProps> = (props) => {
       {...restProps}
       type={type}
       onClick={handleOnClick}
+      tabIndex={to || onClick ? undefined : -1}
       style={{ '--color': getTheme(color) }}
       className={classNames(
         styles['button'],

@@ -1,6 +1,8 @@
 @use 'theme/colors.module';
 
 .avatar {
+    --size: 45px;
+    
     width: var(--size);
     border: none;
     outline: none;

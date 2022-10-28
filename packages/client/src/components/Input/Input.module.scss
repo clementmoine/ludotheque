@@ -8,29 +8,55 @@ $icon-gap: 4px;
 
 $border-size: 1px;
 $border-radius: 4px;
-$inner-padding: 12px;
 
 .input {
-  width: 100%;
-  border: none;
-  font: inherit;
-  outline: none;
-  font-size: 14px;
-  background: none;
-  color: colors.$black;
+  row-gap: 4px;
   display: inline-flex;
-  box-sizing: border-box;
-  padding: $inner-padding;
-  padding-right: calc(
-    (var(--right-icon-count, 0) * button.$icon-size) + /** Number of icons **/
-      (max(var(--right-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
-      (min((var(--right-icon-count, 0) + 1), 2) * calc($inner-padding / min((var(--right-icon-count, 0) + 1), 2))) /** Inner padding **/
-  );
-  padding-left: calc(
-    (var(--left-icon-count, 0) * button.$icon-size) + /** Number of icons **/
-      (max(var(--left-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
-      (min((var(--left-icon-count, 0) + 1), 2) * calc($inner-padding / min((var(--left-icon-count, 0) + 1), 2))) /** Inner padding **/
-  );
+  flex-direction: column;
+  
+  --inner-padding: 12px;
+
+  &--size {
+    &-sm {
+      --inner-padding: 7px;
+    }
+
+    &-md {
+      --inner-padding: 12px;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    border: none;
+    font: inherit;
+    outline: none;
+    font-size: 14px;
+    background: none;
+    color: colors.$black;
+    display: inline-flex;
+    box-sizing: border-box;
+    padding: var(--inner-padding);
+    padding-right: calc(
+      (var(--right-icon-count, 0) * button.$icon-size) + /** Number of icons **/
+        (max(var(--right-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
+        (min((var(--right-icon-count, 0) + 1), 2) * calc(var(--inner-padding) / min((var(--right-icon-count, 0) + 1), 2))) /** Inner padding **/
+    );
+    padding-left: calc(
+      (var(--left-icon-count, 0) * button.$icon-size) + /** Number of icons **/
+        (max(var(--left-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
+        (min((var(--left-icon-count, 0) + 1), 2) * calc(var(--inner-padding) / min((var(--left-icon-count, 0) + 1), 2))) /** Inner padding **/
+    );
+
+    &[type='search'] {
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-results-button,
+      &::-webkit-search-results-decoration {
+        -webkit-appearance: none;
+      }
+    }
+  }
 
   &__container {
     display: flex;
@@ -54,7 +80,7 @@ $inner-padding: 12px;
       display: inline-flex;
       pointer-events: none;
       column-gap: $icon-gap;
-      padding: 0 math.div($inner-padding, 2);
+      padding: 0 calc(var(--inner-padding) / 2);
 
       &__item {
         pointer-events: auto;
@@ -72,20 +98,5 @@ $inner-padding: 12px;
 
   &::placeholder {
     color: colors.$grey;
-  }
-
-  &[type='search'] {
-    &::-webkit-search-decoration,
-    &::-webkit-search-cancel-button,
-    &::-webkit-search-results-button,
-    &::-webkit-search-results-decoration {
-      -webkit-appearance: none;
-    }
-  }
-
-  &__field {
-    row-gap: 4px;
-    display: inline-flex;
-    flex-direction: column;
   }
 }

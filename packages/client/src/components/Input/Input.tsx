@@ -1,7 +1,16 @@
 import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import { FieldProps, ErrorMessage } from 'formik';
-import { forwardRef, useCallback, useMemo, useState, InputHTMLAttributes } from 'react';
+import {
+  forwardRef,
+  useCallback,
+  useMemo,
+  useState,
+  InputHTMLAttributes,
+  ChangeEvent,
+  KeyboardEvent,
+  useRef,
+} from 'react';
 
 import Spinner from 'components/Spinner';
 import Typography from 'components/Typography';
@@ -9,10 +18,13 @@ import Typography from 'components/Typography';
 import Button, { ButtonProps } from 'components/Button';
 
 import styles from './Input.module.scss';
+import { mergeRefs } from 'utils/mergeRefs';
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange'> {
+  size?: 'sm' | 'md' | 'xl';
   label?: string;
   loading?: boolean;
+  debounce?: number;
   right?: {
     to?: ButtonProps['to'];
     icon: ButtonProps['icon'];
@@ -23,12 +35,33 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     icon: ButtonProps['icon'];
     onClick?: ButtonProps['onClick'];
   };
+  onChange: (value: HTMLInputElement['value'], event?: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps & Partial<FieldProps>>((props, ref) => {
-  const { type = 'text', label, className, name, field, form, loading, left, right, ...restProps } = props;
+  const {
+    type = 'text',
+    size = 'md',
+    name,
+    form,
+    left,
+    label,
+    right,
+    field,
+    loading,
+    onChange,
+    className,
+    debounce = 0,
+    ...restProps
+  } = props;
+
+  const inputRef = useRef<HTMLInputElement>();
+
+  const mergedRef = mergeRefs(inputRef, ref);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const [timeoutChange, setTimeoutChange] = useState<NodeJS.Timeout>();
 
   const handleClear = useCallback(() => {
     if (form && field) {
@@ -37,7 +70,47 @@ const Input = forwardRef<HTMLInputElement, InputProps & Partial<FieldProps>>((pr
 
       return;
     }
-  }, [form, field]);
+
+    if (inputRef.current) {
+      inputRef.current.value = '';
+
+      onChange('');
+    }
+  }, [form, field, onChange]);
+
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (!onChange) {
+        return;
+      }
+
+      if (timeoutChange) clearTimeout(timeoutChange);
+
+      if (debounce) {
+        setTimeoutChange(
+          setTimeout(() => {
+            onChange(e.target.value, e);
+          }, debounce)
+        );
+
+        return;
+      }
+
+      onChange(e.target.value, e);
+    },
+    [onChange, timeoutChange, debounce]
+  );
+
+  const handleKeyPress = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter' && onChange) {
+        if (timeoutChange) clearTimeout(timeoutChange);
+
+        onChange(e.currentTarget.value, e as unknown as ChangeEvent<HTMLInputElement>);
+      }
+    },
+    [onChange, timeoutChange]
+  );
 
   const handleTogglePassword = useCallback(() => {
     setPasswordVisible((currentVisible) => !currentVisible);
@@ -52,7 +125,7 @@ const Input = forwardRef<HTMLInputElement, InputProps & Partial<FieldProps>>((pr
   }, [name, field?.name]);
 
   return (
-    <div className={styles['input__field']}>
+    <div className={classNames(className, styles['input'], styles[`input--size-${size}`])}>
       {label && (
         <Typography variant="body1" element="label" className={styles['input__label']} htmlFor={id}>
           {label}
@@ -75,8 +148,10 @@ const Input = forwardRef<HTMLInputElement, InputProps & Partial<FieldProps>>((pr
         {/* Input */}
         <input
           id={id}
-          ref={ref}
-          className={classNames(styles['input'], className)}
+          ref={mergedRef}
+          onChange={handleChange}
+          onKeyPress={handleKeyPress}
+          className={styles['input__input']}
           type={type === 'password' && passwordVisible ? 'text' : type}
           {...field}
           {...restProps}
@@ -99,7 +174,7 @@ const Input = forwardRef<HTMLInputElement, InputProps & Partial<FieldProps>>((pr
           {right && <Button variant="icon" className={styles['input__container__right__item']} {...right} />}
 
           {/* Clear icon */}
-          {field?.value && (
+          {(field?.value || inputRef.current?.value) && (
             <Button
               variant="icon"
               onClick={handleClear}

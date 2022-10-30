@@ -18,7 +18,7 @@ import Typography from 'components/Typography';
 import Button, { ButtonProps } from 'components/Button';
 
 import styles from './Input.module.scss';
-import { mergeRefs } from 'utils/mergeRefs';
+import { mergeRefs } from 'utils/ref/merge';
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange'> {
   size?: 'sm' | 'md' | 'xl';

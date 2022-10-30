@@ -8,7 +8,9 @@ import { getFileExtension } from 'utils/file';
 export const upload = multer({
   storage: multer.diskStorage({
     destination: function (_, __, cb) {
-      const dir = path.join(process.cwd(), process.env.UPLOAD_DIR ?? '/public/uploads');
+      const dir = path.join(process.cwd(), process.env.UPLOAD_DIR || '/public/uploads');
+
+      console.log(process.env.UPLOAD_DIR || '/public/uploads');
 
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });

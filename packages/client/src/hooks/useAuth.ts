@@ -3,16 +3,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import {
-  me,
-  login,
-  logout,
-  register,
-  updateProfile,
-  validateOTP,
-  updatePassword,
-  forgottenPassword,
-} from 'services/auth';
+import { me, login, logout, register, updateProfile } from 'services/auth';
 
 /**
  * Hook to get the current user.

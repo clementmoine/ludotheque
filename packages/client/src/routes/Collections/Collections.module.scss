@@ -5,6 +5,8 @@
 
         &__title {
             flex: 1;
+            display: flex;
+            align-items: center;
         }
 
         &__button {

@@ -5,9 +5,8 @@ body,
 html {
   margin: 0;
   padding: 0;
+  height: 100%;
   overflow: hidden;
-  max-height: 100vh;
-  height: -webkit-fill-available;
 }
 
 body {
@@ -40,6 +39,7 @@ body {
   padding-bottom: 0;
   padding-top: 32px;
   align-self: center;
+  position: relative;
   box-sizing: border-box;
   flex-direction: column;
 }

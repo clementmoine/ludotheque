@@ -1,0 +1,56 @@
+.icon-slider {
+  --angle: 15deg;
+  --speed: calc(var(--count) * 10s);
+  
+  --width: 160px;
+
+  z-index: -1;
+  display: flex;
+  row-gap: 30px;
+  overflow: hidden;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-around;
+  rotate: calc(-1 * var(--angle));
+  inset: calc(-1 * (var(--width) / 2));
+
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  &__carousel {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    width: calc(var(--count) * 2 * var(--width));
+    animation-play-state: running;
+    animation: slide var(--speed) linear infinite;
+
+    &--reverse {
+      animation-direction: reverse;
+    }
+
+    // &:hover {
+    //   animation-play-state: paused;
+    // }
+
+    &__slide {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &__icon {
+        --size: 110px;
+
+        opacity: 15%;
+      }
+    }
+  }
+}

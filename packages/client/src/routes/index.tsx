@@ -1,5 +1,5 @@
-import { FC, lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, Navigate, Outlet } from 'react-router-dom';
+import { FC, lazy, Suspense, useEffect, useMemo } from 'react';
+import { BrowserRouter, Routes, Route, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { NavigateOptions as _NavigateOptions } from 'react-router-dom';
 
 import useAuth from 'hooks/useAuth';
@@ -29,30 +29,36 @@ export interface NavigateOptions extends _NavigateOptions {
   state?: LocationState;
 }
 
-export interface RequireAuthProps {
-  children?: JSX.Element;
-  withNavigationBar?: boolean;
+function UnAuthenticatedOnly() {
+  const { user } = useAuth();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate('/home', { replace: true });
+  }, [user, navigate]);
+
+  return <Outlet />;
 }
 
-function RequireAuth({ children, withNavigationBar }: RequireAuthProps) {
+function AuthenticatedOnly() {
+  const navigate = useNavigate();
+
   const location = useLocation();
 
   const { user, isLoading } = useAuth();
+
+  const showNavigationBar = useMemo(() => !['/scan'].includes(location.pathname), [location.pathname]);
+
+  useEffect(() => {
+    if (!isLoading && !user) navigate('/login', { replace: true, state: { from: location } });
+  }, [user, isLoading, navigate, location]);
 
   if (isLoading) {
     return <Spinner size="xs" label="Chargement" />;
   }
 
-  if (!user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  return (
-    <>
-      {children}
-      {withNavigationBar ? <NavigationBar /> : <Outlet />}
-    </>
-  );
+  return showNavigationBar ? <NavigationBar /> : <Outlet />;
 }
 
 const Router: FC = () => {
@@ -60,33 +66,26 @@ const Router: FC = () => {
     <Suspense fallback={<Spinner size="xs" label="Chargement" />}>
       <BrowserRouter>
         <Routes>
-          {/* Landing */}
-          <Route path="/landing" element={<Landing />} />
+          {/* Unauthenticated routes */}
+          <Route path="" element={<UnAuthenticatedOnly />}>
+            {/* Landing */}
+            <Route path="/landing" element={<Landing />} />
 
-          {/* Login */}
-          <Route path="/login" element={<Login />} />
+            {/* Login */}
+            <Route path="/login" element={<Login />} />
 
-          {/* Register */}
-          <Route path="/register" element={<Register />} />
+            {/* Register */}
+            <Route path="/register" element={<Register />} />
 
-          {/* Forgotten */}
-          <Route path="/forgotten" element={<Forgotten />} />
-
-          {/* Routes without navigation bar */}
-          <Route path="/" element={<RequireAuth />}>
-            {/* Scan */}
-            <Route
-              path="/scan"
-              element={
-                <RequireAuth>
-                  <Scan />
-                </RequireAuth>
-              }
-            />
+            {/* Forgotten */}
+            <Route path="/forgotten" element={<Forgotten />} />
           </Route>
 
-          {/* Routes with navigation bar */}
-          <Route path="/" element={<RequireAuth withNavigationBar />}>
+          {/* Authenticated routes */}
+          <Route path="/" element={<AuthenticatedOnly />}>
+            {/* Scan */}
+            <Route path="/scan" element={<Scan />} />
+
             {/* Home */}
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />

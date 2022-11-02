@@ -50,14 +50,14 @@ $padding-inline: 24px;
   &--variant {
     &-primary {
       color: colors.$white;
-      background-color: var(--color, colors.$primary);
+      background-color: colors.$primary;
 
       &[disabled] {
         background-color: colors.$grey-light;
       }
 
       &:not([disabled]):active {
-        background-color: var(--color, darken(colors.$primary, 10%));
+        background-color: darken(colors.$primary, 10%);
       }
     }
 
@@ -65,14 +65,14 @@ $padding-inline: 24px;
       padding: 0;
       aspect-ratio: 1;
       width: $icon-size;
-      color: var(--color, colors.$black);
       background: transparent;
+      color: var(--color, colors.$black);
     }
 
     &-reverse {
-      color: var(--color, colors.$black);
       border-color: colors.$grey;
       background-color: colors.$white;
+      color: var(--color, colors.$black);
 
       &[disabled] {
         background-color: colors.$grey-light;

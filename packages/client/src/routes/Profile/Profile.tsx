@@ -1,9 +1,9 @@
-import { FC, useMemo } from 'react';
 import { object, string } from 'yup';
+import parseAuthor from 'parse-author';
 import { Field, Form, Formik } from 'formik';
 import { useLocation } from 'react-router-dom';
+import React, { ChangeEvent, FC, useCallback, useMemo } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import parseAuthor from 'parse-author';
 
 import useAuth from 'hooks/useAuth';
 
@@ -36,7 +36,7 @@ const ProfileValidationSchema = object().shape({
 });
 
 const Profile: FC = () => {
-  const { user, updateProfile, logout } = useAuth();
+  const { user, updateProfile, logout, changeAvatar } = useAuth();
 
   const mutation = useMutation(updateProfile);
 
@@ -58,6 +58,28 @@ const Profile: FC = () => {
     return name;
   }, []);
 
+  const handleDeleteAvatar = useCallback(() => {
+    changeAvatar(null);
+  }, [changeAvatar]);
+
+  const handleUploadAvatar = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+
+    input.onchange = (event: unknown) => {
+      const files = (event as ChangeEvent<HTMLInputElement>).currentTarget?.files;
+
+      if (!files?.length) {
+        return;
+      }
+
+      changeAvatar(files[0]);
+    };
+
+    input.click();
+  }, [changeAvatar]);
+
   return (
     <div className={styles['profile']}>
       <header className={styles['profile__header']}>
@@ -67,7 +89,28 @@ const Profile: FC = () => {
 
         <div className={styles['profile__title']}>
           <Typography variant="title1">Mon profile</Typography>
-          <Avatar />
+
+          <div className={styles['profile__header__avatar']}>
+            <Button
+              icon="pen"
+              color="white"
+              title="Cliquez pour changer l'image"
+              onClick={handleUploadAvatar}
+              className={styles['profile__header__avatar__edit-button']}
+            />
+
+            {user?.avatar != null && (
+              <Button
+                icon="close"
+                color="white"
+                title="Cliquez pour supprimer l'image"
+                onClick={handleDeleteAvatar}
+                className={styles['profile__header__avatar__remove-button']}
+              />
+            )}
+
+            <Avatar className={styles['profile__header__avatar__image']} />
+          </div>
         </div>
       </header>
 

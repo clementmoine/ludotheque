@@ -678,7 +678,6 @@ export class DataForSEO {
             os: 'windows',
           },
         ]),
-        credentials: 'include',
         method: 'POST',
         headers: {
           Authorization: `Basic ${this.api_key}`,

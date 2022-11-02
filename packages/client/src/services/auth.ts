@@ -95,6 +95,28 @@ export function updateProfile(user: Partial<User>): Promise<User> {
 }
 
 /**
+ * Change the user's avatar
+ */
+export function changeAvatar(file: File | null): Promise<User> {
+  const form = new FormData();
+
+  if (file) {
+    form.append('avatar', file);
+  }
+
+  return fetch('/api/v1/users/me/avatar', {
+    method: 'PATCH',
+    body: form,
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+
+    throw new Error(response.statusText);
+  });
+}
+
+/**
  * Update the user's password.
  * @param {Partial<User>} user The user to update.
  * @returns {Promise<User>}

@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { me, login, logout, register, updateProfile } from 'services/auth';
+import { me, login, logout, register, updateProfile, changeAvatar } from 'services/auth';
 
 /**
  * Hook to get the current user.
@@ -57,6 +57,13 @@ export default function useAuth() {
     },
   });
 
+  const changeAvatarMutation = useMutation({
+    mutationFn: changeAvatar,
+    onSuccess: (user) => {
+      setUser(user);
+    },
+  });
+
   return {
     // Login the user.
     login: loginMutation.mutateAsync,
@@ -77,6 +84,10 @@ export default function useAuth() {
     // Update the profile.
     updateProfile: updateProfileMutation.mutateAsync,
     isUpdatingProfile: updateProfileMutation.isLoading,
+
+    // Change avatar
+    changeAvatar: changeAvatarMutation.mutateAsync,
+    isChangingAvatar: changeAvatarMutation.isLoading,
 
     user,
     error,

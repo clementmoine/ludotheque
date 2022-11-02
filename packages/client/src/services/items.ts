@@ -17,7 +17,6 @@ export function search(q: string): Promise<Item[]> {
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
   }).then((response) => {
     if (response.ok) {
       try {

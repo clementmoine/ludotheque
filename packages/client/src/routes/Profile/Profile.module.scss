@@ -1,60 +1,102 @@
 @use 'theme/colors.module';
 
 .profile {
-    row-gap: 32px;
+  row-gap: 32px;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+
+  &__title {
+    width: 100%;
     display: flex;
-    overflow: hidden;
+    column-gap: 16px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__header {
+    row-gap: 8px;
+    display: inline-flex;
     flex-direction: column;
-    
-    &__title {
-        width: 100%;
-        display: flex;
-        column-gap: 16px;
-        align-items: center;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    
-    &__header {
-        row-gap: 8px;
-        display: inline-flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
+    align-items: flex-start;
 
-    &__form {
-        display: flex;
-        row-gap: 16px;
-        flex-direction: column;
+    &__avatar {
+      display: flex;
+      position: relative;
+      align-items: center;
+      justify-content: center;
 
-        &__buttons {
-            width: 100%;
-            display: flex;
-            column-gap: 8px;
-            margin-top: 16px;
+      &__edit-button {
+        opacity: 0;
+        inset: 0;
+        padding: 0;
+        z-index: 1;
+        width: auto;
+        border-radius: 50%;
+        position: absolute;
+        background-color: rgba(colors.$primary, 80%);
 
-            &__item {
-                flex: 1;
-            }
+        &:active {
+          border: 2px solid colors.$primary;
+        }
+      }
+
+      &__remove-button {
+        --size: 8px;
+
+        opacity: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        padding: 2px;
+        position: absolute;
+        border-radius: 50%;
+        background-color: black !important;
+      }
+
+      &:hover & {
+        &__remove-button,
+        &__edit-button {
+            opacity: 1;
         }
     }
-
-    &__main {
-        row-gap: 32px;
-        overflow-y: auto;
-        display: inline-flex;
-        flex-direction: column;
     }
+  }
 
-    &__actions {
-        width: 100%;
-        display: flex;
-        row-gap: 16px;
-        align-items: center;
-        flex-direction: column;
+  &__form {
+    display: flex;
+    row-gap: 16px;
+    flex-direction: column;
 
-        &__delete {
-            color: colors.$red;
-        }
+    &__buttons {
+      width: 100%;
+      display: flex;
+      column-gap: 8px;
+      margin-top: 16px;
+
+      &__item {
+        flex: 1;
+      }
     }
+  }
+
+  &__main {
+    row-gap: 32px;
+    overflow-y: auto;
+    display: inline-flex;
+    flex-direction: column;
+  }
+
+  &__actions {
+    width: 100%;
+    display: flex;
+    row-gap: 16px;
+    align-items: center;
+    flex-direction: column;
+
+    &__delete {
+      color: colors.$red;
+    }
+  }
 }

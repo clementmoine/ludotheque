@@ -16,8 +16,8 @@ import Typography from 'components/Typography';
 import styles from './Register.module.scss';
 
 const RegisterValidationSchema = object().shape({
-  firstName: string().required('Veuillez saisir un prénom.'),
-  lastName: string().required('Veuillez saisir un nom.'),
+  firstname: string().required('Veuillez saisir un prénom.'),
+  lastname: string().required('Veuillez saisir un nom.'),
   email: string().required('Veuillez saisir une adresse e-mail.'),
   password: string().required('Veuillez saisir un mot de passe.'),
 });
@@ -49,8 +49,8 @@ const Register: FC = () => {
 
       <Formik
         initialValues={{
-          firstName: '',
-          lastName: '',
+          firstname: '',
+          lastname: '',
           email: locationState?.previousData?.login || '',
           password: '',
         }}
@@ -64,7 +64,7 @@ const Register: FC = () => {
             <main className={styles['register__main']}>
               <Form autoComplete="off" className={styles['register__form']}>
                 <Field
-                  name="firstName"
+                  name="firstname"
                   type="text"
                   component={Input}
                   label="Prénom"
@@ -72,7 +72,7 @@ const Register: FC = () => {
                 />
 
                 <Field
-                  name="lastName"
+                  name="lastname"
                   type="text"
                   component={Input}
                   label="Nom"

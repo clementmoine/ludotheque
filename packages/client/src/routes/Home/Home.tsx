@@ -30,7 +30,7 @@ const Home: FC = () => {
     <div className={styles['home']}>
       <header className={styles['home__header']}>
         <div className={styles['home__header__title']}>
-          <Typography variant="body1">Bonjour {user?.firstName}</Typography>
+          <Typography variant="body1">Bonjour {user?.firstname}</Typography>
           <Typography variant="title1">Accueil</Typography>
         </div>
 

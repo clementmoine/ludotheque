@@ -15,6 +15,18 @@ export function createUser(user: Partial<User> & Required<Pick<User, 'email' | '
   });
 }
 
+// Update a user
+export function updateUser(
+  user: Partial<Omit<User, 'password'>> & Required<Pick<User, 'id' | 'firstname' | 'lastname' | 'email'>>
+) {
+  return prisma.user.update({
+    data: user,
+    where: {
+      id: user.id,
+    },
+  });
+}
+
 // Sanitize a user
 export function sanitizeUser(user?: User) {
   if (!user) return;

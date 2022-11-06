@@ -25,9 +25,9 @@ const Avatar: FC<AvatarProps> = (props) => {
       return '';
     }
 
-    const { firstName, lastName } = user;
+    const { firstname, lastname } = user;
 
-    return [firstName, lastName].reduce((acc, name) => {
+    return [firstname, lastname].reduce((acc, name) => {
       if (name) {
         acc = `${acc}${name.charAt(0).toUpperCase()}`;
       }

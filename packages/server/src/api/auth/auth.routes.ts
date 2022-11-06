@@ -30,8 +30,8 @@ router.post('/register', upload.single('avatar'), async (req, res, next) => {
       email,
       password,
       username,
-      lastName: req.body.lastName,
-      firstName: req.body.firstName,
+      lastname: req.body.lastname,
+      firstname: req.body.firstname,
       avatar: req.file ? req.file.filename : null,
     });
 

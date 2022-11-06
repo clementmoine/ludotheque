@@ -3,7 +3,7 @@ import express from 'express';
 import upload from 'middlewares/upload';
 import isAuthenticated from 'middlewares/passport';
 
-import { findUserById, sanitizeUser } from './users.services';
+import { findUserById, sanitizeUser, updateUser } from './users.services';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -28,6 +28,32 @@ router.patch('/me/avatar', isAuthenticated, upload.single('avatar'), async (req,
       .then((user) => {
         return sanitizeUser(user);
       });
+
+    if (!updatedUser) {
+      res.status(404);
+
+      throw new Error('User not found.');
+    }
+
+    // Format the user's avatar
+    if (updatedUser.avatar) {
+      updatedUser.avatar = `uploads/${updatedUser.avatar}`;
+    }
+
+    res.json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Update the profile
+router.put('/me', isAuthenticated, async (req, res, next) => {
+  try {
+    const userId = req.user!.id;
+
+    const updatedUser = await updateUser({ id: userId, ...req.body }).then((user) => {
+      return sanitizeUser(user);
+    });
 
     if (!updatedUser) {
       res.status(404);

@@ -30,8 +30,8 @@ const ProfileValidationSchema = object().shape({
 
   //     return value[0].type.startsWith('image/');
   //   }),
-  lastName: string().required('Veuillez saisir votre nom.'),
-  firstName: string().required('Veuillez saisir votre prénom.'),
+  lastname: string().required('Veuillez saisir votre nom.'),
+  firstname: string().required('Veuillez saisir votre prénom.'),
   email: string().email('Veuillez renseigner un e-mail valide.').required('Veuillez saisir votre email.'),
 });
 
@@ -83,7 +83,7 @@ const Profile: FC = () => {
   return (
     <div className={styles['profile']}>
       <header className={styles['profile__header']}>
-        <Button icon="triangle-left" variant="link" color="text" to={locationState?.from?.pathname || '/'}>
+        <Button icon="triangle-left" variant="link" color="text" to="/">
           Retour
         </Button>
 
@@ -117,15 +117,19 @@ const Profile: FC = () => {
       <main className={styles['profile__main']}>
         <Formik
           initialValues={{
-            avatar: user!.avatar,
-            firstName: user!.firstName,
-            lastName: user!.lastName,
+            firstname: user!.firstname,
+            lastname: user!.lastname,
             email: user!.email,
           }}
           validationSchema={ProfileValidationSchema}
-          onSubmit={(values, { setSubmitting }) =>
-            mutation.mutate(values, { onSettled: () => setSubmitting(false) })
-          }
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            mutation.mutate(values, {
+              onSettled: () => setSubmitting(false),
+              onSuccess: (updatedValues) => {
+                resetForm({ values: updatedValues });
+              },
+            });
+          }}
         >
           {({ handleSubmit, handleReset, dirty, isValid, isSubmitting, isValidating }) => {
             return (
@@ -133,7 +137,7 @@ const Profile: FC = () => {
                 {/* <Field name="avatar" component={Input} type="file" label="Avatar" /> */}
 
                 <Field
-                  name="firstName"
+                  name="firstname"
                   type="string"
                   left={{ icon: 'user' }}
                   component={Input}
@@ -142,7 +146,7 @@ const Profile: FC = () => {
                 />
 
                 <Field
-                  name="lastName"
+                  name="lastname"
                   type="string"
                   left={{ icon: 'user' }}
                   component={Input}

@@ -20,8 +20,8 @@ model User {
   password        String                                                            // Password of the user (hashed)
   createdAt       DateTime        @default(now())                                   // Date of creation of the user
   updatedAt       DateTime        @updatedAt                                        // Date of last update of the user
-  firstName       String?                                                           // First name of the user
-  lastName        String?                                                           // Last name of the user
+  firstname       String?                                                           // First name of the user
+  lastname        String?                                                           // Last name of the user
   avatar          String?                                                           // Avatar of the user
   collections     Collection[]                                                      // Collections of the user
 }

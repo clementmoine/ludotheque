@@ -5,7 +5,7 @@ import { User } from '@prisma/client';
  * @param {User} user The user to register.
  * @returns {Promise<User>}
  */
-export function register(user: Pick<User, 'firstName' | 'lastName' | 'email' | 'password'>): Promise<User> {
+export function register(user: Pick<User, 'firstname' | 'lastname' | 'email' | 'password'>): Promise<User> {
   return fetch('/api/v1/auth/register', {
     method: 'POST',
     headers: {
@@ -84,7 +84,12 @@ export function updateProfile(user: Partial<User>): Promise<User> {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(user),
+    body: JSON.stringify({
+      id: user.id,
+      email: user.email,
+      lastname: user.lastname,
+      firstname: user.firstname,
+    }),
   }).then((response) => {
     if (response.ok) {
       return response.json();

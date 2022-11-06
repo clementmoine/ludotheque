@@ -57,7 +57,7 @@ const Button: FC<ButtonProps> = (props) => {
           ...navigateOptions,
           state: {
             ...navigateOptions?.state,
-            from: location,
+            from: navigateOptions?.replace ? undefined : location,
           },
         });
       }

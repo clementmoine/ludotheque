@@ -1,3 +1,47 @@
 .collection {
-    
+  row-gap: 32px;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &__title {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      column-gap: 8px;
+      justify-content: flex-start;
+
+      &__title {
+        flex: 1;
+        row-gap: 8px;
+        display: inline-flex;
+      }
+    }
+
+    &__details {
+        &__author {
+            display: flex;
+            column-gap: 4px;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    &__button {
+      width: 48px;
+    }
+  }
+
+  &__main {
+    row-gap: 32px;
+    overflow-y: auto;
+    display: inline-flex;
+    flex-direction: column;
+  }
 }

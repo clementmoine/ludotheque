@@ -103,20 +103,23 @@ const Router: FC = () => {
               {/* New collection */}
               <Route path="new" element={<Collection />} />
 
+              {/* Edit collection */}
+              <Route path="edit" element={<Collection />} />
+
+              {/* New collection item */}
+              <Route path="new" element={<CollectionItem />} />
+
+              {/* Collection item */}
+              <Route path=":collectionId/items/:itemId">
+                <Route index element={<CollectionItem />} />
+
+                {/* Edit collection item */}
+                <Route path="edit" element={<CollectionItem />} />
+              </Route>
+
               {/* Collection detail */}
-              <Route path=":name">
+              <Route path=":id">
                 <Route index element={<Collection />} />
-
-                {/* Edit collection */}
-                <Route path="edit" element={<Collection />} />
-
-                {/* Collection item */}
-                <Route path=":id">
-                  <Route index element={<CollectionItem />} />
-
-                  {/* Edit collection item */}
-                  <Route path="edit" element={<CollectionItem />} />
-                </Route>
               </Route>
             </Route>
           </Route>

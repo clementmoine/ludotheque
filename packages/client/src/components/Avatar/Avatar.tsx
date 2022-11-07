@@ -51,7 +51,7 @@ const Avatar: FC<AvatarProps> = (props) => {
   return (
     <Element
       style={{
-        '--image': `url("${user.avatar}")`,
+        '--image': `url("/${user.avatar}")`,
       }}
       onClick={onClick}
       className={classNames([className, styles['avatar'], { [styles[`avatar--size-${size}`]]: size }])}

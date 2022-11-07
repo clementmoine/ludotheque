@@ -35,8 +35,6 @@ router.get('/', isAuthenticated, async (req, res, next) => {
       return;
     }
 
-    res.status(204);
-
     res.json([]);
   } catch (err) {
     next(err);

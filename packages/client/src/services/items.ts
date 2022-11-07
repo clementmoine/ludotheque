@@ -3,7 +3,7 @@ import { Item } from '@prisma/client';
 /**
  * Search an item.
  * @param {String} q The search query.
- * @returns {Promise<Item>}
+ * @returns {Promise<Item[]>}
  */
 export function search(q: string): Promise<Item[]> {
   const query = new URLSearchParams({

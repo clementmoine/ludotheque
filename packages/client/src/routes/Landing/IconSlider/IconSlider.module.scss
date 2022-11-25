@@ -4,15 +4,10 @@
   
   --width: 160px;
 
-  z-index: -1;
-  display: flex;
-  row-gap: 30px;
+  inset: 0;
   overflow: hidden;
   position: absolute;
-  flex-direction: column;
-  justify-content: space-around;
-  rotate: calc(-1 * var(--angle));
-  inset: calc(-1 * (var(--width) / 2));
+  pointer-events: none;
 
   @keyframes slide {
     0% {
@@ -21,6 +16,18 @@
     100% {
       transform: translateX(-50%);
     }
+  }
+
+  &__content {
+    z-index: -1;
+    display: flex;
+    row-gap: 30px;
+    overflow: hidden;
+    position: absolute;
+    flex-direction: column;
+    justify-content: space-around;
+    rotate: calc(-1 * var(--angle));
+    inset: calc(-1 * (var(--width) / 2));
   }
 
   &__carousel {

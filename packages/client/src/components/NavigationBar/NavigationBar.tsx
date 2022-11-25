@@ -1,9 +1,11 @@
 import classNames from 'classnames';
-import Button from 'components/Button';
-import Icon from 'components/Icon';
-import Typography from 'components/Typography';
 import { FC, useMemo } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+
+import Icon from 'components/Icon';
+import Button from 'components/Button';
+import Typography from 'components/Typography';
+
 import { LocationState } from 'routes';
 
 import styles from './NavigationBar.module.scss';
@@ -63,10 +65,12 @@ const NavigationBar: FC<NavigationBarProps> = (props) => {
 
   return (
     <div className={styles['screen']}>
+      {/* Screen */}
       <div className={styles['screen__outlet']}>
         <Outlet />
       </div>
 
+      {/* Navigation bar */}
       <nav className={styles['screen__navigation-bar']} {...props}>
         <ul className={styles['screen__navigation-bar__list']}>
           {(Object.keys(items) as Array<keyof typeof items>).map((key) => {

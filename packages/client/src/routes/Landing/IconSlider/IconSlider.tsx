@@ -66,33 +66,35 @@ const IconSlider: FC<IconSliderProps> = (props) => {
 
   return (
     <div className={classNames(styles['icon-slider'], className)} style={{ ['--count']: icons.length }}>
-      {sliderRowItems.map((items, index) => (
-        <ul
-          key={index}
-          className={classNames(
-            styles['icon-slider__carousel'],
-            styles[`icon-slider__carousel--${index % 2 ? 'reverse' : 'normal'}`]
-          )}
-        >
-          {items.map((item) => (
-            <li key={`${index}_${item}`} className={styles['icon-slider__carousel__slide']}>
-              <Icon name={item} className={styles['icon-slider__carousel__slide__icon']} />
-            </li>
-          ))}
+      <div className={styles['icon-slider__content']}>
+        {sliderRowItems.map((items, index) => (
+          <ul
+            key={index}
+            className={classNames(
+              styles['icon-slider__carousel'],
+              styles[`icon-slider__carousel--${index % 2 ? 'reverse' : 'normal'}`]
+            )}
+          >
+            {items.map((item) => (
+              <li key={`${index}_${item}`} className={styles['icon-slider__carousel__slide']}>
+                <Icon name={item} className={styles['icon-slider__carousel__slide__icon']} />
+              </li>
+            ))}
 
-          {items.map((item) => (
-            <li
-              key={`${index}_${item}_copy`}
-              className={classNames(
-                styles['icon-slider__carousel__slide'],
-                styles['icon-slider__carousel__slide--copy']
-              )}
-            >
-              <Icon name={item} className={styles['icon-slider__carousel__slide__icon']} />
-            </li>
-          ))}
-        </ul>
-      ))}
+            {items.map((item) => (
+              <li
+                key={`${index}_${item}_copy`}
+                className={classNames(
+                  styles['icon-slider__carousel__slide'],
+                  styles['icon-slider__carousel__slide--copy']
+                )}
+              >
+                <Icon name={item} className={styles['icon-slider__carousel__slide__icon']} />
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
     </div>
   );
 };

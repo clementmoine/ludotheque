@@ -7,14 +7,10 @@
     align-self: center;
     flex-direction: column;
 
-    &__background {
-        pointer-events: none;
-    }
-
     &__content {
         background-color: colors.$background;
         row-gap: 8px;
-        margin: auto -12px 0 -12px;
+        margin-top: auto;
         padding: 12px 24px;
         display: flex;
         flex-direction: column;

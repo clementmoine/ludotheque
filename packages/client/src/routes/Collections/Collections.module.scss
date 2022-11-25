@@ -23,22 +23,23 @@
   }
 
   &__items {
+    gap: 8px;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
 
     &__item {
       flex: 1;
+      row-gap: 8px;
       display: flex;
-      row-gap: 10px;
       list-style: none;
       border-radius: 4px;
       align-items: center;
       flex-direction: column;
       justify-content: center;
       background-color: colors.$white;
-      box-shadow: 0 4px 4px 0 colors.$grey-light;
+      box-shadow: 0 4px 4px 0 colors.$black-20;
 
       &__icon {
         --size: 18px;

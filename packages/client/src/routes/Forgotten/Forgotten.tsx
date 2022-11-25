@@ -24,9 +24,12 @@ const Forgotten: FC = () => {
   return (
     <div className={styles['forgotten']}>
       <header className={styles['forgotten__header']}>
-        <Button icon="triangle-left" variant="link" color="text" to={locationState?.from?.pathname || '/'}>
-          Retour
-        </Button>
+        <Button
+          icon="triangle-left"
+          variant="icon"
+          to={locationState?.from?.pathname || '/'}
+          title="Retour à la page précédente"
+        />
 
         <div className={styles['forgotten__title']}>
           <Typography variant="title1">Mot de passé oublié ? 🫵</Typography>

@@ -10,7 +10,7 @@
     &__content {
         background-color: colors.$background;
         row-gap: 8px;
-        margin-top: auto;
+        margin: auto -12px 0 -12px;
         padding: 12px 24px;
         display: flex;
         flex-direction: column;

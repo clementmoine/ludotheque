@@ -25,7 +25,7 @@ $padding-inline: 24px;
   border: $border-size solid transparent;
 
   &[disabled] {
-    color: colors.$grey;
+    color: colors.$black-50;
     cursor: not-allowed;
   }
 
@@ -53,7 +53,7 @@ $padding-inline: 24px;
       background-color: colors.$primary;
 
       &[disabled] {
-        background-color: colors.$grey-light;
+        background-color: colors.$black-20;
       }
 
       &:not([disabled]):active {
@@ -65,17 +65,22 @@ $padding-inline: 24px;
       padding: 0;
       aspect-ratio: 1;
       width: $icon-size;
+      border-radius: 50%;
       background: transparent;
-      color: var(--color, colors.$black);
+      color: var(--color, colors.$text);
+
+      &:hover {
+        background: colors.$black-5;
+      }
     }
 
     &-reverse {
-      border-color: colors.$grey;
+      border-color: colors.$black-50;
       background-color: colors.$white;
       color: var(--color, colors.$black);
 
       &[disabled] {
-        background-color: colors.$grey-light;
+        background-color: colors.$black-20;
       }
     }
 
@@ -85,7 +90,7 @@ $padding-inline: 24px;
       color: var(--color, colors.$primary);
 
       &[disabled] {
-        border-color: colors.$grey-light;
+        border-color: colors.$black-20;
       }
     }
 

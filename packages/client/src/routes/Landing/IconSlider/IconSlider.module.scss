@@ -27,7 +27,7 @@
     flex-direction: column;
     justify-content: space-around;
     rotate: calc(-1 * var(--angle));
-    inset: calc(-1 * (var(--width) / 2));
+    inset: calc(-1 * (var(--width)));
   }
 
   &__carousel {

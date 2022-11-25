@@ -17,6 +17,7 @@ import Typography from 'components/Typography';
 import pkg from '../../../package.json';
 
 import styles from './Profile.module.scss';
+import Icon from 'components/Icon';
 
 const ProfileValidationSchema = object().shape({
   // avatar: mixed()
@@ -83,34 +84,19 @@ const Profile: FC = () => {
   return (
     <div className={styles['profile']}>
       <header className={styles['profile__header']}>
-        <Button icon="triangle-left" variant="link" color="text" to="/">
-          Retour
-        </Button>
+        <Button icon="triangle-left" variant="icon" to="/" title="Retour à la page précédente" />
 
-        <div className={styles['profile__title']}>
-          <Typography variant="title1">Mon profile</Typography>
+        <div className={styles['profile__header__title']}>
+          <Button
+            onClick={handleUploadAvatar}
+            title="Cliquez pour changer l'image"
+            className={styles['profile__header__avatar']}
+          >
+            <Icon name="pen" color="white" className={styles['profile__header__avatar__icon']} />
+            <Avatar size="xl" className={styles['profile__header__avatar__image']} />
+          </Button>
 
-          <div className={styles['profile__header__avatar']}>
-            <Button
-              icon="pen"
-              color="white"
-              title="Cliquez pour changer l'image"
-              onClick={handleUploadAvatar}
-              className={styles['profile__header__avatar__edit-button']}
-            />
-
-            {user?.avatar != null && (
-              <Button
-                icon="close"
-                color="white"
-                title="Cliquez pour supprimer l'image"
-                onClick={handleDeleteAvatar}
-                className={styles['profile__header__avatar__remove-button']}
-              />
-            )}
-
-            <Avatar className={styles['profile__header__avatar__image']} />
-          </div>
+          <Typography variant="title4">{`${user?.firstname} ${user?.lastname}`}</Typography>
         </div>
       </header>
 
@@ -134,8 +120,6 @@ const Profile: FC = () => {
           {({ handleSubmit, handleReset, dirty, isValid, isSubmitting, isValidating }) => {
             return (
               <Form autoComplete="off" className={styles['profile__form']}>
-                {/* <Field name="avatar" component={Input} type="file" label="Avatar" /> */}
-
                 <Field
                   name="firstname"
                   type="string"

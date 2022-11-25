@@ -22,16 +22,17 @@ const Collections: FC = () => {
           </Typography>
         </div>
 
-        <Button
+        {/* <Button
           variant="icon"
           title="Cliquez pour rechercher une collection"
           className={styles['collections__header__button']}
         >
           <Icon size="24px" name="search" />
-        </Button>
+        </Button> */}
 
         <Button
           variant="icon"
+          to="/collections/new"
           title="Cliquez pour créer une nouvelle collection"
           className={styles['collections__header__button']}
         >

@@ -72,9 +72,13 @@ const Scan: FC = () => {
 
   return (
     <div className={styles['scan']}>
-      <Button icon="triangle-left" variant="link" color="white" to={locationState?.from?.pathname || '/'}>
-        Retour
-      </Button>
+      <Button
+        icon="triangle-left"
+        variant="icon"
+        color="white"
+        title="Retour à la page précédente"
+        to={locationState?.from?.pathname || '/'}
+      />
 
       <div className={styles['scan__crosshair']} />
 

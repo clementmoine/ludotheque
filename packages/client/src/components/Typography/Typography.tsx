@@ -56,11 +56,11 @@ function Typography<T extends keyof JSX.IntrinsicElements = 'p'>(props: Typograp
       {...restProps}
       style={elementStyle}
       className={classNames(
-        className,
         styles['typography'],
         styles[`typography--align-${align}`],
         styles[`typography--variant-${variant}`],
-        styles[`typography--variant-${variant.match(/^(title|subtitle|body|caption)/)?.[0]}`]
+        styles[`typography--variant-${variant.match(/^(title|subtitle|body|caption)/)?.[0]}`],
+        className
       )}
     >
       {children}

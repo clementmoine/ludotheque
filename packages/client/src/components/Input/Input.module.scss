@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 @use 'theme/colors.module';
 
@@ -10,10 +10,10 @@ $border-size: 1px;
 $border-radius: 4px;
 
 .input {
-  row-gap: 4px;
+  row-gap: 8px;
   display: inline-flex;
   flex-direction: column;
-  
+
   --inner-padding: 12px;
 
   &--size {
@@ -40,13 +40,37 @@ $border-radius: 4px;
     padding-right: calc(
       (var(--right-icon-count, 0) * button.$icon-size) + /** Number of icons **/
         (max(var(--right-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
-        (min((var(--right-icon-count, 0) + 1), 2) * calc(var(--inner-padding) / min((var(--right-icon-count, 0) + 1), 2))) /** Inner padding **/
+        (
+          min((var(--right-icon-count, 0) + 1), 2) *
+            calc(var(--inner-padding) / min((var(--right-icon-count, 0) + 1), 2))
+        )
+        /** Inner padding **/
     );
     padding-left: calc(
       (var(--left-icon-count, 0) * button.$icon-size) + /** Number of icons **/
         (max(var(--left-icon-count, 0) - 1, 0) * $icon-gap) + /** Gap between icons **/
-        (min((var(--left-icon-count, 0) + 1), 2) * calc(var(--inner-padding) / min((var(--left-icon-count, 0) + 1), 2))) /** Inner padding **/
+        (
+          min((var(--left-icon-count, 0) + 1), 2) *
+            calc(var(--inner-padding) / min((var(--left-icon-count, 0) + 1), 2))
+        )
+        /** Inner padding **/
     );
+
+    /* used to override pale yellow color that chrome uses when user chooses an item from its autocomplete list */
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
+    &:-webkit-autofill {
+      -webkit-text-fill-color: colors.$black;
+    }
+
+    &:-webkit-autofill:focus {
+      -webkit-text-fill-color: colors.$black;
+    }
 
     &[type='search'] {
       &::-webkit-search-decoration,
@@ -60,12 +84,11 @@ $border-radius: 4px;
 
   &__container {
     display: flex;
-    overflow: hidden;
     position: relative;
     flex-direction: column;
     border-radius: $border-radius;
-    background-color: colors.$white;
-    border: $border-size solid colors.$grey-light;
+    background-color: colors.$black-5;
+    border: $border-size solid transparent;
 
     &:focus-within {
       border-color: colors.$primary;
@@ -98,6 +121,6 @@ $border-radius: 4px;
   }
 
   &::placeholder {
-    color: colors.$grey;
+    color: colors.$black-50;
   }
 }

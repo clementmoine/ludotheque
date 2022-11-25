@@ -1,32 +1,40 @@
 $red: #B22F2F;
-$black: #000000;
 $white: #FFFFFF;
-
-$grey: rgba($black, 56%);
-$grey-light: rgba($black, 20%);
-$grey-lighter: rgba($black, 10%);
-
+$black: #191A1A;
 $primary: #4E1ED9;
 
-$background: #F5F5F5;
-
-$overlay: rgba($black, 60%);
+$black-5: rgba($black, 5%);
+$black-10: rgba($black, 10%);
+$black-20: rgba($black, 20%);
+$black-50: rgba($black, 50%);
+$black-60: rgba($black, 60%);
 
 $invalid: $red;
 
+$background: $white;
+
+$overlay: $black-60;
+
 $title: $black;
-$text: rgba($black, 56%);
+$text: $black-50;
 
 :export {
     red: $red;
-    black: $black;
     white: $white;
-    grey: $grey;
-    grey-light: $grey-light;
+    black: $black;
     primary: $primary;
-    background: $background;
-    overlay: $overlay;
+
+    black-50: $black-50;
+    black-20: $black-20;
+    black-10: $black-10;
+    black-5: $black-5;
+    
     invalid: $invalid;
+    
+    background: $background;
+    
+    overlay: $overlay;
+    
     title: $title;
     text: $text;
 }

@@ -118,7 +118,7 @@ const Router: FC = () => {
               </Route>
 
               {/* Collection detail */}
-              <Route path=":id">
+              <Route path=":collectionId">
                 <Route index element={<Collection />} />
               </Route>
             </Route>

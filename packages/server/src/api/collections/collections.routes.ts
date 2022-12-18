@@ -13,12 +13,10 @@ const prisma = new PrismaClient();
 // Get every collections
 router.get('/', isAuthenticated, async (req, res, next) => {
   try {
+    const { q } = req.query;
     const ownerId = req.user!.id;
 
     const collections = await prisma.collection.findMany({
-      where: {
-        ownerId,
-      },
       select: {
         ...excludeFields(Prisma.CollectionScalarFieldEnum, ['ownerId']),
         _count: {
@@ -26,6 +24,21 @@ router.get('/', isAuthenticated, async (req, res, next) => {
             items: true,
           },
         },
+      },
+      where: {
+        ownerId,
+        ...(q && {
+          OR: [
+            { label: { contains: q as string | undefined, mode: 'insensitive' } },
+            {
+              items: {
+                some: {
+                  title: { contains: q as string | undefined, mode: 'insensitive' },
+                },
+              },
+            },
+          ],
+        }),
       },
     });
 
@@ -98,18 +111,25 @@ router.post('/:id/items', isAuthenticated, async (req, res, next) => {
 // Get collection from the id
 router.get('/:id', isAuthenticated, async (req, res, next) => {
   try {
+    const { q } = req.query;
     const { id } = req.params;
 
     const ownerId = req.user!.id;
 
     const collection = await prisma.collection.findFirst({
+      select: {
+        ...excludeFields(Prisma.CollectionScalarFieldEnum, ['ownerId']),
+        items: q
+          ? {
+              where: {
+                title: { contains: q as string | undefined, mode: 'insensitive' },
+              },
+            }
+          : true,
+      },
       where: {
         id: Number(id),
         ownerId,
-      },
-      select: {
-        ...excludeFields(Prisma.CollectionScalarFieldEnum, ['ownerId']),
-        items: true,
       },
     });
 

@@ -15,11 +15,15 @@
 
     &__button {
       width: 48px;
+      height: 48px;
     }
   }
 
   &__content {
-    padding: 16px 0; 
+    display: flex;
+    row-gap: 16px;
+    padding: 16px 0;
+    flex-direction: column;
   }
 
   &__items {
@@ -34,7 +38,7 @@
       row-gap: 8px;
       display: flex;
       list-style: none;
-      border-radius: 4px;
+      border-radius: 10px;
       align-items: center;
       flex-direction: column;
       justify-content: center;

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import Typography from 'components/Typography';
 
@@ -6,9 +6,12 @@ import styles from './Collections.module.scss';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 import useCollections from 'hooks/useCollections';
+import Input from 'components/Input';
 
 const Collections: FC = () => {
-  const { collections } = useCollections();
+  const [query, setQuery] = useState<string>();
+
+  const { collections } = useCollections(query);
 
   return (
     <div className={styles['collections']}>
@@ -22,14 +25,6 @@ const Collections: FC = () => {
           </Typography>
         </div>
 
-        {/* <Button
-          variant="icon"
-          title="Cliquez pour rechercher une collection"
-          className={styles['collections__header__button']}
-        >
-          <Icon size="24px" name="search" />
-        </Button> */}
-
         <Button
           variant="icon"
           to="/collections/new"
@@ -41,6 +36,17 @@ const Collections: FC = () => {
       </header>
 
       <main className={styles['collections__content']}>
+        <Input
+          type="search"
+          debounce={500}
+          onChange={(filter) => {
+            setQuery(filter);
+          }}
+          left={{ icon: 'search' }}
+          placeholder="Rechercher une collection"
+          className={styles['collections__content__search']}
+        />
+
         <ul className={styles['collections__items']}>
           {collections?.map((collection) => (
             <li key={collection.id} className={styles['collections__items__item']}>

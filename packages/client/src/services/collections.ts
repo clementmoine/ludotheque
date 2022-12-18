@@ -1,11 +1,20 @@
-import { Collection } from '@prisma/client';
+import { Collection, Item } from '@prisma/client';
 
 /**
  * Get collections.
  * @returns {Promise<Collection[]>}
  */
-export function fetchCollections(): Promise<Collection[]> {
-  return fetch('/api/v1/collections', {
+export function fetchCollections(query?: string): Promise<Collection[]> {
+  const host = `${window.location.protocol}//${window.location.host}`;
+  const url = new URL(`${host}/api/v1/collections`);
+
+  if (query) {
+    url.search = new URLSearchParams({
+      q: query,
+    }).toString();
+  }
+
+  return fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -23,8 +32,20 @@ export function fetchCollections(): Promise<Collection[]> {
   });
 }
 
-export function getCollectionById(collectionId: Collection['id']): Promise<Collection> {
-  return fetch(`/api/v1/collections/${collectionId}`, {
+export function getCollectionById(
+  collectionId: Collection['id'],
+  query?: string
+): Promise<Collection & { items: Item[] }> {
+  const host = `${window.location.protocol}//${window.location.host}`;
+  const url = new URL(`${host}/api/v1/collections/${collectionId}`);
+
+  if (query) {
+    url.search = new URLSearchParams({
+      q: query,
+    }).toString();
+  }
+
+  return fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -9,6 +9,7 @@ import NavigationBar from 'components/NavigationBar';
 
 const Scan = lazy(() => import('routes/Scan'));
 const Lost = lazy(() => import('routes/Lost'));
+const Item = lazy(() => import('routes/Item'));
 const Home = lazy(() => import('routes/Home'));
 const Login = lazy(() => import('routes/Login'));
 const Search = lazy(() => import('routes/Search'));
@@ -18,7 +19,6 @@ const Register = lazy(() => import('routes/Register'));
 const Forgotten = lazy(() => import('routes/Forgotten'));
 const Collection = lazy(() => import('routes/Collection'));
 const Collections = lazy(() => import('routes/Collections'));
-const CollectionItem = lazy(() => import('routes/CollectionItem'));
 
 export interface LocationState {
   from?: Location;
@@ -107,14 +107,14 @@ const Router: FC = () => {
               <Route path="edit" element={<Collection />} />
 
               {/* New collection item */}
-              <Route path="new" element={<CollectionItem />} />
+              <Route path="new" element={<Item />} />
 
               {/* Collection item */}
               <Route path=":collectionId/items/:itemId">
-                <Route index element={<CollectionItem />} />
+                <Route index element={<Item />} />
 
                 {/* Edit collection item */}
-                <Route path="edit" element={<CollectionItem />} />
+                <Route path="edit" element={<Item />} />
               </Route>
 
               {/* Collection detail */}

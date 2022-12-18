@@ -1,4 +1,4 @@
-import { Collection } from '@prisma/client';
+import { Collection, Item } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 
 import { getCollectionById } from 'services/collections';
@@ -6,17 +6,16 @@ import { getCollectionById } from 'services/collections';
 /**
  * Hook to get the collections
  */
-export default function useCollection(collectionId: Collection['id']) {
-  console.log(collectionId);
+export default function useCollection(collectionId: Collection['id'], query?: string) {
   const {
     data: collection,
     error,
     status,
     isLoading,
     refetch,
-  } = useQuery<Collection, Error>({
-    queryKey: ['collections', collectionId],
-    queryFn: () => getCollectionById(collectionId),
+  } = useQuery<Collection & { items: Item[] }, Error>({
+    queryKey: ['collections', collectionId, query],
+    queryFn: () => getCollectionById(collectionId, query),
     enabled: !!collectionId,
     retry: false,
   });

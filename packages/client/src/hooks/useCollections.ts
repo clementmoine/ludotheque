@@ -6,7 +6,7 @@ import { fetchCollections } from 'services/collections';
 /**
  * Hook to get the collections
  */
-export default function useCollections() {
+export default function useCollections(query?: string) {
   const {
     data: collections,
     error,
@@ -14,8 +14,8 @@ export default function useCollections() {
     isLoading,
     refetch,
   } = useQuery<Collection[], Error>({
-    queryKey: ['collections'],
-    queryFn: fetchCollections,
+    queryKey: ['collections', query],
+    queryFn: () => fetchCollections(query),
     retry: false,
   });
 

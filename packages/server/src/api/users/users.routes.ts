@@ -37,7 +37,7 @@ router.patch('/me/avatar', isAuthenticated, upload.single('avatar'), async (req,
 
     // Format the user's avatar
     if (updatedUser.avatar) {
-      updatedUser.avatar = `uploads/${updatedUser.avatar}`;
+      updatedUser.avatar = `/uploads/${updatedUser.avatar}`;
     }
 
     res.json(updatedUser);
@@ -63,7 +63,7 @@ router.put('/me', isAuthenticated, async (req, res, next) => {
 
     // Format the user's avatar
     if (updatedUser.avatar) {
-      updatedUser.avatar = `uploads/${updatedUser.avatar}`;
+      updatedUser.avatar = `/uploads/${updatedUser.avatar}`;
     }
 
     res.json(updatedUser);
@@ -85,7 +85,7 @@ router.get('/me', isAuthenticated, async (req, res, next) => {
 
     // Format the user's avatar
     if (user.avatar) {
-      user.avatar = `uploads/${user.avatar}`;
+      user.avatar = `/uploads/${user.avatar}`;
     }
 
     res.json(user);
@@ -107,7 +107,7 @@ router.get('/:id', isAuthenticated, async (req, res, next) => {
 
     // Format the user's avatar
     if (user.avatar) {
-      user.avatar = `uploads/${user.avatar}`;
+      user.avatar = `/uploads/${user.avatar}`;
     }
 
     res.json(user);

@@ -1,9 +1,13 @@
 import { Collection, Prisma, PrismaClient } from '@prisma/client';
-import { sanitizeItem } from 'api/items/items.services';
 import express from 'express';
 
+import { sanitizeItem } from 'api/items/items.services';
+
+import upload from 'middlewares/upload';
 import isAuthenticated from 'middlewares/passport';
+
 import { excludeFields } from 'utils/excludeFields';
+
 import { addCollectionItem, createCollection, deleteCollectionItem } from './collections.services';
 
 const router = express.Router();
@@ -81,7 +85,7 @@ router.delete('/:id/items/:itemId', isAuthenticated, async (req, res, next) => {
 });
 
 // Add an item to the collection
-router.post('/:id/items', isAuthenticated, async (req, res, next) => {
+router.post('/:id/items', upload.single('cover'), isAuthenticated, async (req, res, next) => {
   try {
     const userId = req.user!.id;
 
@@ -100,7 +104,15 @@ router.post('/:id/items', isAuthenticated, async (req, res, next) => {
       throw new Error('Collection is not yours.');
     }
 
-    const createdItem = await addCollectionItem(Number(id), sanitizeItem(req.body));
+    const createdItem = await addCollectionItem(
+      Number(id),
+      sanitizeItem({ ...req.body, cover: req.file ? req.file.filename : null })
+    );
+
+    // Format the cover
+    if (createdItem.cover) {
+      createdItem.cover = `/uploads/${createdItem.cover}`;
+    }
 
     res.json(createdItem);
   } catch (err) {
@@ -134,6 +146,15 @@ router.get('/:id', isAuthenticated, async (req, res, next) => {
     });
 
     if (collection) {
+      collection.items = collection.items.map((item) => {
+        // Format the cover
+        if (item.cover) {
+          item.cover = `/uploads/${item.cover}`;
+        }
+
+        return item;
+      });
+
       res.json(collection);
 
       return;

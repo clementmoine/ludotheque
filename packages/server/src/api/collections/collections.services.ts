@@ -1,5 +1,5 @@
 import { Collection, Item, PrismaClient } from '@prisma/client';
-import { createItem, findItemWithoutId } from 'api/items/items.services';
+import { createItem, findItemByGtin } from 'api/items/items.services';
 
 const prisma = new PrismaClient();
 
@@ -14,16 +14,25 @@ export async function createCollection(collection: Omit<Collection, 'id'>) {
 
 // Add item to the collection
 export async function addCollectionItem(id: Collection['id'], item: Omit<Item, 'id'>) {
-  let existingItem = await findItemWithoutId(item);
+  let existingItem = item.gtin ? await findItemByGtin(item.gtin, false) : null;
+
+  // Update the item if already exists to enrich the item
+  if (existingItem) {
+    existingItem = await prisma.item.update({
+      where: { id: existingItem.id },
+      data: {
+        cover: item.cover,
+        title: item.title,
+      },
+    });
+  }
 
   // Create the item when not existing
-  if (!existingItem) {
+  else {
     existingItem = await createItem(item);
   }
 
-  // Check the collection is
-
-  // Add the item to the collection
+  // Add the item to the collection and update the original item
   await prisma.collection.update({
     where: { id },
     data: {

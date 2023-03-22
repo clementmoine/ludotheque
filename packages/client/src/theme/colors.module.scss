@@ -3,11 +3,18 @@ $white: #FFFFFF;
 $black: #191A1A;
 $primary: #4E1ED9;
 
-$black-5: rgba($black, 5%);
-$black-10: rgba($black, 10%);
-$black-20: rgba($black, 20%);
-$black-50: rgba($black, 50%);
-$black-60: rgba($black, 60%);
+$black-5: mix($black, $white, 5%);
+$black-10: mix($black, $white, 10%);
+$black-20: mix($black, $white, 20%);
+$black-50: mix($black, $white, 50%);
+$black-60: mix($black, $white, 60%);
+
+
+$primary-5: mix($primary, $white, 5%);
+$primary-10: mix($primary, $white, 10%);
+$primary-20: mix($primary, $white, 20%);
+$primary-50: mix($primary, $white, 50%);
+$primary-60: mix($primary, $white, 60%);
 
 $invalid: $red;
 

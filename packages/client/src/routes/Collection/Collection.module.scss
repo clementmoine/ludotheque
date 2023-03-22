@@ -1,3 +1,5 @@
+@use 'theme/colors.module';
+
 .collection {
   display: flex;
   overflow: hidden;
@@ -52,5 +54,36 @@
     overflow-y: auto;
     display: inline-flex;
     flex-direction: column;
+  }
+
+  &__items {
+    gap: 16px;
+    margin: 0 2px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+
+    &__item {
+      padding: 8px;
+      row-gap: 8px;
+      display: flex;
+      border-radius: 14px;
+      align-items: center;
+      flex-direction: column;
+      background-color: colors.$white;
+
+      &__title {
+        text-align: center;
+      }
+
+      &__thumbnail {
+        width: 100%;
+        aspect-ratio: 1;
+        overflow: hidden;
+        border-radius: 10px;
+        object-fit: contain;
+        background-color: colors.$white;
+      }
+    }
   }
 }

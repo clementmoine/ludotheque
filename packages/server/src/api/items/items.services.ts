@@ -113,17 +113,23 @@ export async function findItemFromQueryString(q: any) {
 }
 
 // Find the item in the database
-export async function findItemByGtin(gtin: string) {
+export async function findItemByGtin(gtin: string, includeCollections = true) {
+  if (!gtin) return null;
+
   // Try to find the product by gtin in the database
   const existingItem = await prisma.item.findUnique({
     where: {
       gtin,
     },
-    include: {
-      collections: {
-        select: excludeFields(Prisma.CollectionScalarFieldEnum, ['ownerId']),
-      },
-    },
+    ...(includeCollections
+      ? {
+          include: {
+            collections: {
+              select: excludeFields(Prisma.CollectionScalarFieldEnum, ['ownerId']),
+            },
+          },
+        }
+      : {}),
   });
 
   return existingItem;

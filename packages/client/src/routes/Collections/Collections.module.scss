@@ -38,20 +38,35 @@
       row-gap: 8px;
       display: flex;
       list-style: none;
+      overflow: hidden;
       border-radius: 10px;
+      position: relative;
       align-items: center;
       flex-direction: column;
       justify-content: center;
-      background-color: colors.$white;
-      box-shadow: 0 4px 4px 0 colors.$black-20;
+
+      &::after {
+        inset: 0;
+        content: '';
+        position: absolute;
+        opacity: 10%;
+        z-index: -1;
+        user-select: none;
+        pointer-events: none;
+        background-color: var(--collection-color, colors.$primary);
+      }
 
       &__icon {
+        color: var(--collection-color, colors.$primary);
         --size: 18px;
       }
 
-      &__button {
-        padding: 12px;
+      &__link {
         width: 100%;
+        display: flex;
+        padding: 12px;
+        align-items: center;
+        justify-content: center;
         background-color: transparent;
       }
 

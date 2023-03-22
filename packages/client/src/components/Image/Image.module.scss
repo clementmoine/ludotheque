@@ -1,0 +1,30 @@
+@use 'theme/colors.module';
+
+.image {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+
+    &--has-error {
+        &::after {
+            inset: 0;
+            content: '';
+            position: absolute;
+
+            mask: url('/assets/thumbnail.svg') no-repeat center;
+            -webkit-mask: url('/assets/thumbnail.svg') no-repeat center;
+
+            mask-size: 32px;
+            -webkit-mask-size: 32px;
+            
+            background-color: colors.$black-20;
+        }
+
+        &::before {
+            inset: 0;
+            content: '';
+            position: absolute;
+            background-color: colors.$white;
+        }
+    }
+}

@@ -42,7 +42,7 @@ router.post('/register', upload.single('avatar'), async (req, res, next) => {
       }
 
       if (user.avatar) {
-        user.avatar = `uploads/${user.avatar}`;
+        user.avatar = `/uploads/${user.avatar}`;
       }
 
       res.json(sanitizeUser(user));
@@ -70,7 +70,7 @@ router.post('/login', (req, res, next) => {
         }
 
         if (user.avatar) {
-          user.avatar = `uploads/${user.avatar}`;
+          user.avatar = `/uploads/${user.avatar}`;
         }
 
         res.json(sanitizeUser(user));

@@ -7,6 +7,7 @@ import Button from 'components/Button';
 import Icon from 'components/Icon';
 import useCollections from 'hooks/useCollections';
 import Input from 'components/Input';
+import { Link } from 'react-router-dom';
 
 const Collections: FC = () => {
   const [query, setQuery] = useState<string>();
@@ -49,18 +50,23 @@ const Collections: FC = () => {
 
         <ul className={styles['collections__items']}>
           {collections?.map((collection) => (
-            <li key={collection.id} className={styles['collections__items__item']}>
-              <Button
+            <li
+              key={collection.id}
+              style={{ '--collection-color': collection.color }}
+              className={styles['collections__items__item']}
+            >
+              <Link
                 title={collection.label}
                 to={`/collections/${collection.id}`}
-                className={styles['collections__items__item__button']}
+                className={styles['collections__items__item__link']}
               >
                 <Icon
                   size="64px"
                   name={collection.icon}
+                  color={collection.color ?? 'primary'}
                   className={styles['collections__items__item__icon']}
                 />
-              </Button>
+              </Link>
             </li>
           ))}
         </ul>

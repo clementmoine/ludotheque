@@ -1,9 +1,8 @@
 import { FC, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-
-import { LocationState } from 'routes';
+import { useParams } from 'react-router-dom';
 
 import Icon from 'components/Icon';
+import Image from 'components/Image';
 import Avatar from 'components/Avatar';
 import Button from 'components/Button';
 import Typography from 'components/Typography';
@@ -57,7 +56,7 @@ const Collection: FC = () => {
           </div>
 
           <Typography variant="body2">
-            {`${collection?.items?.length ?? 'Aucune'} objet${
+            {`${collection?.items?.length ?? 'Aucun'} objet${
               (collection?.items?.length || 0) > 1 ? 's' : ''
             }`}
           </Typography>
@@ -76,14 +75,20 @@ const Collection: FC = () => {
           className={styles['collections__content__search']}
         />
 
-        <ul>
+        <ul className={styles['collection__items']}>
           {collection?.items.map((item) => {
             return (
-              <li key={item.id}>
-                <figure>
-                  <img src={item.cover ?? ''} alt={item.title} />
-                  <figcaption>{item.title}</figcaption>
-                </figure>
+              <li key={item.id} className={styles['collection__items__item']}>
+                <Image
+                  alt={item.title}
+                  title={item.title}
+                  src={item.cover ?? ''}
+                  className={styles['collection__items__item__thumbnail']}
+                />
+
+                <Typography variant="body1" className={styles['collection__items__item__title']}>
+                  {item.title}
+                </Typography>
               </li>
             );
           })}

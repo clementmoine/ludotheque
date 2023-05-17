@@ -2,10 +2,10 @@ import { FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Icon from 'components/Icon';
-import Image from 'components/Image';
 import Avatar from 'components/Avatar';
 import Button from 'components/Button';
 import Typography from 'components/Typography';
+import CollectionItem from 'components/CollectionItem';
 
 import useAuth from 'hooks/useAuth';
 import useCollection from 'hooks/useCollection';
@@ -76,24 +76,9 @@ const Collection: FC = () => {
         />
 
         <ul className={styles['collection__items']}>
-          {collection?.items.map((item) => {
-            return (
-              <li key={item.id} className={styles['collection__items__item']}>
-                <div className={styles['collection__items__item__thumbnail']}>
-                  <Image
-                    alt={item.title}
-                    title={item.title}
-                    src={item.cover ?? ''}
-                    className={styles['collection__items__item__thumbnail__image']}
-                  />
-                </div>
-
-                <Typography variant="body1" className={styles['collection__items__item__title']}>
-                  {item.title}
-                </Typography>
-              </li>
-            );
-          })}
+          {collection?.items.map((item) => (
+            <CollectionItem key={item.id} item={item} />
+          ))}
         </ul>
       </main>
     </div>

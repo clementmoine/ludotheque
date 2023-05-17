@@ -66,6 +66,13 @@ const Collections: FC = () => {
                   color={collection.color ?? 'primary'}
                   className={styles['collections__items__item__icon']}
                 />
+
+                <Typography variant="body2">
+                  {}
+                  {`${collection._count.items || 'Aucun'} objet${
+                    (collection._count.items || 0) > 1 ? 's' : ''
+                  }`}
+                </Typography>
               </Link>
             </li>
           ))}

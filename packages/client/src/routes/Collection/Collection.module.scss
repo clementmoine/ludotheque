@@ -58,10 +58,10 @@
 
   &__items {
     gap: 16px;
-    margin: 0 2px;
     padding: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr; 
+    margin: 0 2px;
+    display: flex;
+    flex-direction: column;
 
     &__item {
       padding: 8px;

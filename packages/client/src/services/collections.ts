@@ -4,7 +4,10 @@ import { Collection, Item } from '@prisma/client';
  * Get collections.
  * @returns {Promise<Collection[]>}
  */
-export function fetchCollections(query?: string): Promise<Collection[]> {
+
+export function fetchCollections(
+  query?: string
+): Promise<Array<Omit<Collection, 'ownerId'> & { _count: { items: number } }>> {
   const host = `${window.location.protocol}//${window.location.host}`;
   const url = new URL(`${host}/api/v1/collections`);
 

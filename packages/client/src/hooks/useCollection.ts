@@ -13,7 +13,7 @@ export default function useCollection(collectionId: Collection['id'], query?: st
     status,
     isLoading,
     refetch,
-  } = useQuery<Collection & { items: Item[] }, Error>({
+  } = useQuery({
     queryKey: ['collections', collectionId, query],
     queryFn: () => getCollectionById(collectionId, query),
     enabled: !!collectionId,

@@ -1,4 +1,4 @@
-import { FC, useCallback, FocusEvent } from 'react';
+import { FC, useCallback, FocusEvent, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import useAuth from 'hooks/useAuth';
@@ -14,16 +14,23 @@ const Home: FC = () => {
 
   const navigate = useNavigate();
 
-  const handleSearchFocus = useCallback(
-    (e: FocusEvent<HTMLInputElement>) => {
+  const handleSearchChanged = useCallback(
+    (value: string) => {
       navigate('/search', {
         state: {
-          previousValue: e.target.value,
+          previousValue: value,
           from: '/',
         },
       });
     },
     [navigate]
+  );
+
+  const handleSearchFocus = useCallback(
+    (event: FocusEvent<HTMLInputElement>) => {
+      handleSearchChanged(event.currentTarget.value);
+    },
+    [handleSearchChanged]
   );
 
   return (
@@ -43,6 +50,7 @@ const Home: FC = () => {
         type="search"
         left={{ icon: 'search' }}
         onFocus={handleSearchFocus}
+        onChange={handleSearchChanged}
         placeholder="Rechercher un objet"
         right={{ icon: 'scan', to: '/scan' }}
       />

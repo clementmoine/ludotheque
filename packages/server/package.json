@@ -7,7 +7,6 @@
   "author": "Clément MOINE <clement.moine86@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "postinstall": "prisma:generate",
     "dev": "npm run postgres:up && cross-env NODE_ENV=development NODE_PATH=./src nodemon --exec ts-node ./src/index.ts",
     "preview": "npm run postgres:up && cross-env NODE_ENV=production NODE_PATH=./src ts-node ./dist/index.js",
     "build": "tsc",
@@ -20,7 +19,8 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:reset": "prisma migrate reset -f",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "npm run prisma:generate"
   },
   "devDependencies": {
     "@prisma/client": "3.12.0",

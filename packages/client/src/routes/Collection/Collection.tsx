@@ -79,12 +79,14 @@ const Collection: FC = () => {
           {collection?.items.map((item) => {
             return (
               <li key={item.id} className={styles['collection__items__item']}>
-                <Image
-                  alt={item.title}
-                  title={item.title}
-                  src={item.cover ?? ''}
-                  className={styles['collection__items__item__thumbnail']}
-                />
+                <div className={styles['collection__items__item__thumbnail']}>
+                  <Image
+                    alt={item.title}
+                    title={item.title}
+                    src={item.cover ?? ''}
+                    className={styles['collection__items__item__thumbnail__image']}
+                  />
+                </div>
 
                 <Typography variant="body1" className={styles['collection__items__item__title']}>
                   {item.title}

@@ -4,7 +4,7 @@
   display: flex;
   overflow: hidden;
   flex-direction: column;
-
+ 
   &__header {
     display: flex;
     flex-direction: column;
@@ -13,9 +13,9 @@
     &__title {
       width: 100%;
       display: flex;
+      column-gap: 8px;
       align-items: center;
       flex-direction: row;
-      column-gap: 8px;
       justify-content: flex-start;
 
       &__title {
@@ -70,7 +70,6 @@
       border-radius: 14px;
       align-items: center;
       flex-direction: column;
-      background-color: colors.$white;
 
       &__title {
         text-align: center;
@@ -78,11 +77,23 @@
 
       &__thumbnail {
         width: 100%;
-        aspect-ratio: 1;
-        overflow: hidden;
-        border-radius: 10px;
-        object-fit: contain;
+        padding: 2px;
+        display: flex;
+        position: relative;
+        align-items: center;
+        border-radius: 14px;
+        justify-content: center;
         background-color: colors.$white;
+        box-shadow: 0 1px 4px 0 colors.$black-20;
+
+        &__image {
+          width: 100%;
+          aspect-ratio: 1;
+          overflow: hidden;
+          border-radius: 12px;
+          object-fit: contain;
+          background-color: colors.$white;
+        }
       }
     }
   }

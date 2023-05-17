@@ -73,9 +73,9 @@ const Scan: FC = () => {
   return (
     <div className={styles['scan']}>
       <Button
-        icon="triangle-left"
-        variant="icon"
         color="white"
+        variant="icon"
+        icon="triangle-left"
         title="Retour à la page précédente"
         to={locationState?.from?.pathname || '/'}
       />

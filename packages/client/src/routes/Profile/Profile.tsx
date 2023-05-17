@@ -85,19 +85,6 @@ const Profile: FC = () => {
     <div className={styles['profile']}>
       <header className={styles['profile__header']}>
         <Button icon="triangle-left" variant="icon" to="/" title="Retour à la page précédente" />
-
-        <div className={styles['profile__header__title']}>
-          <Button
-            onClick={handleUploadAvatar}
-            title="Cliquez pour changer l'image"
-            className={styles['profile__header__avatar']}
-          >
-            <Icon name="pen" color="white" className={styles['profile__header__avatar__icon']} />
-            <Avatar size="xl" className={styles['profile__header__avatar__image']} />
-          </Button>
-
-          <Typography variant="title4">{`${user?.firstname} ${user?.lastname}`}</Typography>
-        </div>
       </header>
 
       <main className={styles['profile__main']}>
@@ -120,6 +107,19 @@ const Profile: FC = () => {
           {({ handleSubmit, handleReset, dirty, isValid, isSubmitting, isValidating }) => {
             return (
               <Form autoComplete="off" className={styles['profile__form']}>
+                <div className={styles['profile__form__avatar']}>
+                  <Avatar size="xl" className={styles['profile__form__avatar__image']} />
+                  <Button
+                    type="button"
+                    color="primary"
+                    onClick={handleUploadAvatar}
+                    title="Cliquez pour changer l'image"
+                    className={styles['profile__form__avatar__button']}
+                  >
+                    <Icon name="pen" color="white" className={styles['profile__form__avatar__icon']} />
+                  </Button>
+                </div>
+
                 <Field
                   name="firstname"
                   type="string"

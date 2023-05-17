@@ -56,8 +56,14 @@ $padding-inline: 24px;
         background-color: colors.$black-20;
       }
 
-      &:not([disabled]):active {
-        background-color: darken(colors.$primary, 10%);
+      &:not([disabled]) {
+        &:hover {
+          background-color: colors.$accent;
+        }
+
+        &:active {
+          background-color: colors.$accent;
+        }
       }
     }
 
@@ -102,7 +108,7 @@ $padding-inline: 24px;
       background-color: transparent;
 
       &:active {
-        color: var(--color, darken(colors.$primary, 20%));
+        color: var(--color, colors.$accent-20);
       }
     }
   }

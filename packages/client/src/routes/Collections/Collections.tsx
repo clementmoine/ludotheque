@@ -22,7 +22,7 @@ const Collections: FC = () => {
             Collections
           </Typography>
           <Typography variant="body1">
-            {`${collections?.length ?? 'Aucune'} collection${(collections?.length || 0) > 1 ? 's' : ''}`}
+            {`${collections?.length || 'Aucune'} collection${(collections?.length || 0) > 1 ? 's' : ''}`}
           </Typography>
         </div>
 

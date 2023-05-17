@@ -29,7 +29,7 @@ const Collection: FC = () => {
 
         <div className={styles['collection__header__title']}>
           <Typography variant="title2" className={styles['collection__header__title__title']}>
-            {collection?.label}
+            {collection?.label || 'Aucun titre'}
           </Typography>
 
           <Button
@@ -56,7 +56,7 @@ const Collection: FC = () => {
           </div>
 
           <Typography variant="body2">
-            {`${collection?.items?.length ?? 'Aucun'} objet${
+            {`${collection?.items?.length || 'Aucun'} objet${
               (collection?.items?.length || 0) > 1 ? 's' : ''
             }`}
           </Typography>

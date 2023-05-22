@@ -39,7 +39,7 @@ const Collections: FC = () => {
       <main className={styles['collections__content']}>
         <Input
           type="search"
-          debounce={500}
+          debounce={200}
           onChange={(filter) => {
             setQuery(filter);
           }}
@@ -63,12 +63,11 @@ const Collections: FC = () => {
                 <Icon
                   size="64px"
                   name={collection.icon}
-                  color={collection.color ?? 'primary'}
+                  color={collection.color ? '--collection-color' : 'primary'}
                   className={styles['collections__items__item__icon']}
                 />
 
                 <Typography variant="body2">
-                  {}
                   {`${collection._count.items || 'Aucun'} objet${
                     (collection._count.items || 0) > 1 ? 's' : ''
                   }`}

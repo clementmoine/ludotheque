@@ -18,7 +18,9 @@ const Home: FC = () => {
     (value: string) => {
       navigate('/search', {
         state: {
-          previousValue: value,
+          previousValue: {
+            query: value,
+          },
           from: '/',
         },
       });

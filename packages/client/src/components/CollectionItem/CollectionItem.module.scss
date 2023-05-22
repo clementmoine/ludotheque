@@ -1,12 +1,13 @@
 @use 'theme/colors.module';
 
 .collection-item {
+    gap: 4px;
+    padding: 8px;
     display: flex;
     column-gap: 8px;
     flex-direction: row;
     align-items: center;
     border-radius: 14px;
-    padding: 8px;
     box-shadow: 0 2px 5px 0 colors.$black-10;
     
     &__details {

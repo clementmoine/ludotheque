@@ -11,21 +11,26 @@ import Button from 'components/Button';
 import Typography from 'components/Typography';
 
 import styles from './Search.module.scss';
+import Image from 'components/Image';
+import { Field, Form, Formik } from 'formik';
+import { object, string } from 'yup';
+
+const SearchValidationSchema = object().shape({
+  query: string().required('Veuillez saisir un mot clé.'),
+});
 
 const Search: FC = () => {
   const [results, setResults] = useState<Item[]>();
   const locationState = useLocation().state as LocationState;
 
-  const handleChange = useCallback((value: string) => {
-    if (!value.trim().length) {
-      setResults(undefined);
-
-      return Promise.resolve();
-    }
-
-    return search(value).then((items) => {
-      setResults(items);
-    });
+  const handleSearch = useCallback((value: string) => {
+    // if (!value.trim().length) {
+    //   setResults(undefined);
+    //   return Promise.resolve();
+    // }
+    // return search(value).then((items) => {
+    //   setResults(items);
+    // });
   }, []);
 
   return (
@@ -36,22 +41,34 @@ const Search: FC = () => {
         </div>
 
         <div className={styles['search__header__search']}>
-          <Input
-            // eslint-disable-next-line jsx-a11y/no-autofocus
-            autoFocus
-            size="sm"
-            type="search"
-            debounce={1000}
-            onChange={handleChange}
-            left={{ icon: 'search' }}
-            placeholder="Rechercher un objet"
-            right={{ icon: 'scan', to: '/scan' }}
-            className={styles['search__header__search__input']}
-          />
+          <Formik
+            initialValues={{ query: locationState.previousData?.query }}
+            validationSchema={SearchValidationSchema}
+            onSubmit={(values) => {
+              handleSearch(values.query);
+            }}
+          >
+            <Form>
+              <Field
+                component={Input}
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                autoFocus
+                size="sm"
+                type="search"
+                name="query"
+                debounce={200}
+                onChange={handleSearch}
+                left={{ icon: 'search' }}
+                placeholder="Rechercher un objet"
+                right={{ icon: 'scan', to: '/scan' }}
+                className={styles['search__header__search__input']}
+              />
 
-          <Button variant="link" color="text" to={locationState?.from?.pathname || '/'}>
-            Annuler
-          </Button>
+              <Button variant="link" type="reset" color="text" to={locationState?.from?.pathname || '/'}>
+                Annuler
+              </Button>
+            </Form>
+          </Formik>
         </div>
       </header>
 
@@ -60,8 +77,12 @@ const Search: FC = () => {
           results.map((result) => <p key={result.id}>{result.title}</p>)
         ) : (
           <div className={styles['search__content__instruction']}>
+            <Image
+              src={'/assets/illustrations/search.svg'}
+              className={styles['search__content__instruction__illustration']}
+            />
             <Typography align="center" variant="title2">
-              Trouvez les objets de vos collections
+              Retrouvez vos objets de collections
             </Typography>
             <Typography align="center" variant="body1">
               Recherchez tous vos jeux, consoles, livres et bien plus encore.

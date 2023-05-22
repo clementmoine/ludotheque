@@ -39,27 +39,9 @@ const NavigationBar: FC<NavigationBarProps> = (props) => {
   const activeItem = useMemo<keyof typeof items | undefined>(() => {
     // Try to identify the active item from the location pathname
     return (
-      (Object.keys(items) as (keyof typeof items)[]).find((key, index) => {
-        const item = items[key];
-
-        if (location.pathname === item.path || location.pathname.startsWith(item.path)) {
-          return true;
-        }
-
-        const nextKeys = (Object.keys(items) as Array<keyof typeof items>).slice(index + 1);
-
-        if (
-          !nextKeys.some(
-            (nextKey) =>
-              location.pathname === items[nextKey].path || location.pathname.startsWith(items[nextKey].path)
-          )
-        ) {
-          return (
-            (location.state as LocationState)?.from?.pathname === item.path ||
-            (location.state as LocationState)?.from?.pathname.startsWith(item.path)
-          );
-        }
-      }) || 'home'
+      (Object.keys(items) as (keyof typeof items)[]).find(
+        (key) => location.pathname === items[key].path || location.pathname.startsWith(items[key].path)
+      ) || 'home'
     );
   }, [items, location]);
 

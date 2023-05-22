@@ -6,6 +6,8 @@
     flex-direction: column;
 
     &--has-error {
+        color: transparent;
+
         &::after {
             inset: 0;
             content: '';

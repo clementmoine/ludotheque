@@ -86,6 +86,7 @@ $border-radius: 10px;
     display: flex;
     position: relative;
     flex-direction: column;
+    backdrop-filter: blur(16px);
     border-radius: $border-radius;
     background-color: colors.$black-5;
     border: $border-size solid transparent;

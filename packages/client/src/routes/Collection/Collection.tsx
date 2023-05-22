@@ -66,7 +66,7 @@ const Collection: FC = () => {
       <main className={styles['collection__content']}>
         <Input
           type="search"
-          debounce={500}
+          debounce={200}
           onChange={(filter) => {
             setQuery(filter);
           }}
